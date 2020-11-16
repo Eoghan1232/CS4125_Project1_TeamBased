@@ -1,0 +1,65 @@
+# this is an auto generated file. This will be overwritten
+query SyncBookings(
+  $filter: ModelBookingFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncBookings(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      passengerID
+      routeID
+      quantity
+      dateTime
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetBooking($id: ID!) {
+  getBooking(id: $id) {
+    id
+    passengerID
+    routeID
+    quantity
+    dateTime
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+query ListBookings(
+  $filter: ModelBookingFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listBookings(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      passengerID
+      routeID
+      quantity
+      dateTime
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+    nextToken
+    startedAt
+  }
+}

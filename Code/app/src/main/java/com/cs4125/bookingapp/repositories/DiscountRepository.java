@@ -1,5 +1,21 @@
 package com.cs4125.bookingapp.repositories;
 
-public class DiscountRepository
+import com.cs4125.bookingapp.entities.Booking;
+
+public class DiscountRepository implements IDiscountRepository
 {
+    @Override
+    public boolean getBooking(Booking booking) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteBooking(Booking booking) {
+        return false;
+    }
+
+    @Override
+    public boolean insertBooking(Booking booking) {
+        return false;
+    }
 }
