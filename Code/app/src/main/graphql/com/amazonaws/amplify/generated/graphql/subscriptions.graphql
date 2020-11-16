@@ -1,0 +1,43 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateBooking {
+  onCreateBooking {
+    id
+    passengerID
+    routeID
+    quantity
+    dateTime
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateBooking {
+  onUpdateBooking {
+    id
+    passengerID
+    routeID
+    quantity
+    dateTime
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteBooking {
+  onDeleteBooking {
+    id
+    passengerID
+    routeID
+    quantity
+    dateTime
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}

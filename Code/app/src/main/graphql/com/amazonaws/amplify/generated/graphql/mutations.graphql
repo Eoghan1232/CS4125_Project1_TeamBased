@@ -1,0 +1,52 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateBooking(
+  $input: CreateBookingInput!
+  $condition: ModelBookingConditionInput
+) {
+  createBooking(input: $input, condition: $condition) {
+    id
+    passengerID
+    routeID
+    quantity
+    dateTime
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateBooking(
+  $input: UpdateBookingInput!
+  $condition: ModelBookingConditionInput
+) {
+  updateBooking(input: $input, condition: $condition) {
+    id
+    passengerID
+    routeID
+    quantity
+    dateTime
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteBooking(
+  $input: DeleteBookingInput!
+  $condition: ModelBookingConditionInput
+) {
+  deleteBooking(input: $input, condition: $condition) {
+    id
+    passengerID
+    routeID
+    quantity
+    dateTime
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
