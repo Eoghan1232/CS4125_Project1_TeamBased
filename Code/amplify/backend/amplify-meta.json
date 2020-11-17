@@ -1,0 +1,42 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplifystarter-bookingapp-195718-authRole",
+      "UnauthRoleArn": "arn:aws:iam::065029249703:role/amplify-amplifystarter-bookingapp-195718-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::065029249703:role/amplify-amplifystarter-bookingapp-195718-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-amplifystarter-bookingapp-195718-deployment",
+      "UnauthRoleName": "amplify-amplifystarter-bookingapp-195718-unauthRole",
+      "StackName": "amplify-amplifystarter-bookingapp-195718",
+      "StackId": "arn:aws:cloudformation:eu-west-1:065029249703:stack/amplify-amplifystarter-bookingapp-195718/eff6b770-2845-11eb-ac90-023132669d97",
+      "AmplifyAppId": "d1dl85faj8s5zt"
+    }
+  },
+  "api": {
+    "amplifyDatasource": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "description": "",
+              "apiKeyExpirationDays": 7
+            }
+          }
+        },
+        "GraphQLAPIIdOutput": "ak7vyzee4jbdtcgraf2f3ttwrm",
+        "GraphQLAPIEndpointOutput": "https://qvue7zk3vzg55hpt57hh7anasq.appsync-api.eu-west-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-qitvtpv6zvcffn2agorcg3zjsm"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifystarter-bookingapp-195718-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiamplifyDatasource"
+      },
+      "lastPushTimeStamp": "2020-11-16T20:01:17.737Z",
+      "lastPushDirHash": "Xp/kwnLPmGAI1OX9QMSMf0PpZrU="
+    }
+  }
+}

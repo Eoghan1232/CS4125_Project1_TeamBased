@@ -1,0 +1,7 @@
+{
+    "bookingapp": {
+        "configLevel": "project",
+        "useProfile": true,
+        "profileName": "Eoghan"
+    }
+}
