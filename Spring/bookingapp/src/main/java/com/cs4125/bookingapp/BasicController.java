@@ -1,7 +1,7 @@
 package com.cs4125.bookingapp;
 
-import com.cs4125.bookingapp.entities.*;
-import com.cs4125.bookingapp.repositories.*;
+import com.cs4125.bookingapp.model.entities.*;
+import com.cs4125.bookingapp.model.repositories.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
