@@ -2,8 +2,12 @@ package com.cs4125.bookingapp.model.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 import com.cs4125.bookingapp.model.entities.User;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-public interface IUserRepository extends CrudRepository<User, Integer> {
+@Repository
+public interface UserRepository extends CrudRepository<User, Integer> {
     boolean existsByUsername(String username);
+    boolean existsByUsernameOrEmail(String username, String email);
     User findByUsernameAndAndPassword(String username, String password);
 }

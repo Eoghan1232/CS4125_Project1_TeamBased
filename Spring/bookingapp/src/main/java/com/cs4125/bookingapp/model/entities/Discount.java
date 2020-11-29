@@ -9,17 +9,25 @@ import javax.persistence.Id;
 public class Discount {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer discount_id;
+    private Integer discountId;
     private String code;
-    private Integer route_id;
-    private Double discount_percent;
+    private String routeId;
+    private double discountPercent;
 
-    public Integer getDiscount_id() {
-        return discount_id;
+    public Discount(){}
+
+    public Discount(String code, String routeId, double discountPercent) {
+        this.code = code;
+        this.routeId = routeId;
+        this.discountPercent = discountPercent;
     }
 
-    public void setDiscount_id(Integer discount_id) {
-        this.discount_id = discount_id;
+    public Integer getDiscountId() {
+        return discountId;
+    }
+
+    public void setDiscountId(Integer discountId) {
+        this.discountId = discountId;
     }
 
     public String getCode() {
@@ -30,19 +38,29 @@ public class Discount {
         this.code = code;
     }
 
-    public Integer getRoute_id() {
-        return route_id;
+    public String getRouteId() {
+        return routeId;
     }
 
-    public void setRoute_id(Integer route_id) {
-        this.route_id = route_id;
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
     }
 
-    public Double getDiscount_percent() {
-        return discount_percent;
+    public double getDiscountPercent() {
+        return discountPercent;
     }
 
-    public void setDiscount_percent(Double discount_percent) {
-        this.discount_percent = discount_percent;
+    public void setDiscountPercent(double discountPercent) {
+        this.discountPercent = discountPercent;
+    }
+
+    @Override
+    public String toString() {
+        return "Discount{" +
+                "discountId=" + discountId +
+                ", code=" + code +
+                ", routeId=" + routeId +
+                ", discountPercent=" + discountPercent +
+                '}';
     }
 }

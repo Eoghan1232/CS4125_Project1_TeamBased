@@ -1,18 +1,19 @@
 package com.cs4125.bookingapp.controllers;
 
-import com.cs4125.bookingapp.model.IUserFactory;
 import com.cs4125.bookingapp.model.UserFactory;
 import com.cs4125.bookingapp.model.entities.User;
-import com.cs4125.bookingapp.services.IUserService;
 import com.cs4125.bookingapp.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
-    private IUserService userService = new UserService();
-    private IUserFactory userFactory = new UserFactory();
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private UserFactory userFactory;
 
-    @GetMapping("/loginuser")
+    @GetMapping(path="/loginuser")
     @ResponseBody
     public String getUser(@RequestParam String name, @RequestParam String password) {
         String result = userService.login(name, password);

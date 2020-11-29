@@ -1,16 +1,12 @@
 package com.cs4125.bookingapp.model.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer user_id;
-
+    private Integer userId;
     private String username;
     private String password;
     private String email;
@@ -26,11 +22,11 @@ public class User {
     }
 
     public Integer getUser_id() {
-        return user_id;
+        return userId;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUser_id(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -63,5 +59,16 @@ public class User {
 
     public void setUsertype(Integer usertype) {
         this.usertype = usertype;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username=" + username +
+                ", password=" + password +
+                ", email=" + email +
+                ", usertype=" + usertype +
+                '}';
     }
 }

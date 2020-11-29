@@ -8,40 +8,57 @@ import java.sql.Timestamp;
 public class TransactionRecord {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer transaction_id;
-    private float amount;
-    private Timestamp date_of_payment;
-    private String status;
+    private Integer transactionId;
+    private double amount;
+    private Timestamp dateOfPayment;
+    private int status;
 
-    public Integer getTransaction_id() {
-        return transaction_id;
+    public TransactionRecord(){}
+
+    public TransactionRecord(double amount, Timestamp dateOfPayment) {
+        this.amount = amount;
+        this.dateOfPayment = dateOfPayment;
     }
 
-    public void setTransaction_id(Integer transaction_id) {
-        this.transaction_id = transaction_id;
+    public Integer getTransactionId() {
+        return transactionId;
     }
 
-    public float getAmount() {
+    public void setTransactionId(Integer transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
-    public Timestamp getDate_of_payment() {
-        return date_of_payment;
+    public Timestamp getDateOfPayment() {
+        return dateOfPayment;
     }
 
-    public void setDate_of_payment(Timestamp date_of_payment) {
-        this.date_of_payment = date_of_payment;
+    public void setDateOfPayment(Timestamp dateOfPayment) {
+        this.dateOfPayment = dateOfPayment;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "TransactionRecord{" +
+                "transactionId=" + transactionId +
+                ", amount=" + amount +
+                ", dateOfPayment=" + dateOfPayment +
+                ", status=" + status +
+                '}';
     }
 }

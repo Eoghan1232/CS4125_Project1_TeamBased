@@ -1,45 +1,53 @@
 package com.cs4125.bookingapp.model.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 public class Booking {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer booking_id;
-    private Integer route_id;
-    private Integer passenger_id;
+    private Integer bookingId;
+    private Integer routeId;
+    private Integer passengerId;
     private Integer quantity;
-    private Timestamp date_time;
-    private float total_price;
-    private Integer transaction_id;
+    private Timestamp dateTime;
+    private double totalPrice;
+    private Integer transactionId;
 
-    public Integer getBooking_id() {
-        return booking_id;
+    public Booking(){}
+
+    public Booking(Integer routeId, Integer passengerId, Integer quantity, Timestamp dateTime, double totalPrice, Integer transactionId) {
+        this.routeId = routeId;
+        this.passengerId = passengerId;
+        this.quantity = quantity;
+        this.dateTime = dateTime;
+        this.totalPrice = totalPrice;
+        this.transactionId = transactionId;
     }
 
-    public void setBooking_id(Integer booking_id) {
-        this.booking_id = booking_id;
+    public Integer getBookingId() {
+        return bookingId;
     }
 
-    public Integer getRoute_id() {
-        return route_id;
+    public void setBookingId(Integer bookingId) {
+        this.bookingId = bookingId;
     }
 
-    public void setRoute_id(Integer route_id) {
-        this.route_id = route_id;
+    public Integer getRouteId() {
+        return routeId;
     }
 
-    public Integer getPassenger_id() {
-        return passenger_id;
+    public void setRouteId(Integer routeId) {
+        this.routeId = routeId;
     }
 
-    public void setPassenger_id(Integer passenger_id) {
-        this.passenger_id = passenger_id;
+    public Integer getPassengerId() {
+        return passengerId;
+    }
+
+    public void setPassengerId(Integer passengerId) {
+        this.passengerId = passengerId;
     }
 
     public Integer getQuantity() {
@@ -50,27 +58,40 @@ public class Booking {
         this.quantity = quantity;
     }
 
-    public Timestamp getDate_time() {
-        return date_time;
+    public Timestamp getDateTime() {
+        return dateTime;
     }
 
-    public void setDate_time(Timestamp date_time) {
-        this.date_time = date_time;
+    public void setDateTime(Timestamp dateTime) {
+        this.dateTime = dateTime;
     }
 
-    public float getTotal_price() {
-        return total_price;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTotal_price(float total_price) {
-        this.total_price = total_price;
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public Integer getTransaction_id() {
-        return transaction_id;
+    public Integer getTransactionId() {
+        return transactionId;
     }
 
-    public void setTransaction_id(Integer transaction_id) {
-        this.transaction_id = transaction_id;
+    public void setTransactionId(Integer transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "bookingId=" + bookingId +
+                ", routeId=" + routeId +
+                ", passengerId=" + passengerId +
+                ", quantity=" + quantity +
+                ", dateTime=" + dateTime +
+                ", totalPrice=" + totalPrice +
+                ", transactionId=" + transactionId +
+                '}';
     }
 }

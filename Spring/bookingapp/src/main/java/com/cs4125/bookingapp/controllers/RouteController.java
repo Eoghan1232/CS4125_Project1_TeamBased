@@ -1,11 +1,9 @@
 package com.cs4125.bookingapp.controllers;
 
-import com.cs4125.bookingapp.model.IRouteFactory;
 import com.cs4125.bookingapp.model.RouteFactory;
 import com.cs4125.bookingapp.model.entities.Route;
-import com.cs4125.bookingapp.model.entities.User;
-import com.cs4125.bookingapp.services.IRouteService;
 import com.cs4125.bookingapp.services.RouteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -13,10 +11,12 @@ import java.util.List;
 
 @RestController
 public class RouteController {
-    private IRouteService routeService = new RouteService();
-    private IRouteFactory routeFactory = new RouteFactory();
+    @Autowired
+    private RouteService routeService;
+    @Autowired
+    private RouteFactory routeFactory;
 
-    @GetMapping("/getroute/{id}")
+    @GetMapping(path="/getroute/{id}")
     @ResponseBody
     public String getRoute(@PathVariable int id) {
         String result = routeService.searchRoute(id);
@@ -24,26 +24,26 @@ public class RouteController {
         return result;
     }
 
-    @GetMapping("/getroute")
+    @GetMapping(path="/getroute")
     @ResponseBody
-    public String getRoute(@RequestParam String start_station, @RequestParam String end_station, @RequestParam Timestamp date_time) {
-        String result = routeService.searchRoute(start_station, end_station, date_time);
+    public String getRoute(@RequestParam String startStation, @RequestParam String endStation, @RequestParam Timestamp dateTime) {
+        String result = routeService.searchRoute(startStation, endStation, dateTime);
 
         return result;
     }
 
-    @GetMapping("/getallroutes")
+    @GetMapping(path="/getallroutes")
     @ResponseBody
-    public String getAllRoutes(@RequestParam String start_station, @RequestParam String end_station, @RequestParam Timestamp date_time) {
-        List<String> result = routeService.searchAllRoutes(start_station, end_station, date_time);
+    public String getAllRoutes(@RequestParam String startStation, @RequestParam String endStation, @RequestParam Timestamp dateTime) {
+        List<String> result = routeService.searchAllRoutes(startStation, endStation, dateTime);
 
         return String.join("\n", result);
     }
 
     @PostMapping(path="/newroute")
     @ResponseBody
-    public String addNewRoute (@RequestParam float price, @RequestParam String start_station, @RequestParam String end_station, @RequestParam Timestamp date_time) {
-        Route r = routeFactory.getRoute("NORMAL_ROUTE", price, start_station, end_station, date_time);
+    public String addNewRoute (@RequestParam String startStation, @RequestParam String endStation, @RequestParam Timestamp dateTime, @RequestParam double price) {
+        Route r = routeFactory.getRoute("NORMAL_ROUTE", startStation, endStation, dateTime, price);
         String result = routeService.addRoute(r);
 
         return result;
@@ -51,9 +51,9 @@ public class RouteController {
 
     @PostMapping(path="/updateroute/{id}")
     @ResponseBody
-    public String updateRoute (@PathVariable int id, @RequestParam float price, @RequestParam String start_station, @RequestParam String end_station, @RequestParam Timestamp date_time) {
-        Route r = routeFactory.getRoute("NORMAL_ROUTE", price, start_station, end_station, date_time);
-        r.setRoute_id(id);
+    public String updateRoute (@PathVariable int id, @RequestParam String startStation, @RequestParam String endStation, @RequestParam Timestamp dateTime, @RequestParam double price) {
+        Route r = routeFactory.getRoute("NORMAL_ROUTE", startStation, endStation, dateTime, price);
+        r.setRouteId(id);
         String result = routeService.updateRoute(r);
 
         return result;
@@ -61,9 +61,9 @@ public class RouteController {
 
     @PostMapping(path="/deleteroute/{id}")
     @ResponseBody
-    public String deleteRoute (@PathVariable int id, @RequestParam float price, @RequestParam String start_station, @RequestParam String end_station, @RequestParam Timestamp date_time) {
-        Route r = routeFactory.getRoute("NORMAL_ROUTE", price, start_station, end_station, date_time);
-        r.setRoute_id(id);
+    public String deleteRoute (@PathVariable int id, @RequestParam String startStation, @RequestParam String endStation, @RequestParam Timestamp dateTime, @RequestParam double price) {
+        Route r = routeFactory.getRoute("NORMAL_ROUTE", startStation, endStation, dateTime, price);
+        r.setRouteId(id);
         String result = routeService.deleteRoute(r);
 
         return result;
