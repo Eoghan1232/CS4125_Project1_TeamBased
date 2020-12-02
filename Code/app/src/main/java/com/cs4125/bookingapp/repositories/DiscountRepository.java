@@ -1,5 +1,5 @@
 package com.cs4125.bookingapp.repositories;
 
-public class RouteDoaImpl
+public interface DiscountRepository
 {
 }
