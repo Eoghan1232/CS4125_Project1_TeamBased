@@ -7,12 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainFragment">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
     <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MainFragment"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/textView"
+        android:layout_width="280dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="104dp"
+        android:text="You are logged in, choose an action."
+        android:textAlignment="center"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,5 +40,21 @@
         android:text="Button"
         tools:layout_editor_absoluteX="156dp"
         tools:layout_editor_absoluteY="438dp" />
+
+    <Button
+        android:id="@+id/toSearchBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="156dp"
+        tools:layout_editor_absoluteY="402dp" />
+
+    <Button
+        android:id="@+id/toBookingBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="158dp"
+        tools:layout_editor_absoluteY="516dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
