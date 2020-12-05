@@ -4,10 +4,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
+// Singleton
+// Only ever need one instance of retrofit to talk with the web services
 public class RetrofitClientInstance
 {
     private static Retrofit retrofit;
-    private static final String BASE_URL = "https://localhost:8080";
+    private static final String BASE_URL = "http://bookingapp-env.eba-vi7ezpsv.eu-west-1.elasticbeanstalk.com/";
 
     public static Retrofit getRetrofitInstance()
     {
@@ -16,6 +18,7 @@ public class RetrofitClientInstance
             retrofit = new retrofit2.Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(ScalarsConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
 
