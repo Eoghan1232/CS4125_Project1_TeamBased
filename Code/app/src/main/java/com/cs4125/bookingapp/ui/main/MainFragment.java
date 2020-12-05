@@ -17,6 +17,13 @@ import android.widget.Toast;
 
 import com.cs4125.bookingapp.MainActivity;
 import com.cs4125.bookingapp.R;
+import com.cs4125.bookingapp.entities.Booking;
+import com.cs4125.bookingapp.entities.Discount;
+import com.cs4125.bookingapp.repositories.BookingRepository;
+import com.cs4125.bookingapp.repositories.BookingRepositoryImpl;
+import com.cs4125.bookingapp.repositories.DiscountRepository;
+import com.cs4125.bookingapp.repositories.DiscountRepositoryImpl;
+import com.cs4125.bookingapp.repositories.ResultCallback;
 import com.cs4125.bookingapp.web.RetrofitClientInstance;
 import com.cs4125.bookingapp.web.SpringRetrofitService;
 
@@ -29,6 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.http.Field;
 
 public class MainFragment extends Fragment
 {
@@ -58,43 +66,44 @@ public class MainFragment extends Fragment
 
         t1.setText("Hello there");
         b1 = getView().findViewById(R.id.myTestButtonDamian);
-        b1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v)
+        b1.setOnClickListener(v -> {
+            BookingRepository bookingRepository = new BookingRepositoryImpl();
+            Booking booking = new Booking.BookingBuilder().setPassengerID(1).setRouteID(1).setQuantity(1).build();
+            bookingRepository.userBooking(booking, "hello", new ResultCallback()
             {
-                Call<ResponseBody> returnVal = web.getAllDiscounts();
-
-                returnVal.enqueue(new Callback<ResponseBody>()
+                @Override
+                public void onResult(String result)
                 {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
-                    {
-                        System.out.println("RESPONSE!");
-                        String s = null;  // <- response is null here
-                        try
-                        {
-                            s = response.body().string();
-                        } catch (IOException e)
-                        {
-                            e.printStackTrace();
-                        }
-                        System.out.println("BODY!\t" + s);
-                        // Log.d(LOG_TAG, "Couldn't not reach this place");
-                        t1.setText(s);
-                        Toast.makeText(getActivity(), "Success!", Toast.LENGTH_LONG).show();
-                    }
+                    Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+                    t1.setText(result);
+                    System.out.println(result);
+                }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t)
-                    {
-                        System.out.println("FAILED!!   " + t.toString());
-                        Toast.makeText(getActivity(), "Failed !", Toast.LENGTH_LONG).show();
-                    }
-                });
-
-                System.out.println(returnVal);
-                //Toast.makeText(getActivity(), returnVal, Toast.LENGTH_LONG).show();
-            }
+                @Override
+                public void onFailure(Throwable error)
+                {
+                    Toast.makeText(getActivity(), "Failed: " + error.toString(), Toast.LENGTH_LONG).show();
+                    System.out.println(error.toString());
+                }
+            });
+//                DiscountRepository discountRepository = new DiscountRepositoryImpl();
+//                discountRepository.getAllDiscounts(new ResultCallback()
+//                {
+//                    @Override
+//                    public void onResult(String result)
+//                    {
+//                        Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+//                        t1.setText(result);
+//                        System.out.println(result);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Throwable error)
+//                    {
+//                        Toast.makeText(getActivity(), "Failed: " + error.toString(), Toast.LENGTH_LONG).show();
+//                        System.out.println(error.toString());
+//                    }
+//                });
         });
     }
 

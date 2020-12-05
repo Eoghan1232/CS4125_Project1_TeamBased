@@ -6,7 +6,6 @@ import com.cs4125.bookingapp.entities.Booking;
 
 public interface BookingRepository
 {
-    LiveData<String> userBooking(Booking booking, String discountCode);
-
-    LiveData<String> bookingUpdate(Booking booking);
+    void userBooking(Booking booking, String discountCode, ResultCallback callback);
+    void bookingUpdate(Booking booking, ResultCallback callback);
 }

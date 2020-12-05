@@ -27,19 +27,25 @@
         android:id="@+id/editTestText"
         android:layout_width="211dp"
         android:layout_height="132dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Empty"
-        tools:layout_editor_absoluteX="96dp"
-        tools:layout_editor_absoluteY="191dp" />
+        app:layout_constraintBottom_toTopOf="@+id/myTestButtonDamian"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/myTestButtonDamian"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="Button"
-        tools:layout_editor_absoluteX="156dp"
-        tools:layout_editor_absoluteY="438dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/toSearchBtn"

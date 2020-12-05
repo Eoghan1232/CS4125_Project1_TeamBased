@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class User
 {
-    private final long userID;
+    private final int userID;
     private final String username;
     private final String password;
     private final String email;
@@ -21,7 +21,7 @@ public class User
     }
 
     //region Getters
-    public long getUserID()
+    public int getUserID()
     {
         return userID;
     }
@@ -55,13 +55,13 @@ public class User
 
     private static class UserBuilder
     {
-        private long userID;
+        private int userID;
         private String username;
         private String password;
         private String email;
         private UserType userType;
 
-        public UserBuilder setUserID(long userID)
+        public UserBuilder setUserID(int userID)
         {
             this.userID = userID;
 

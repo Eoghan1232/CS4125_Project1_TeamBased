@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.cs4125.bookingapp.entities.Booking;
 import com.cs4125.bookingapp.repositories.BookingRepository;
+import com.cs4125.bookingapp.repositories.ResultCallback;
 
 import okhttp3.ResponseBody;
 
@@ -17,11 +18,28 @@ public class BookingViewModel extends ViewModel
         this.repository = repository;
     }
 
-    public LiveData<String> bookTicket(Booking booking){
-        return repository.userBooking(booking);
+    public String bookTicket(Booking booking, String code){
+        final String[] r = new String[1];
+        repository.userBooking(booking, code, new ResultCallback()
+        {
+            @Override
+            public void onResult(String result)
+            {
+                r[0] = result;
+            }
+
+            @Override
+            public void onFailure(Throwable error)
+            {
+                r[0] = error.toString();
+            }
+        });
+
+        return r[0];
     }
     //start booking, update booking
     public LiveData<String> updateBooking(Booking booking){
-        return repository.bookingUpdate(booking);
+        //return repository.bookingUpdate(booking);
+        return null;
     }
 }

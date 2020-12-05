@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Route
 {
-    private final long routeID;
+    private final int routeID;
     private final String startStation;
     private final String endStation;
     private final Date dateTime;
@@ -20,7 +20,7 @@ public class Route
     }
 
     //region Getters
-    public long getRouteID()
+    public int getRouteID()
     {
         return routeID;
     }
@@ -54,13 +54,13 @@ public class Route
 
     private static class RouteBuilder
     {
-        public long routeID;
+        public int routeID;
         public String startStation;
         public String endStation;
         public Date dateTime;
         public float price;
 
-        public RouteBuilder setRouteID(long routeID)
+        public RouteBuilder setRouteID(int routeID)
         {
             this.routeID = routeID;
 

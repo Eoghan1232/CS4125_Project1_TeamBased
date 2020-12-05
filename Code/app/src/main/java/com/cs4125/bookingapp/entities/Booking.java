@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class Booking
 {
-    private final long bookingID;
-    private final long passengerID;
-    private final long routeID;
+    private final int bookingID;
+    private final int passengerID;
+    private final int routeID;
     private final int quantity;
     private final Date dateTime;
     private final float price;
@@ -23,17 +23,17 @@ public class Booking
     }
 
     //region Getters
-    public long getBookingID()
+    public int getBookingID()
     {
         return bookingID;
     }
 
-    public long getPassengerID()
+    public int getPassengerID()
     {
         return passengerID;
     }
 
-    public long getRouteID()
+    public int getRouteID()
     {
         return routeID;
     }
@@ -62,28 +62,28 @@ public class Booking
 
     public static class BookingBuilder
     {
-        private long bookingID;
-        private long passengerID;
-        private long routeID;
+        private int bookingID;
+        private int passengerID;
+        private int routeID;
         private int quantity;
         private Date dateTime;
         private float price;
 
-        public BookingBuilder setBookingID(long bookingID)
+        public BookingBuilder setBookingID(int bookingID)
         {
             this.bookingID = bookingID;
 
             return this;
         }
 
-        public BookingBuilder setPassengerID(long passengerID)
+        public BookingBuilder setPassengerID(int passengerID)
         {
             this.passengerID = passengerID;
 
             return this;
         }
 
-        public BookingBuilder setRouteID(long routeID)
+        public BookingBuilder setRouteID(int routeID)
         {
             this.routeID = routeID;
 

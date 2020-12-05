@@ -19,6 +19,7 @@ public class RegisterViewModel extends ViewModel
     }
 
     public LiveData<ResponseBody> register(User userRegister){
-        return repository.registerUser(userRegister);
+//        return repository.registerUser(userRegister);
+        return null;
     }
 }

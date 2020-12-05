@@ -10,19 +10,16 @@ public class TransactionContext {
     private TransactionRecord transactionRecord;
     private TransactionRecordState transactionRecordState;
 
-    @Autowired
-    private TransactionRepository transactionRepository;
-
     public TransactionRecord getTransactionRecord() {
         return transactionRecord;
     }
 
     public void setTransactionRecord(TransactionRecord transactionRecord) {
         this.transactionRecord = transactionRecord;
+        initTransactionState();
     }
 
-    public boolean setTransactionRecordByID(int id) {
-        this.transactionRecord = transactionRepository.findById(id).orElse(null);
+    private void initTransactionState() {
         if(transactionRecord != null) {
             switch(transactionRecord.getStatus()) {
                 case 0:
@@ -39,8 +36,6 @@ public class TransactionContext {
                     break;
             }
         }
-
-        return transactionRecord != null;
     }
 
     public void setTransactionRecordState(TransactionRecordState transactionRecordState) {
@@ -49,12 +44,10 @@ public class TransactionContext {
 
     public void nextState() {
         transactionRecordState.next(this);
-        transactionRecord = transactionRepository.save(transactionRecord);
     }
 
     public void cancelTransaction(long daysBeforeTravel) {
         transactionRecordState.cancel(this, daysBeforeTravel);
-        transactionRecord = transactionRepository.save(transactionRecord);
     }
 
     public String getCurrentState() {

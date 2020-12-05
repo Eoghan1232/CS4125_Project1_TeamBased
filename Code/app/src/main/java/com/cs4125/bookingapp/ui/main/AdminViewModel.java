@@ -18,6 +18,7 @@ public class AdminViewModel extends ViewModel
     }
 
     public LiveData<Response> admin(User admin){
-        return repository.adminUser(admin);
+//        return repository.adminUser(admin);
+        return null;
     }
 }

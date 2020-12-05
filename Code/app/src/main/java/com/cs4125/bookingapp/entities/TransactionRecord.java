@@ -4,12 +4,12 @@ import java.util.Date;
 
 public class TransactionRecord
 {
-    private final long transactionID;
+    private final int transactionID;
     private final float amount;
     private Date dateOfPayment;
     private TransactionStatus status;
 
-    public TransactionRecord(long id, float amount)
+    public TransactionRecord(int id, float amount)
     {
         this.transactionID = id;
         this.amount = amount;
@@ -17,7 +17,7 @@ public class TransactionRecord
         this.status = TransactionStatus.Pending;
     }
 
-    public TransactionRecord(long id, float amount, Date dateOfPayment, TransactionStatus status)
+    public TransactionRecord(int id, float amount, Date dateOfPayment, TransactionStatus status)
     {
         this.transactionID = id;
         this.amount = amount;
@@ -26,7 +26,7 @@ public class TransactionRecord
     }
 
     //region Getters
-    public long getTransactionID()
+    public int getTransactionID()
     {
         return transactionID;
     }

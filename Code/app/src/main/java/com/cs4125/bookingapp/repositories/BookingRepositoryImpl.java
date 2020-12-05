@@ -16,10 +16,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BookingRepositoryImpl implements BookingRepository {
-    private SpringRetrofitService web = RetrofitClientInstance.getWebInstance();
+    private final SpringRetrofitService web = RetrofitClientInstance.getWebInstance();
 
     @Override
-    public LiveData<String> userBooking(Booking booking, String discountCode) {
+    public void userBooking(Booking booking, String discountCode, ResultCallback callback) {
         Call<ResponseBody> returnVal = web.newBooking(booking.getRouteID(), booking.getPassengerID(), booking.getQuantity(), discountCode);
 
         returnVal.enqueue(new Callback<ResponseBody>() {
@@ -28,23 +28,28 @@ public class BookingRepositoryImpl implements BookingRepository {
                 System.out.println("RESPONSE!");
                 String s = null;  // <- response is null here
                 try {
-                    s = response.body().string();
+                    if(response != null && response.body() != null)
+                        s = response.body().string();
+                    else
+                        s = "Error with request!";
+                    callback.onResult(s);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.println("BODY!\t" + s);
+                //System.out.println("BODY!\t" + s);
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                System.out.println("FAILED!!   " + t.toString());
+                //System.out.println("FAILED!!   " + t.toString());
+                callback.onFailure(t);
             }
         });
     }
 
     @Override
-    public LiveData<String> bookingUpdate(Booking booking){
-        Call<ResponseBody> returnVal =  web.updateBooking(booking.getBookingID());
+    public void bookingUpdate(Booking booking, ResultCallback callback) {
+        Call<ResponseBody> returnVal = web.updateBooking(booking.getBookingID());
 
         returnVal.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -52,19 +57,22 @@ public class BookingRepositoryImpl implements BookingRepository {
                 System.out.println("RESPONSE!");
                 String s = null;  // <- response is null here
                 try {
-                    s = response.body().string();
+                    if(response != null && response.body() != null)
+                        s = response.body().string();
+                    else
+                        s = "Error with request!";
+                    callback.onResult(s);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.println("BODY!\t" + s);
+                //System.out.println("BODY!\t" + s);
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                System.out.println("FAILED!!   " + t.toString());
+                //System.out.println("FAILED!!   " + t.toString());
+                callback.onFailure(t);
             }
         });
-
-
     }
 }

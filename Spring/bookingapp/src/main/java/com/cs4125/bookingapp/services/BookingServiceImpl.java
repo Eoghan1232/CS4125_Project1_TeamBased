@@ -7,6 +7,7 @@ import com.cs4125.bookingapp.model.entities.TransactionRecord;
 import com.cs4125.bookingapp.model.repositories.BookingRepository;
 import com.cs4125.bookingapp.model.repositories.DiscountRepository;
 import com.cs4125.bookingapp.model.repositories.RouteRepository;
+import com.cs4125.bookingapp.model.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,8 @@ public class BookingServiceImpl implements BookingService {
     private DiscountRepository discountRepository;
     @Autowired
     private RouteRepository routeRepository;
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     private TransactionContext transactionContext = new TransactionContext();
 
@@ -83,6 +86,14 @@ public class BookingServiceImpl implements BookingService {
         if(desiredRoute == null) {
             return "FAILURE: 1";
         }
+
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime travelDateTime = desiredRoute.getDateTime().toLocalDateTime();
+        long dayDifference = Duration.between(currentDateTime, travelDateTime).toDays();
+        if(dayDifference < 0) {
+            return "FAILURE: 2";
+        }
+
         b.setDateTime(desiredRoute.getDateTime());
 
         // Check if discount code applies to given route
@@ -104,12 +115,13 @@ public class BookingServiceImpl implements BookingService {
         transactionContext.setTransactionRecord(transactionRecord);
         transactionContext.setTransactionRecordState(new TransactionRecordInitialState());
         transactionContext.nextState();
+        transactionRepository.save(transactionContext.getTransactionRecord());
 
         // Final update to booking parameters
         b.setTotalPrice(priceToPay);
         b.setTransactionId(transactionContext.getTransactionRecord().getTransactionId());
         if(b.getTransactionId() == 0) {
-            return "FAILURE: 2";
+            return "FAILURE: 3";
         }
         b = bookingRepository.save(b);
 
@@ -133,11 +145,14 @@ public class BookingServiceImpl implements BookingService {
             return "FAILURE: 2";
         }
 
-        if(!transactionContext.setTransactionRecordByID(b.getTransactionId())) {
+        TransactionRecord transactionRecord = transactionRepository.findById(resBooking.getTransactionId()).orElse(null);
+        if(transactionRecord == null) {
             return "FAILURE: 3";
         }
 
+        transactionContext.setTransactionRecord(transactionRecord);
         transactionContext.nextState();
+        transactionRepository.save(transactionContext.getTransactionRecord());
 
         return "SUCCESS: " + resBooking.toString() + ", " + transactionContext.getCurrentState();
     }
@@ -159,9 +174,11 @@ public class BookingServiceImpl implements BookingService {
             return "FAILURE: 2";
         }
 
-        if(!transactionContext.setTransactionRecordByID(b.getTransactionId())) {
+        TransactionRecord transactionRecord = transactionRepository.findById(resBooking.getTransactionId()).orElse(null);
+        if(transactionRecord == null) {
             return "FAILURE: 3";
         }
+        transactionContext.setTransactionRecord(transactionRecord);
 
         double amountReturned = transactionContext.getTransactionRecord().getAmount();
         long dayDifference = Long.MAX_VALUE;
@@ -178,6 +195,7 @@ public class BookingServiceImpl implements BookingService {
         }
 
         transactionContext.cancelTransaction(dayDifference);
+        transactionRepository.save(transactionContext.getTransactionRecord());
         bookingRepository.deleteById(b.getBookingId());
 
         return "SUCCESS: " + amountReturned;
