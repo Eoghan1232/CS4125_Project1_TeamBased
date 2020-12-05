@@ -1,5 +1,13 @@
 package com.cs4125.bookingapp.repositories;
 
-public class UserRepositoryImpl
+import androidx.lifecycle.LiveData;
+
+import com.cs4125.bookingapp.entities.User;
+
+public class UserRepositoryImpl implements UserRepository
 {
+    @Override
+    public LiveData<String> loginUser(User user) {
+        return null;
+    }
 }

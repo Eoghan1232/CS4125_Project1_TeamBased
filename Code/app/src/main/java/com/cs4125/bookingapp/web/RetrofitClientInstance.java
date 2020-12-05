@@ -10,6 +10,7 @@ public class RetrofitClientInstance
 {
     private static Retrofit retrofit;
     private static final String BASE_URL = "http://bookingapp-env.eba-vi7ezpsv.eu-west-1.elasticbeanstalk.com/";
+    private static SpringRetrofitService web;
 
     public static Retrofit getRetrofitInstance()
     {
@@ -23,5 +24,15 @@ public class RetrofitClientInstance
         }
 
         return retrofit;
+    }
+
+    public static SpringRetrofitService getWebInstance()
+    {
+        if (web== null)
+        {
+            web = RetrofitClientInstance.getRetrofitInstance().create(SpringRetrofitService.class);
+        }
+
+        return web;
     }
 }

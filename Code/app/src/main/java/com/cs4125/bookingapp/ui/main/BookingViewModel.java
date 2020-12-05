@@ -17,7 +17,11 @@ public class BookingViewModel extends ViewModel
         this.repository = repository;
     }
 
-    public LiveData<ResponseBody> bookingTicket(Booking booking){
+    public LiveData<String> bookTicket(Booking booking){
         return repository.userBooking(booking);
+    }
+    //start booking, update booking
+    public LiveData<String> updateBooking(Booking booking){
+        return repository.bookingUpdate(booking);
     }
 }
