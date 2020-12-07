@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
         u.setUsername(u.getUsername().toLowerCase());
         u.setPassword(encryptor.encryptString(u.getPassword()));
         User resUser = userRepository.save(u);
+
         return "SUCCESS: " + resUser.getUser_id();
     }
 
@@ -37,7 +38,7 @@ public class UserServiceImpl implements UserService {
      * Logs in the user
      * @param name username or email
      * @param password The password
-     * @return SUCCESS: userid if registration was successful, else FAILURE: error code
+     * @return SUCCESS: userid if login was successful, else FAILURE: error code
      */
     @Override
     public String login(String name, String password) {
@@ -47,7 +48,7 @@ public class UserServiceImpl implements UserService {
             return "FAILURE: 1";
         }
 
-        User resUser = userRepository.findByUsernameAndPassword(name, encryptor.encryptString(password));
+        User resUser = userRepository.findByUsernameAndAndPassword(name, encryptor.encryptString(password));
         if(resUser == null) {
             return "FAILURE: 2";
         }
