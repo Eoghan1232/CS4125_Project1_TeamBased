@@ -1,7 +1,12 @@
 package com.cs4125.bookingapp;
 
+import com.cs4125.bookingapp.model.RouteFactory;
+import com.cs4125.bookingapp.model.UserFactory;
 import com.cs4125.bookingapp.model.entities.*;
 import com.cs4125.bookingapp.model.repositories.*;
+import com.cs4125.bookingapp.services.DiscountService;
+import com.cs4125.bookingapp.services.RouteService;
+import com.cs4125.bookingapp.services.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,26 +18,54 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @RestController
 public class BasicController {
-//
-//    @Autowired
-//    private UserRepository UserRepository;
-//    @Autowired
-//    private RouteRepository routeRepository;
-//    @Autowired
-//    private DiscountRepository DiscountRepository;
-//    @Autowired
-//    private BookingRepository BookingRepository;
-//    @Autowired
-//    private TransactionRepository TransactionRepository;
-//
-//
     @GetMapping(path="/")
-    public String home(){
-        return "Hey, you are not supposed to be here!";
-    }
+    public String home(){return "HomePage";}
+//
+//    @Autowired
+//    private UserService userService;
+//    @Autowired
+//    private UserFactory userFactory;
+//    @Autowired
+//    private RouteService routeService;
+//    @Autowired
+//    private DiscountService discountService;
+//    @Autowired
+//    private RouteFactory routeFactory;
+//
+//    @GetMapping(path="/fillData")
+//    public String home(){
+//        User u = userFactory.getUser("NORMAL_USER", "Dummy", "testing", "dummyEmail@gmail.com");
+//        String result = userService.register(u);
+//        userService.register(u);
+//         u = userFactory.getUser("NORMAL_USER", "Test", "testing", "test@gmail.com");
+//        userService.register(u);
+//         u = userFactory.getUser("NORMAL_USER", "Coffee", "coffee", "IDrinkCoffee@gmail.com");
+//        userService.register(u);
+//        Timestamp dateTime = Timestamp.valueOf("2020-12-1 09:00:00");
+//        Route r = routeFactory.getRoute("NORMAL_ROUTE","ED1","ED2",dateTime,20);
+//        result = routeService.addRoute(r);
+//        r = routeFactory.getRoute("NORMAL_ROUTE", "ED2", "ED3", dateTime, 10);
+//        result = routeService.addRoute(r);
+//        dateTime = Timestamp.valueOf("2021-07-1 11:00:00");
+//        r = routeFactory.getRoute("NORMAL_ROUTE", "ED3", "ED4", dateTime, 15);
+//        result = routeService.addRoute(r);
+//        ArrayList<String> temp = new ArrayList<String>();
+//        temp.add("1");
+//        Discount d = new Discount("EDRK", String.join("&&", temp), 12);
+//        result = discountService.addDiscount(d);
+//        temp.add("2");
+//        d = new Discount("EDFF", String.join("&&", temp), 10);
+//        result = discountService.addDiscount(d);
+//        temp.add("3");
+//        d = new Discount("DFRR", String.join("&&", temp), 15);
+//        result = discountService.addDiscount(d);
+//
+//        return "Success";
+//    }
 //
 //
 //    @GetMapping(path="/User")
