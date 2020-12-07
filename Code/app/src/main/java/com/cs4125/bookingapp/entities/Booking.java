@@ -1,6 +1,7 @@
 package com.cs4125.bookingapp.entities;
 
-import java.util.Date;
+
+import java.sql.Timestamp;
 
 public class Booking
 {
@@ -8,7 +9,7 @@ public class Booking
     private final int passengerID;
     private final int routeID;
     private final int quantity;
-    private final Date dateTime;
+    private final Timestamp dateTime;
     private final float price;
 
     // Private constructor for the builder
@@ -43,7 +44,7 @@ public class Booking
         return quantity;
     }
 
-    public Date getDateTime()
+    public Timestamp getDateTime()
     {
         return dateTime;
     }
@@ -66,7 +67,7 @@ public class Booking
         private int passengerID;
         private int routeID;
         private int quantity;
-        private Date dateTime;
+        private Timestamp dateTime;
         private float price;
 
         public BookingBuilder setBookingID(int bookingID)
@@ -97,7 +98,7 @@ public class Booking
             return this;
         }
 
-        public BookingBuilder setDateTime(Date dateTime)
+        public BookingBuilder setDateTime(Timestamp dateTime)
         {
             this.dateTime = dateTime;
 

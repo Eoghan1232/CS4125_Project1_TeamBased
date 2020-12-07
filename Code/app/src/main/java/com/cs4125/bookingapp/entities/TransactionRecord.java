@@ -1,12 +1,13 @@
 package com.cs4125.bookingapp.entities;
 
-import java.util.Date;
+
+import java.sql.Timestamp;
 
 public class TransactionRecord
 {
     private final int transactionID;
     private final float amount;
-    private Date dateOfPayment;
+    private Timestamp dateOfPayment;
     private TransactionStatus status;
 
     public TransactionRecord(int id, float amount)
@@ -17,7 +18,7 @@ public class TransactionRecord
         this.status = TransactionStatus.Pending;
     }
 
-    public TransactionRecord(int id, float amount, Date dateOfPayment, TransactionStatus status)
+    public TransactionRecord(int id, float amount, Timestamp dateOfPayment, TransactionStatus status)
     {
         this.transactionID = id;
         this.amount = amount;
@@ -36,7 +37,7 @@ public class TransactionRecord
         return amount;
     }
 
-    public Date getDateOfPayment()
+    public Timestamp getDateOfPayment()
     {
         return dateOfPayment;
     }
@@ -47,7 +48,7 @@ public class TransactionRecord
     }
     //endregion
 
-    public void setDateOfPayment(Date dateOfPayment)
+    public void setDateOfPayment(Timestamp dateOfPayment)
     {
         this.dateOfPayment = dateOfPayment;
     }

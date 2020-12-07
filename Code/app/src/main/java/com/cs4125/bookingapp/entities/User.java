@@ -53,7 +53,7 @@ public class User
         return "User{" + "userID=" + userID + ", username='" + username + '\'' + ", password='" + password + '\'' + ", email='" + email + '\'' + ", userType=" + userType + '}';
     }
 
-    private static class UserBuilder
+    public static class UserBuilder
     {
         private int userID;
         private String username;

@@ -28,6 +28,10 @@ public class RetrofitClientInstance
 
     public static SpringRetrofitService getWebInstance()
     {
+        if (retrofit == null)
+        {
+            getRetrofitInstance();
+        }
         if (web== null)
         {
             web = RetrofitClientInstance.getRetrofitInstance().create(SpringRetrofitService.class);

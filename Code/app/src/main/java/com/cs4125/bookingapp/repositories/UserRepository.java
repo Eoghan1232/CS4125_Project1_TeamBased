@@ -6,5 +6,7 @@ import com.cs4125.bookingapp.entities.User;
 
 public interface UserRepository
 {
-    LiveData<String> loginUser(User user);
+    void loginUser(User user, ResultCallback callback);
+
+    void registerUser(User userRegister, ResultCallback resultCallback);
 }

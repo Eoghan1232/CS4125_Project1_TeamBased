@@ -5,14 +5,16 @@ import java.util.List;
 public class Discount
 {
     private final String code;
-    private final List<Long> routeIDs;
+    private final List<String> routeIDs;
     private final float discountPercent;
+    private final int discountId;
 
     private Discount(DiscountBuilder builder)
     {
         this.code = builder.code;
         this.routeIDs = builder.routeIDs;
         this.discountPercent = builder.discountPercent;
+        this.discountId = builder.discountId;
     }
 
     //region Getters
@@ -21,7 +23,7 @@ public class Discount
         return code;
     }
 
-    public List<Long> getRouteIDs()
+    public List<String> getRouteIDs()
     {
         return routeIDs;
     }
@@ -30,19 +32,22 @@ public class Discount
     {
         return discountPercent;
     }
+
+    public int getDiscountId() { return discountId; }
     //endregion
 
     @Override
     public String toString()
     {
-        return "Discount{" + "code='" + code + '\'' + ", routeIDs=" + routeIDs + ", discountPercent=" + discountPercent + '}';
+        return "Discount{" + "code='" + code + '\'' + ", routeIDs=" + routeIDs + ", discountPercent=" + discountPercent + "discountId =" + discountId + '}';
     }
 
-    private static class DiscountBuilder
+    public static class DiscountBuilder
     {
         private String code;
-        private List<Long> routeIDs;
+        private List<String> routeIDs;
         private float discountPercent;
+        private int discountId;
 
         public DiscountBuilder setCode(String code)
         {
@@ -51,7 +56,7 @@ public class Discount
             return this;
         }
 
-        public DiscountBuilder setRouteIDs(List<Long> routeIDs)
+        public DiscountBuilder setRouteIDs(List<String> routeIDs)
         {
             this.routeIDs = routeIDs;
 
@@ -61,6 +66,13 @@ public class Discount
         public DiscountBuilder setDiscountPercent(float discountPercent)
         {
             this.discountPercent = discountPercent;
+
+            return this;
+        }
+
+        public DiscountBuilder setDiscountId(int discountId)
+        {
+            this.discountId = discountId;
 
             return this;
         }

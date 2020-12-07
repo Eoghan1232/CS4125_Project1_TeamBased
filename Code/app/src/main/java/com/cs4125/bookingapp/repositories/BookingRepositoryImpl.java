@@ -25,7 +25,7 @@ public class BookingRepositoryImpl implements BookingRepository {
         returnVal.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                System.out.println("RESPONSE!");
+                //System.out.println("RESPONSE!");
                 String s = null;  // <- response is null here
                 try {
                     if(response != null && response.body() != null)
@@ -50,6 +50,90 @@ public class BookingRepositoryImpl implements BookingRepository {
     @Override
     public void bookingUpdate(Booking booking, ResultCallback callback) {
         Call<ResponseBody> returnVal = web.updateBooking(booking.getBookingID());
+
+        returnVal.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                System.out.println("RESPONSE!");
+                String s = null;  // <- response is null here
+                try {
+                    if(response != null && response.body() != null)
+                        s = response.body().string();
+                    else
+                        s = "Error with request!";
+                    callback.onResult(s);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //System.out.println("BODY!\t" + s);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                //System.out.println("FAILED!!   " + t.toString());
+                callback.onFailure(t);
+            }
+        });
+    }
+    @Override
+    public void bookingCancel(Booking booking, ResultCallback callback) {
+        Call<ResponseBody> returnVal = web.cancelBooking(booking.getBookingID());
+
+        returnVal.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                System.out.println("RESPONSE!");
+                String s = null;  // <- response is null here
+                try {
+                    if(response != null && response.body() != null)
+                        s = response.body().string();
+                    else
+                        s = "Error with request!";
+                    callback.onResult(s);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //System.out.println("BODY!\t" + s);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                //System.out.println("FAILED!!   " + t.toString());
+                callback.onFailure(t);
+            }
+        });
+    }
+    @Override
+    public void bookingList(Booking booking, ResultCallback callback) {
+        Call<ResponseBody> returnVal = web.getAllBookings(booking.getBookingID());
+
+        returnVal.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                System.out.println("RESPONSE!");
+                String s = null;  // <- response is null here
+                try {
+                    if(response != null && response.body() != null)
+                        s = response.body().string();
+                    else
+                        s = "Error with request!";
+                    callback.onResult(s);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //System.out.println("BODY!\t" + s);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                //System.out.println("FAILED!!   " + t.toString());
+                callback.onFailure(t);
+            }
+        });
+    }
+    @Override
+    public void getBooking(Booking booking, ResultCallback callback) {
+        Call<ResponseBody> returnVal = web.getBooking(booking.getBookingID());
 
         returnVal.enqueue(new Callback<ResponseBody>() {
             @Override

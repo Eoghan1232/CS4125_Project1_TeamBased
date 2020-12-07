@@ -1,13 +1,14 @@
 package com.cs4125.bookingapp.entities;
 
-import java.util.Date;
+
+import java.sql.Timestamp;
 
 public class Route
 {
     private final int routeID;
     private final String startStation;
     private final String endStation;
-    private final Date dateTime;
+    private final Timestamp dateTime;
     private final float price;
 
     private Route(RouteBuilder builder)
@@ -35,7 +36,7 @@ public class Route
         return endStation;
     }
 
-    public Date getDateTime()
+    public Timestamp getDateTime()
     {
         return dateTime;
     }
@@ -52,12 +53,12 @@ public class Route
         return "Route{" + "routeID=" + routeID + ", startStation='" + startStation + '\'' + ", endStation='" + endStation + '\'' + ", dateTime=" + dateTime + ", price=" + price + '}';
     }
 
-    private static class RouteBuilder
+    public static class RouteBuilder
     {
         public int routeID;
         public String startStation;
         public String endStation;
-        public Date dateTime;
+        public Timestamp dateTime;
         public float price;
 
         public RouteBuilder setRouteID(int routeID)
@@ -81,7 +82,7 @@ public class Route
             return this;
         }
 
-        public RouteBuilder setDateTime(Date dateTime)
+        public RouteBuilder setDateTime(Timestamp dateTime)
         {
             this.dateTime = dateTime;
 
