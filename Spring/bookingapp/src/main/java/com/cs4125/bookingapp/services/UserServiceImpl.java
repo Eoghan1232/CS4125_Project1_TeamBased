@@ -30,7 +30,6 @@ public class UserServiceImpl implements UserService {
         u.setUsername(u.getUsername().toLowerCase());
         u.setPassword(encryptor.encryptString(u.getPassword()));
         User resUser = userRepository.save(u);
-
         return "SUCCESS: " + resUser.getUser_id();
     }
 
@@ -48,7 +47,7 @@ public class UserServiceImpl implements UserService {
             return "FAILURE: 1";
         }
 
-        User resUser = userRepository.findByUsernameAndAndPassword(name, encryptor.encryptString(password));
+        User resUser = userRepository.findByUsernameAndPassword(name, encryptor.encryptString(password));
         if(resUser == null) {
             return "FAILURE: 2";
         }

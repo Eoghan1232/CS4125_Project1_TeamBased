@@ -17,7 +17,6 @@ public class UserController {
     @ResponseBody
     public String getUser(@RequestParam String name, @RequestParam String password) {
         String result = userService.login(name, password);
-
         return result;
     }
 
@@ -26,7 +25,6 @@ public class UserController {
     public String addNewUser (@RequestParam String name, @RequestParam String password, @RequestParam String email) {
         User u = userFactory.getUser("NORMAL_USER", name, password, email);
         String result = userService.register(u);
-
         return result;
     }
 }
