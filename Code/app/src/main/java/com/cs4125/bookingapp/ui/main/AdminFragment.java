@@ -16,7 +16,6 @@ import com.cs4125.bookingapp.R;
 
 public class AdminFragment extends Fragment
 {
-
     private AdminViewModel mViewModel;
 
     public static AdminFragment newInstance()

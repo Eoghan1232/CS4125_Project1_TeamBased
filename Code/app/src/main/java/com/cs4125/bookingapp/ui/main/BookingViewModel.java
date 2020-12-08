@@ -1,6 +1,7 @@
 package com.cs4125.bookingapp.ui.main;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.cs4125.bookingapp.entities.Booking;
@@ -19,80 +20,83 @@ public class BookingViewModel extends ViewModel
         this.repository = new BookingRepositoryImpl();
     }
 
-    public String bookTicket(Booking booking, String code){
-        final String[] r = new String[1];
+    public LiveData<String> bookTicket(Booking booking, String code){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository.userBooking(booking, code, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
 
-        return r[0];
+        return liveString;
     }
     //start booking, update booking
-    public String payForBooking(Booking booking){
-        final String[] r = new String[1];
+    public LiveData<String> payForBooking(Booking booking){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository.bookingUpdate(booking, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
-        return r[0];
+
+        return liveString;
     }
 
-    public String cancelBooking(Booking booking){
-        final String[] r = new String[1];
+    public LiveData<String> cancelBooking(Booking booking){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository.bookingCancel(booking, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
-        return r[0];
+
+        return liveString;
     }
 
-    public String allBooking(Booking booking){
-        final String[] r = new String[1];
+    public LiveData<String> allBooking(Booking booking){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository.bookingList(booking, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
-        return r[0];
+
+        return liveString;
     }
 }

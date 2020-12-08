@@ -76,7 +76,6 @@ public interface SpringRetrofitService
     @POST("/newbooking")
     Call<ResponseBody> newBooking(@Field("routeId") int routeId, @Field("userId") int userId, @Field("quantity") int quantity, @Field("discountCode") String discountCode);
 
-    @FormUrlEncoded
     @POST("/paybooking/{id}")
     Call<ResponseBody> updateBooking(@Path("id") int id);
 

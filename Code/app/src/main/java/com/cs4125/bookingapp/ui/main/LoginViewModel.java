@@ -1,6 +1,7 @@
 package com.cs4125.bookingapp.ui.main;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.cs4125.bookingapp.entities.User;
@@ -19,23 +20,23 @@ public class LoginViewModel extends ViewModel
         this.repository = new UserRepositoryImpl();
     }
 
-    public String login(User user){
-        final String[] r = new String[1];
+    public LiveData<String> login(User user){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository.loginUser(user, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
-        return r[0];
+        return liveString;
     }
 
 }

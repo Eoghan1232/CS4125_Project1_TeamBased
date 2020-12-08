@@ -1,6 +1,7 @@
 package com.cs4125.bookingapp.ui.main;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,8 +52,8 @@ public class RegisterFragment extends Fragment
 
     private void configureUiItems(View view) {
         bindUiItems(view);
-        Navigation.setViewNavController(view, new NavController(getContext()));
-        navController = Navigation.findNavController(view);
+        NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        navController = navHostFragment.getNavController();
         regBtn.setOnClickListener(view1 -> register());
     }
 
@@ -63,17 +65,40 @@ public class RegisterFragment extends Fragment
         regBtn = view.findViewById(R.id.regBtn);
     }
 
-    private void register(){
+    private void register() {
 
-        if( password.getText().toString().equals(confirmPassword.getText().toString())) {
-            User regCred = new User.UserBuilder()
-                    .setUsername(username.getText().toString())
-                    .setPassword(password.getText().toString())
-                    .build();
+        if (username.getText().length() != 0 && password.getText().length() != 0 && confirmPassword.getText().length() != 0 && email.getText().length() != 0)
+        {
+            if (password.getText().toString().equals(confirmPassword.getText().toString()))
+            {
+                User regCred = new User.UserBuilder()
+                        .setUsername(username.getText().toString())
+                        .setPassword(password.getText().toString())
+                        .setEmail(email.getText().toString())
+                        .build();
 
-            registerViewModel.register(regCred);
-            Utilities.showToast(getContext(), "Registered successfully. Return to the login screen");
+                LiveData<String> response = registerViewModel.register(regCred);
+                response.observe(getViewLifecycleOwner(), this::observeResponse);
+            }
+        }
+        else
+        {
+            Utilities.showToast(this.getContext(), "Error: Missing Information");
         }
     }
 
+    private void observeResponse(String s)
+    {
+        String[] temp = s.split(":");
+        if (temp[0].equals("SUCCESS"))
+        {
+            Utilities.showToast(this.getContext(), "Registration Successful");
+
+            navController.navigate(R.id.action_registerFragment_to_loginFragment);
+        }
+        else
+        {
+            Utilities.showToast(this.getContext(), "Registration Failed");
+        }
+    }
 }

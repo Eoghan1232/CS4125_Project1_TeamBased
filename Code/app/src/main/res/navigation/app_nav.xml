@@ -29,12 +29,19 @@
         <action
             android:id="@+id/action_mainFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <argument
+            android:name="userId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.cs4125.bookingapp.ui.main.RegisterFragment"
         android:label="register_fragment"
-        tools:layout="@layout/register_fragment" />
+        tools:layout="@layout/register_fragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.cs4125.bookingapp.ui.main.SearchFragment"
@@ -43,6 +50,9 @@
         <action
             android:id="@+id/action_searchFragment_to_searchResultFragment"
             app:destination="@id/searchResultFragment" />
+        <argument
+            android:name="userId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/bookingFragment"
@@ -52,13 +62,32 @@
         <action
             android:id="@+id/action_bookingFragment_to_bookingResultFragment"
             app:destination="@id/bookingResultFragment" />
+        <argument
+            android:name="userId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/searchResultFragment"
         android:name="com.cs4125.bookingapp.ui.main.SearchResultFragment"
-        android:label="SearchResultFragment" />
+        android:label="SearchResultFragment" >
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+        <argument android:name="routesFound"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/bookingResultFragment"
         android:name="com.cs4125.bookingapp.ui.main.BookingResultFragment"
-        android:label="BookingResultFragment" />
+        android:label="BookingResultFragment" >
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+        <argument
+            android:name="bookingInfo"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_bookingResultFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>

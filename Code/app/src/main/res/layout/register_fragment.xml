@@ -20,19 +20,25 @@
             android:id="@+id/regUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="52dp"
+            android:layout_marginEnd="8dp"
             android:hint="Username"
-            app:layout_constraintTop_toBottomOf="@+id/registerHeader"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/registerHeader" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/regEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
             android:hint="Email"
-            app:layout_constraintTop_toBottomOf="@+id/regUsername"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/regUsername" />
 
         <TextView
             android:id="@+id/registerHeader"
@@ -49,9 +55,11 @@
 
         <EditText
             android:id="@+id/regPassword1"
-            android:layout_width="407dp"
+            android:layout_width="0dp"
             android:layout_height="58dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
@@ -61,8 +69,10 @@
 
         <EditText
             android:id="@+id/regPassword2"
-            android:layout_width="407dp"
+            android:layout_width="0dp"
             android:layout_height="58dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:ems="10"
             android:hint="Confirm Password"
             android:inputType="textPassword"

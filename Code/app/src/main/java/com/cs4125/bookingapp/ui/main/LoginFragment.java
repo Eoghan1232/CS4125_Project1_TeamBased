@@ -13,7 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
+import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,12 +39,6 @@ public class LoginFragment extends Fragment
     private NavController navController;
     private LoginViewModel loginViewModel;
 
-//    public static LoginFragment newInstance()
-//    {
-//        return new LoginFragment();
-//    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -54,18 +50,10 @@ public class LoginFragment extends Fragment
         return view;
     }
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState)
-//    {
-//        super.onActivityCreated(savedInstanceState);
-//        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-//        // TODO: Use the ViewModel
-//    }
-
     private void configureUiItems(View view) {
         bindUiItems(view);
-        Navigation.setViewNavController(view, new NavController(getContext()));
-        navController = Navigation.findNavController(view);
+        NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        navController = navHostFragment.getNavController();
         loginBtn.setOnClickListener(view1 -> loginUser());
         registerBtn.setOnClickListener(view1 -> goToRegisterScreen());
     }
@@ -73,6 +61,7 @@ public class LoginFragment extends Fragment
     private void bindUiItems(View view){
         usernameField = view.findViewById(R.id.usernameIn);
         passwordField = view.findViewById(R.id.passwordIn);
+        passwordField.setTransformationMethod(new PasswordTransformationMethod());
         loginBtn = view.findViewById(R.id.loginBtn);
         registerBtn = view.findViewById(R.id.registerBtn);
     }
@@ -82,21 +71,30 @@ public class LoginFragment extends Fragment
     }
 
     private void loginUser(){
-        User loginCred = new User
-                .UserBuilder()
-                .setUsername(usernameField.getText().toString())
-                .setPassword(passwordField.getText().toString())
-                .build();
+        if (usernameField.getText().length() != 0 && passwordField.getText().length() != 0)
+        {
+            User loginCred = new User.UserBuilder().setUsername(usernameField.getText().toString()).setPassword(passwordField.getText().toString()).build();
 
-        String response = loginViewModel.login(loginCred);
-        String [] temp = response.split(":");
-        if(temp[0].equals("SUCCESS") ) {
+            LiveData<String> response = loginViewModel.login(loginCred);
+            response.observe(getViewLifecycleOwner(), this::observeResponse);
+        }
+        else
+        {
+            Utilities.showToast(this.getContext(), "Error: Missing Information");
+        }
+    }
+
+    private void observeResponse(String s)
+    {
+        String[] temp = s.split(": ");
+        if (temp[0].equals("SUCCESS"))
+        {
             Utilities.showToast(this.getContext(), "Login Successful");
-
-            navController.navigate(R.id.action_loginFragment_to_mainFragment);
-        } else {
+            LoginFragmentDirections.ActionLoginFragmentToMainFragment action = LoginFragmentDirections.actionLoginFragmentToMainFragment(Integer.parseInt(temp[1]));
+            navController.navigate(action);
+        } else
+        {
             Utilities.showToast(this.getContext(), "Login Failed");
         }
-
     }
 }

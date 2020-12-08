@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxLines="1"
+        android:maxLines="2"
         tools:text="Description goes here, limited to one line, sample text sample text sample text sample text" />
 
 </LinearLayout>

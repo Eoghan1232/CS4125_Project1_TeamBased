@@ -2,9 +2,11 @@ package com.cs4125.bookingapp.ui.main;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 
@@ -14,15 +16,25 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.cs4125.bookingapp.R;
+import com.cs4125.bookingapp.entities.Route;
+
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class SearchFragment extends Fragment
 {
@@ -33,7 +45,10 @@ public class SearchFragment extends Fragment
     private Button date;
     private Button searchBtn;
     private NavController navController;
-
+    private TextView dateText;
+    private TextView timeText;
+    private int mYear, mMonth, mDay, mHour, mMinute;
+    private int userId;
 
     public static SearchFragment newInstance()
     {
@@ -48,46 +63,115 @@ public class SearchFragment extends Fragment
         configureUiItems(view);
         searchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
         searchViewModel.init();
-
-        Button timePick = (Button) getView().findViewById(R.id.timePicker);
-        timePick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    DialogFragment newFragment = new TimePickerFragment();
-                    newFragment.show(getActivity().getSupportFragmentManager(), "timePicker");
-            }
-        });
-
-        Button datePick = (Button) getView().findViewById(R.id.datePicker);
-        datePick.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment datePicker = new TimePickerFragment();
-                datePicker.show(getActivity().getSupportFragmentManager(), "date Picker");
-            }
-        }));
+        userId = SearchFragmentArgs.fromBundle(getArguments()).getUserId();
 
         return view;
     }
 
-
     private void configureUiItems(View view) {
         bindUiItems(view);
-        Navigation.setViewNavController(view, new NavController(getContext()));
-        navController = Navigation.findNavController(view);
+        NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        navController = navHostFragment.getNavController();
+
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                mHour = c.get(Calendar.HOUR_OF_DAY);
+                mMinute = c.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+
+                                timeText.setText(String.format("%02d:%02d:00", hourOfDay, minute));
+                            }
+                        }, mHour, mMinute, false);
+                timePickerDialog.show();
+            }
+        });
+        date.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get Current Date
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+
+                                dateText.setText(String.format("%04d-%02d-%02d", year, (monthOfYear + 1), dayOfMonth));
+
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        }));
         searchBtn.setOnClickListener(view1 -> search());
     }
 
-        private void bindUiItems(View view){
-        location = view.findViewById(R.id.regUsername);
-        destination = view.findViewById(R.id.regEmail);
+    private void bindUiItems(View view){
+        dateText = view.findViewById(R.id.dateText);
+        timeText = view.findViewById(R.id.timeText);
+
+        location = view.findViewById(R.id.locIn);
+        destination = view.findViewById(R.id.desIn);
         time = view.findViewById(R.id.timePicker);
         date = view.findViewById(R.id.datePicker);
         searchBtn = view.findViewById(R.id.searchBtn);
     }
 
     private void search(){
-        navController.navigate(R.id.action_searchFragment_to_searchResultFragment);
+        String flocation = "";
+        String fdestination = "";
+        String fdate = "";
+        if (location.getText() != null && location.getText().length() != 0)
+            flocation = location.getText().toString();
+        if (destination.getText() != null && destination.getText().length() != 0)
+            fdestination = destination.getText().toString();
+        if (mYear + mMonth + mDay != 0 && mMinute + mHour != 0)
+            fdate = String.format("%04d-%02d-%02d %02d:%02d:00", mYear, mMonth, mDay, mHour, mMinute);
+        Timestamp stamp = null;
+        try
+        {
+            stamp = Timestamp.valueOf(fdate);
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println(e.toString());
+        }
+        Route routeToSearch = new Route.RouteBuilder()
+                .setStartStation(flocation)
+                .setEndStation(fdestination)
+                .setDateTime(stamp)
+                .build();
+
+        LiveData<String> response = searchViewModel.searchAll(routeToSearch);
+        response.observe(getViewLifecycleOwner(), this::observeResponse);
+    }
+
+    private void observeResponse(String s)
+    {
+        String[] temp = s.split(": ");
+        if (temp[0].equals("SUCCESS"))
+        {
+            String routes = temp[1];
+            SearchFragmentDirections.ActionSearchFragmentToSearchResultFragment action = SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(userId, routes);
+            navController.navigate(action);
+        }
+        else
+        {
+            Utilities.showToast(this.getContext(), "Search Failed");
+        }
     }
 
 }

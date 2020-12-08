@@ -1,6 +1,7 @@
 package com.cs4125.bookingapp.ui.main;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.cs4125.bookingapp.entities.Booking;
@@ -32,194 +33,194 @@ public class AdminViewModel extends ViewModel
         this.repository3 = new RouteRepositoryImpl();
     }
 
-    public String getAllDiscounts(){
-        final String[] r = new String[1];
+   public LiveData<String> getAllDiscounts(){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository.getAllDiscounts(new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
 
-        return r[0];
+        return liveString;
     }
-    public String getDiscountById(Discount discount){
-        final String[] r = new String[1];
+   public LiveData<String> getDiscountById(Discount discount){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository.getDiscountById(discount, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
 
-        return r[0];
+        return liveString;
     }
-    public String getDiscountByCode(Discount discount){
-        final String[] r = new String[1];
+   public LiveData<String> getDiscountByCode(Discount discount){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository.getDiscountByCode(discount, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
 
-        return r[0];
+        return liveString;
     }
-    public String newDiscount(Discount discount){
-        final String[] r = new String[1];
+   public LiveData<String> newDiscount(Discount discount){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository.newDiscount(discount, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
 
-        return r[0];
+        return liveString;
     }
-    public String updateDiscount(Discount discount){
-        final String[] r = new String[1];
+   public LiveData<String> updateDiscount(Discount discount){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository.updateDiscount(discount, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
 
-        return r[0];
+        return liveString;
     }
-    public String removeOldDiscount(Discount discount){
-        final String[] r = new String[1];
+   public LiveData<String> removeOldDiscount(Discount discount){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository.removeOldDiscount(discount, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
 
-        return r[0];
+        return liveString;
     }
-    public String getBooking(Booking booking){
-        final String[] r = new String[1];
+   public LiveData<String> getBooking(Booking booking){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository2.getBooking(booking, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
 
-        return r[0];
+        return liveString;
     }
-    public String newRoute(Route route){
-        final String[] r = new String[1];
+   public LiveData<String> newRoute(Route route){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository3.newRoute(route, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
 
-        return r[0];
+        return liveString;
     }
-    public String updateRoute(Route route){
-        final String[] r = new String[1];
+   public LiveData<String> updateRoute(Route route){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository3.updateRoute(route, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
 
-        return r[0];
+        return liveString;
     }
-    public String deleteRoute(Route route){
-        final String[] r = new String[1];
+   public LiveData<String> deleteRoute(Route route){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository3.deleteRoute(route, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
 
-        return r[0];
+        return liveString;
     }
 }

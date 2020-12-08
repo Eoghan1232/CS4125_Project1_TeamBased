@@ -1,6 +1,7 @@
 package com.cs4125.bookingapp.ui.main;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.cs4125.bookingapp.entities.Route;
@@ -21,60 +22,60 @@ public class SearchViewModel extends ViewModel {
         this.repository = new RouteRepositoryImpl();
     }
 
-    public String searchAll(Route search){
-        final String[] r = new String[1];
+    public LiveData<String> searchAll(Route search){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository.searchAllRoute(search, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
-        return r[0];
+        return liveString;
     }
-    public String searchRouteById(Route search){
-        final String[] r = new String[1];
+    public LiveData<String> searchRouteById(Route search){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository.searchRouteById(search, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
-        return r[0];
+        return liveString;
     }
 
-    public String searchRouteByStationOrDateTime(Route search){
-        final String[] r = new String[1];
+    public LiveData<String> searchRouteByStationOrDateTime(Route search){
+        MutableLiveData<String> liveString = new MutableLiveData<>();
         repository.searchRouteByStationOrDateTime(search, new ResultCallback()
         {
             @Override
             public void onResult(String result)
             {
-                r[0] = result;
+                liveString.postValue(result);
             }
 
             @Override
             public void onFailure(Throwable error)
             {
-                r[0] = error.toString();
+                liveString.postValue(error.toString());
             }
         });
-        return r[0];
+        return liveString;
     }
 
 }
