@@ -14,6 +14,7 @@ public class BookingViewModel extends ViewModel
 {
     private BookingRepository repository;
 
+
     public void init(){
         this.repository = new BookingRepositoryImpl();
     }

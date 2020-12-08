@@ -1,5 +1,6 @@
 package com.cs4125.bookingapp.ui.main;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -7,6 +8,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +44,10 @@ import retrofit2.http.Field;
 
 public class MainFragment extends Fragment
 {
-    private MainViewModel mViewModel;
+    private MainViewModel mainViewModel;
+    private NavController navController;
+    private Button bookBtn;
+    private Button searchBtn;
 
     private SpringRetrofitService web = RetrofitClientInstance.getRetrofitInstance().create(SpringRetrofitService.class);
     private EditText t1;
@@ -51,12 +58,36 @@ public class MainFragment extends Fragment
         return new MainFragment();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {
-        return inflater.inflate(R.layout.main_fragment, container, false);
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.main_fragment, container, false);
+        configureUiItems(view);
+        return view;
     }
+
+    private void configureUiItems(View view) {
+        bindUiItems(view);
+        Navigation.setViewNavController(view, new NavController(getContext()));
+        navController = Navigation.findNavController(view);
+        searchBtn.setOnClickListener(view1 -> goToSearchScreen());
+        bookBtn.setOnClickListener(view1 -> goToBookingScreen());
+    }
+
+    private void bindUiItems(View view){
+        searchBtn = view.findViewById(R.id.toSearchBtn)
+        bookBtn = view.findViewById(R.id.toBookingBtn);
+    }
+
+    private void goToSearchScreen(){
+        navController.navigate(R.id.action_mainFragment_to_searchFragment);
+    }
+
+    private void goToBookingScreen(){
+        navController.navigate(R.id.action_mainFragment_to_bookingFragment);
+    }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
@@ -105,13 +136,5 @@ public class MainFragment extends Fragment
 //                    }
 //                });
         });
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        // TODO: Use the ViewModel
     }
 }

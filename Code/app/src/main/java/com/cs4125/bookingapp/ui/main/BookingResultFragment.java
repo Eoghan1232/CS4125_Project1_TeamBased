@@ -1,6 +1,5 @@
 package com.cs4125.bookingapp.ui.main;
 
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -20,26 +19,27 @@ import android.widget.EditText;
 
 import com.cs4125.bookingapp.R;
 
-public class BookingFragment extends Fragment
-{
+public class BookingResultFragment extends Fragment {
+
+
+
+    public static BookingResultFragment newInstance() {
+        return new BookingResultFragment();
+    }
 
     private BookingViewModel bookingViewModel;
-    private EditText routeId;
-    private EditText quantity;
-    private EditText discount;
+    private EditText username;
+    private EditText email;
+    private EditText confirmPassword;
+    private EditText password;
     private Button payBtn;
     private NavController navController;
-
-    public static BookingFragment newInstance()
-    {
-        return new BookingFragment();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.booking_fragment, container, false);
+        View view = inflater.inflate(R.layout.booking_result_fragment, container, false);
         configureUiItems(view);
         bookingViewModel = ViewModelProviders.of(this).get(BookingViewModel.class);
         bookingViewModel.init();
@@ -50,18 +50,20 @@ public class BookingFragment extends Fragment
         bindUiItems(view);
         Navigation.setViewNavController(view, new NavController(getContext()));
         navController = Navigation.findNavController(view);
-        payBtn.setOnClickListener(view1 -> book());
+        payBtn.setOnClickListener(view1 -> pay());
     }
 
     private void bindUiItems(View view){
-        routeId = view.findViewById(R.id.routeIdIn);
-        quantity = view.findViewById(R.id.quantityIn);
-        discount = view.findViewById(R.id.discountIn);
-        payBtn = view.findViewById(R.id.bookingBookBtn);
+        username = view.findViewById(R.id.regUsername);
+        email = view.findViewById(R.id.regEmail);
+        password = view.findViewById(R.id.regPassword1);
+        confirmPassword = view.findViewById(R.id.regPassword2);
+        payBtn = view.findViewById(R.id.payBtn);
     }
 
-    private void book(){
-        navController.navigate(R.id.);
+    private void pay(){
+        Utilities.showToast(getContext(), "Transaction successful. Click continue");
+        //navController.navigate(R.id.action_loginFragment_to_registerFragment);
     }
 
 }
