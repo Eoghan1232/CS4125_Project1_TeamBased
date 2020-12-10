@@ -1,0 +1,114 @@
+[
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout_booking_fragment.xml.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\layout\\booking_fragment.xml"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout_booking_result_fragment.xml.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\layout\\booking_result_fragment.xml"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v24\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout_main_activity.xml.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\layout\\main_activity.xml"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout_route_search_item.xml.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\layout\\route_search_item.xml"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\raw_awsconfiguration.json.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\raw\\awsconfiguration.json"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout_search_result_fragment.xml.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\layout\\search_result_fragment.xml"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\raw_amplifyconfiguration.json.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\raw\\amplifyconfiguration.json"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout_search_fragment.xml.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\layout\\search_fragment.xml"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\navigation_app_nav.xml.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\navigation\\app_nav.xml"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout_login_fragment.xml.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\layout\\login_fragment.xml"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout_register_fragment.xml.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\layout\\register_fragment.xml"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout_admin_fragment.xml.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\layout\\admin_fragment.xml"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_launcher_background.xml.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout_toolbar.xml.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\layout\\toolbar.xml"
+    },
+    {
+        "merged": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout_main_fragment.xml.flat",
+        "source": "D:\\GitProjects\\CS4125_Project1_TeamBased\\Code\\app\\src\\main\\res\\layout\\main_fragment.xml"
+    }
+]
