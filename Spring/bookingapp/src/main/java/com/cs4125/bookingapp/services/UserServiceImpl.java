@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
             return "FAILURE: 1";
         }
 
-        User resUser = userRepository.findByUsernameAndAndPassword(name, encryptor.encryptString(password));
+        User resUser = userRepository.findByUsernameAndPassword(name, encryptor.encryptString(password));
         if(resUser == null) {
             return "FAILURE: 2";
         }

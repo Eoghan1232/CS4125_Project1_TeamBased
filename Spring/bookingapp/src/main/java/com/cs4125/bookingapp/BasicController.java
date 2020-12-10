@@ -1,24 +1,7 @@
 package com.cs4125.bookingapp;
 
-import com.cs4125.bookingapp.model.RouteFactory;
-import com.cs4125.bookingapp.model.UserFactory;
-import com.cs4125.bookingapp.model.entities.*;
-import com.cs4125.bookingapp.model.repositories.*;
-import com.cs4125.bookingapp.services.DiscountService;
-import com.cs4125.bookingapp.services.RouteService;
-import com.cs4125.bookingapp.services.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 @RestController
 public class BasicController {

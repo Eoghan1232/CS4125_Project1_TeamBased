@@ -26,7 +26,6 @@ import com.cs4125.bookingapp.entities.Route;
 
 public class BookingFragment extends Fragment
 {
-
     private BookingViewModel bookingViewModel;
     private EditText routeId;
     private EditText quantity;
