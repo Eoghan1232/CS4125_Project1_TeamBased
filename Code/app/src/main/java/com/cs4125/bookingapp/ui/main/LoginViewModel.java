@@ -2,6 +2,7 @@ package com.cs4125.bookingapp.ui.main;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.cs4125.bookingapp.entities.User;
@@ -15,9 +16,23 @@ import okhttp3.ResponseBody;
 public class LoginViewModel extends ViewModel
 {
     private UserRepository repository;
+    private SavedStateHandle state;
 
-    public void init(){
-        this.repository = new UserRepositoryImpl();
+    public LoginViewModel(SavedStateHandle savedStateHandle)
+    {
+        state = savedStateHandle;
+    }
+
+    public void init() {
+        if(state.contains("user_repository"))
+        {
+            this.repository = state.get("user_repository");
+        }
+        else
+        {
+            this.repository = new UserRepositoryImpl();
+            state.set("user_repository", this.repository);
+        }
     }
 
     public LiveData<String> login(User user){

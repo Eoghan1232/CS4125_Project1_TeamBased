@@ -61,7 +61,8 @@ public class SearchFragment extends Fragment
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.search_fragment, container, false);
         configureUiItems(view);
-        searchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
+        //searchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
+        searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         searchViewModel.init();
         userId = SearchFragmentArgs.fromBundle(getArguments()).getUserId();
 

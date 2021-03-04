@@ -29,6 +29,7 @@ public class BookingController {
         return String.join("\n", result);
     }
 
+    // TODO: will need to change if implementing route planing
     @PostMapping(path="/newbooking")
     @ResponseBody
     public String addNewBooking (@RequestParam int routeId, @RequestParam int userId, @RequestParam int quantity, @RequestParam String discountCode) {

@@ -2,22 +2,38 @@ package com.cs4125.bookingapp.ui.main;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.cs4125.bookingapp.entities.Booking;
 import com.cs4125.bookingapp.repositories.BookingRepository;
+import com.cs4125.bookingapp.repositories.BookingRepositoryCacheProxy;
 import com.cs4125.bookingapp.repositories.BookingRepositoryImpl;
 import com.cs4125.bookingapp.repositories.ResultCallback;
+import com.cs4125.bookingapp.repositories.UserRepositoryImpl;
 
 import okhttp3.ResponseBody;
 
 public class BookingViewModel extends ViewModel
 {
     private BookingRepository repository;
+    private SavedStateHandle state;
 
+    public BookingViewModel(SavedStateHandle savedStateHandle)
+    {
+        state = savedStateHandle;
+    }
 
-    public void init(){
-        this.repository = new BookingRepositoryImpl();
+    public void init() {
+        if(state.contains("booking_repository"))
+        {
+            this.repository = state.get("booking_repository");
+        }
+        else
+        {
+            this.repository = new BookingRepositoryCacheProxy();
+            state.set("booking_repository", this.repository);
+        }
     }
 
     public LiveData<String> bookTicket(Booking booking, String code){

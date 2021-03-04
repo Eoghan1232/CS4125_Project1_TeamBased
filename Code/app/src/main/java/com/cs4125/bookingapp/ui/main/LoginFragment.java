@@ -34,7 +34,7 @@ public class LoginFragment extends Fragment
 {
     private EditText usernameField;
     private EditText passwordField;
-    private Button   loginBtn;
+    private Button loginBtn;
     private Button registerBtn;
     private NavController navController;
     private LoginViewModel loginViewModel;
@@ -45,7 +45,8 @@ public class LoginFragment extends Fragment
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.login_fragment, container, false);
         configureUiItems(view);
-        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+//        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         loginViewModel.init();
         return view;
     }

@@ -2,6 +2,7 @@ package com.cs4125.bookingapp.entities;
 
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
 public class Booking
 {

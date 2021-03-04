@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -35,7 +36,8 @@ public class SearchResultFragment extends Fragment
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.search_result_fragment, container, false);
         configureUiItems(view);
-        searchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
+        //searchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
+        searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         searchViewModel.init();
         userId = SearchResultFragmentArgs.fromBundle(getArguments()).getUserId();
 

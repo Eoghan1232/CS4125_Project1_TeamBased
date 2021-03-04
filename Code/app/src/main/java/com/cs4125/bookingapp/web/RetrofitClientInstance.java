@@ -9,7 +9,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class RetrofitClientInstance
 {
     private static Retrofit retrofit;
-    private static final String BASE_URL = "http://bookingapp-env.eba-vi7ezpsv.eu-west-1.elasticbeanstalk.com/";
+    private static final String BASE_URL = "http://bookingappv2-env.eba-jiuphjjt.eu-west-1.elasticbeanstalk.com/";
     private static SpringRetrofitService web;
 
     public static Retrofit getRetrofitInstance()
@@ -32,7 +32,7 @@ public class RetrofitClientInstance
         {
             getRetrofitInstance();
         }
-        if (web== null)
+        if (web == null)
         {
             web = RetrofitClientInstance.getRetrofitInstance().create(SpringRetrofitService.class);
         }

@@ -7,13 +7,14 @@ import com.cs4125.bookingapp.web.RetrofitClientInstance;
 import com.cs4125.bookingapp.web.SpringRetrofitService;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserRepositoryImpl implements UserRepository
+public class UserRepositoryImpl implements UserRepository, Serializable
 {
     private final SpringRetrofitService web = RetrofitClientInstance.getWebInstance();
 

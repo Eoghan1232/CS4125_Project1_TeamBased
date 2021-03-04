@@ -45,7 +45,8 @@ public class RegisterFragment extends Fragment
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.register_fragment, container, false);
         configureUiItems(view);
-        registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
+//        registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
+        registerViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
         registerViewModel.init();
         return view;
     }

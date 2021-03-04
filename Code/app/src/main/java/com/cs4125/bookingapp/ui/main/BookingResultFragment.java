@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -45,7 +46,8 @@ public class BookingResultFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.booking_result_fragment, container, false);
         configureUiItems(view);
-        bookingViewModel = ViewModelProviders.of(this).get(BookingViewModel.class);
+//        bookingViewModel = ViewModelProviders.of(this).get(BookingViewModel.class);
+        bookingViewModel = new ViewModelProvider(this).get(BookingViewModel.class);
         bookingViewModel.init();
         userId = BookingResultFragmentArgs.fromBundle(getArguments()).getUserId();
 

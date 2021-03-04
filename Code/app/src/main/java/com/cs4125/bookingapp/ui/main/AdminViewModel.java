@@ -2,21 +2,26 @@ package com.cs4125.bookingapp.ui.main;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.cs4125.bookingapp.entities.Booking;
 import com.cs4125.bookingapp.entities.Discount;
 import com.cs4125.bookingapp.entities.Route;
 import com.cs4125.bookingapp.entities.User;
+import com.cs4125.bookingapp.repositories.BookingRepositoryCacheProxy;
 import com.cs4125.bookingapp.repositories.BookingRepositoryImpl;
 import com.cs4125.bookingapp.repositories.DiscountRepository;
+import com.cs4125.bookingapp.repositories.DiscountRepositoryCacheProxy;
 import com.cs4125.bookingapp.repositories.DiscountRepositoryImpl;
 import com.cs4125.bookingapp.repositories.ResultCallback;
 import com.cs4125.bookingapp.repositories.RouteRepository;
+import com.cs4125.bookingapp.repositories.RouteRepositoryCacheProxy;
 import com.cs4125.bookingapp.repositories.RouteRepositoryImpl;
 import com.cs4125.bookingapp.repositories.UserRepository;
 import com.cs4125.bookingapp.repositories.BookingRepository;
 import com.cs4125.bookingapp.repositories.BookingRepositoryImpl;
+import com.cs4125.bookingapp.repositories.UserRepositoryImpl;
 
 import okhttp3.Response;
 
@@ -27,10 +32,29 @@ public class AdminViewModel extends ViewModel
     private BookingRepository repository2;
     private RouteRepository repository3;
 
-    public void init(){
-        this.repository = new DiscountRepositoryImpl();
-        this.repository2 = new BookingRepositoryImpl();
-        this.repository3 = new RouteRepositoryImpl();
+    private SavedStateHandle state;
+
+    public AdminViewModel(SavedStateHandle savedStateHandle)
+    {
+        state = savedStateHandle;
+    }
+
+    public void init() {
+        if(state.contains("user_repository"))
+        {
+            this.repository = state.get("admin_discount_repository");
+            this.repository2 = state.get("admin_booking_repository");
+            this.repository3 = state.get("admin_route_repository");
+        }
+        else
+        {
+            this.repository = new DiscountRepositoryCacheProxy();
+            this.repository2 = new BookingRepositoryCacheProxy();
+            this.repository3 = new RouteRepositoryCacheProxy();
+            state.set("admin_discount_repository", this.repository);
+            state.set("admin_booking_repository", this.repository2);
+            state.set("admin_route_repository", this.repository3);
+        }
     }
 
    public LiveData<String> getAllDiscounts(){
