@@ -8,12 +8,12 @@ import java.sql.Timestamp;
 @Service
 public class ConcreteRouteFactory implements RouteFactory {
 
-    public Route getRoute(String routeType, String start_station, String end_station, Timestamp date_time,  double price) {
+    public Route getRoute(String routeType, String start_station, String end_station, String connection_path) {
         if(routeType == null) {
             return null;
         }
         else if (routeType.equalsIgnoreCase("NORMAL_ROUTE")) {
-            return new Route(start_station, end_station, date_time, price);
+            return new Route(start_station, end_station, connection_path);
         }
 
         return null;

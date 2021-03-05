@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
 --
--- Host: cs4125-bookingapp-db.c14c8rsalbp0.eu-west-1.rds.amazonaws.com    Database: bookingappdb
+-- Host: cs4227-bookingapp-db.c14c8rsalbp0.eu-west-1.rds.amazonaws.com    Database: bookingappdb
 -- ------------------------------------------------------
 -- Server version	8.0.20
 
@@ -14,14 +14,12 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-SET @MYSQLDUMP_TEMP_LOG_BIN = @@SESSION.SQL_LOG_BIN;
-SET @@SESSION.SQL_LOG_BIN= 0;
 
 --
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '';
+-- SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '';
 
 --
 -- Table structure for table `booking`
@@ -164,7 +162,6 @@ LOCK TABLES `user` WRITE;
 INSERT INTO `user` VALUES (1,'dummy','cf80cd8aed482d5d1527d7dc72fceff84e6326592848447d2dc0b0e87dfc9a90','dummyEmail@gmail.com',1),(2,'test','cf80cd8aed482d5d1527d7dc72fceff84e6326592848447d2dc0b0e87dfc9a90','test@gmail.com',1),(3,'coffee','37290d74ac4d186e3a8e5785d259d2ec04fac91ae28092e7620ec8bc99e830aa','IDrinkCoffee@gmail.com',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
-SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

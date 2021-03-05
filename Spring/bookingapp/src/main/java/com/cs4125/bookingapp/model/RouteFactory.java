@@ -7,5 +7,5 @@ import java.sql.Timestamp;
 
 @Service
 public interface RouteFactory {
-    Route getRoute(String routeType, String start_station, String end_station, Timestamp date_time, double price);
+    Route getRoute(String routeType, String start_station, String end_station, String connection_path);
 }

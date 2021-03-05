@@ -14,11 +14,24 @@ public class RouteServiceImpl implements RouteService {
     @Autowired
     private RouteRepository routeRepository;
 
-    /**
+    @Override
+    public String findAllRoutes(String startNodeName, String endNodeName) {
+        //TODO: Implement once we implement strategy pattern to find routes
+        return null;
+    }
+
+    @Override
+    public String findAllRoutesFiltered(String startNodeName, String endNodeName, String filters) {
+        //TODO: Implement once we implement strategy and filter patterns to find routes
+        return null;
+    }
+
+
+    /*
      * Searches route by id
      * @param id id of the route
      * @return SUCCESS: route information if found the route, else FAILURE: error code
-     */
+     *//*
     @Override
     public String searchRoute(int id) {
         Route resRoute = routeRepository.findById(id).orElse(null);
@@ -29,13 +42,13 @@ public class RouteServiceImpl implements RouteService {
         return "SUCCESS: " + resRoute.toString();
     }
 
-    /**
+    *//*
      * Searches route by stations and datetime
      * @param startStation name of start station
      * @param endStation name of end station
      * @param dateTime date and time of the route
      * @return SUCCESS: route information if found the route, else FAILURE: error code
-     */
+     *//*
     @Override
     public String searchRoute(String startStation, String endStation, Timestamp dateTime) {
         Route resRoute = routeRepository.findByStartStationAndEndStationAndDateTime(startStation, endStation, dateTime);
@@ -46,13 +59,13 @@ public class RouteServiceImpl implements RouteService {
         return "SUCCESS: " + resRoute.toString();
     }
 
-    /**
+    *//*
      * Searches all routes by any combination of the given parameters
      * @param startStation name of start station
      * @param endStation name of end station
      * @param dateTime date and time of the route
      * @return List of strings containing information of the found routes, if none found will return List with FAILURE: error code
-     */
+     *//*
     @Override
     public List<String> searchAllRoutes(String startStation, String endStation, Timestamp dateTime) {
         List<Route> matchedRoutes = routeRepository.findAllByStartStationOrEndStationOrDateTime(startStation, endStation, dateTime);
@@ -76,11 +89,11 @@ public class RouteServiceImpl implements RouteService {
         return result;
     }
 
-    /**
+    *//*
      * Add a new route
      * @param r route to be added
      * @return SUCCESS: routeid if adding was successful, else FAILURE: error code
-     */
+     *//*
     @Override
     public String addRoute(Route r) {
         Route routeCheck = routeRepository.findByStartStationAndEndStationAndDateTime(r.getStartStation(), r.getEndStation(), r.getDateTime());
@@ -92,11 +105,11 @@ public class RouteServiceImpl implements RouteService {
         return "SUCCESS: " + r.getRouteId();
     }
 
-    /**
+    *//*
      * Update a route
      * @param r route with updated variables
      * @return SUCCESS: routeid if update was successful, else FAILURE: error code
-     */
+     *//*
     @Override
     public String updateRoute(Route r) {
         // no id supplied
@@ -113,11 +126,11 @@ public class RouteServiceImpl implements RouteService {
         return "SUCCESS: " + r.getRouteId();
     }
 
-    /**
+    *//*
      * Delete a route
      * @param r route to be deleted
      * @return SUCCESS: 0 if deletion was successful, else FAILURE: error code
-     */
+     *//*
     @Override
     public String deleteRoute(Route r) {
         // no id supplied
@@ -136,5 +149,5 @@ public class RouteServiceImpl implements RouteService {
         }
 
         return "SUCCESS: 0";
-    }
+    }*/
 }

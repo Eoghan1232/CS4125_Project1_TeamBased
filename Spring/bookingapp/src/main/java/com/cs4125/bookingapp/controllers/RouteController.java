@@ -13,9 +13,31 @@ import java.util.List;
 public class RouteController {
     @Autowired
     private RouteService routeService;
+    /*
     @Autowired
     private RouteFactory routeFactory;
+     */
 
+    @GetMapping(path="/generateroutes")
+    @ResponseBody
+    public String generateAllRoutes(@PathVariable String startNodeName, @PathVariable String endNodeName)
+    {
+        String result = routeService.findAllRoutes(startNodeName, endNodeName);
+
+        return result;
+    }
+
+    @GetMapping(path="/generatefilteredroutes")
+    @ResponseBody
+    public String generateFilteredRoutes(@PathVariable String startNodeName, @PathVariable String endNodeName, @PathVariable String filters)
+    {
+        String result = routeService.findAllRoutesFiltered(startNodeName, endNodeName, filters);
+
+        return result;
+    }
+
+    /*
+    // Will no longer need
     @GetMapping(path="/getroute/{id}")
     @ResponseBody
     public String getRoute(@PathVariable int id) {
@@ -24,6 +46,7 @@ public class RouteController {
         return result;
     }
 
+    // Will no longer need
     @GetMapping(path="/getroute")
     @ResponseBody
     public String getRoute(@RequestParam String startStation, @RequestParam String endStation, @RequestParam Timestamp dateTime) {
@@ -32,6 +55,7 @@ public class RouteController {
         return result;
     }
 
+    // Will no longer need
     @GetMapping(path="/getallroutes")
     @ResponseBody
     public String getAllRoutes(@RequestParam String startStation, @RequestParam String endStation, @RequestParam Timestamp dateTime) {
@@ -40,6 +64,9 @@ public class RouteController {
         return String.join("\n", result);
     }
 
+     */
+
+    /*
     @PostMapping(path="/newroute")
     @ResponseBody
     public String addNewRoute (@RequestParam String startStation, @RequestParam String endStation, @RequestParam Timestamp dateTime, @RequestParam double price) {
@@ -48,7 +75,9 @@ public class RouteController {
 
         return result;
     }
+     */
 
+    /*
     @PostMapping(path="/updateroute/{id}")
     @ResponseBody
     public String updateRoute (@PathVariable int id, @RequestParam String startStation, @RequestParam String endStation, @RequestParam Timestamp dateTime, @RequestParam double price) {
@@ -59,6 +88,9 @@ public class RouteController {
         return result;
     }
 
+     */
+
+    /*
     @PostMapping(path="/deleteroute/{id}")
     @ResponseBody
     public String deleteRoute (@PathVariable int id, @RequestParam String startStation, @RequestParam String endStation, @RequestParam Timestamp dateTime, @RequestParam double price) {
@@ -68,4 +100,5 @@ public class RouteController {
 
         return result;
     }
+     */
 }

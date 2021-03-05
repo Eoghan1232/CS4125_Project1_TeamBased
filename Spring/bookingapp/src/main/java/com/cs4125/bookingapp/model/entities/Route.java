@@ -2,6 +2,7 @@ package com.cs4125.bookingapp.model.entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 public class Route {
@@ -10,17 +11,15 @@ public class Route {
     private Integer routeId;
     private String startStation;
     private String endStation;
-    private Timestamp dateTime;
-    private double price;
+    private String connectionPath;
 
     public Route(){}
 
-    public Route(String startStation, String endStation, Timestamp dateTime, double price)
+    public Route(String startStation, String endStation, String connectionPath)
     {
         this.startStation = startStation;
         this.endStation = endStation;
-        this.dateTime = dateTime;
-        this.price = price;
+        this.connectionPath = connectionPath;
     }
 
     public Integer getRouteId() {
@@ -47,20 +46,13 @@ public class Route {
         this.endStation = endStation;
     }
 
-    public Timestamp getDateTime() {
-        return dateTime;
+    public String getConnectionPath() {
+        return connectionPath;
     }
 
-    public void setDateTime(Timestamp dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
+    public void setConnectionPath(String connectionPath)
+    {
+        this.connectionPath = connectionPath;
     }
 
     @Override
@@ -69,8 +61,7 @@ public class Route {
                 "routeId=" + routeId +
                 ", startStation=" + startStation +
                 ", endStation=" + endStation +
-                ", dateTime=" + dateTime +
-                ", price=" + price +
+                ", connectionPath=" + connectionPath +
                 '}';
     }
 }

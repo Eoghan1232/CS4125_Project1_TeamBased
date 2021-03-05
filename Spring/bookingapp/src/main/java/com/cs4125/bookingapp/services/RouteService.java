@@ -8,10 +8,14 @@ import java.util.List;
 
 @Service
 public interface RouteService {
+    String findAllRoutes(String startNodeName, String endNodeName);
+    String findAllRoutesFiltered(String startNodeName, String endNodeName, String filters);
+    /*
     String searchRoute(int id);
     String searchRoute(String start_station, String end_station, Timestamp date_time);
     List<String> searchAllRoutes(String start_station, String end_station, Timestamp date_time);
     String addRoute(Route r);
     String updateRoute(Route r);
     String deleteRoute(Route r);
+     */
 }
