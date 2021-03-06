@@ -10,9 +10,8 @@ import org.springframework.stereotype.Controller;
 public class FilterManager {
     FilterChain filterChain;
 
-    public FilterManager(Target target){
+    public FilterManager(){
         filterChain = new FilterChain();
-        filterChain.setTarget(target);
     }
     public void setFilter(Filter filter){
 
@@ -23,5 +22,9 @@ public class FilterManager {
         String result = filterChain.execute(request);
         // We return the String as that how our system runs but for the future the filters will be able to alter the result string as well
         return result;
+    }
+
+    public void setTarget(Target target){
+        filterChain.setTarget(target);
     }
 }
