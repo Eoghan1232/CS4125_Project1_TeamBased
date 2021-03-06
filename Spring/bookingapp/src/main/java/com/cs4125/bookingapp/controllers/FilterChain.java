@@ -14,7 +14,10 @@ public class FilterChain {
     private Target target;
 
     public void addFilter(Filter filter){
-        filters.add(filter);
+        // Doesn't allow duplicate filters.
+        if(!filters.contains(filter)){
+            filters.add(filter);
+        }
     }
 
     public String execute(String request){

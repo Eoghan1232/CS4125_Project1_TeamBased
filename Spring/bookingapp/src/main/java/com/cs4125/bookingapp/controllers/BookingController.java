@@ -20,6 +20,7 @@ public class BookingController {
     public void instantiateManager(){
 //        myManager = new FilterManager((Target) bookingService);
 //        logFilter = new LogFilter();
+
         myManager.setFilter(logFilter);
     }
 

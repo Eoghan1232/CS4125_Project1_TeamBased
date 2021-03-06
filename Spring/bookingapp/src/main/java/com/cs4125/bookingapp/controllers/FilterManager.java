@@ -15,6 +15,7 @@ public class FilterManager {
         filterChain.setTarget(target);
     }
     public void setFilter(Filter filter){
+
         filterChain.addFilter(filter);
     }
 
