@@ -83,3 +83,4 @@ Spring/bookingapp/target/classes/com/cs4125/bookingapp/services/TransactionRecor
 Spring/bookingapp/target/classes/com/cs4125/bookingapp/services/UserServiceImpl.class
 Spring/bookingapp/target/test-classes/com/cs4125/bookingapp/BookingappApplicationTests.class
 Spring/bookingapp/target/test-classes/com/cs4125/bookingapp/controller/UserTest.class
+*.class

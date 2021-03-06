@@ -1,8 +1,14 @@
 package com.cs4125.bookingapp.controllers;
 
+import com.cs4125.bookingapp.services.Filter;
+import com.cs4125.bookingapp.services.Target;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class FilterChain {
     private List<Filter> filters = new ArrayList<Filter>();
     private Target target;
