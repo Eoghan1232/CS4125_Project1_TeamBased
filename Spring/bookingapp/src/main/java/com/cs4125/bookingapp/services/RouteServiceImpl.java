@@ -1,5 +1,7 @@
 package com.cs4125.bookingapp.services;
 
+import com.cs4125.bookingapp.controllers.Target;
+import com.cs4125.bookingapp.model.entities.Discount;
 import com.cs4125.bookingapp.model.entities.Route;
 import com.cs4125.bookingapp.model.repositories.RouteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +11,29 @@ import java.sql.Timestamp;
 import java.util.*;
 
 @Service
-public class RouteServiceImpl implements RouteService {
+public class RouteServiceImpl implements RouteService, Target {
 
     @Autowired
     private RouteRepository routeRepository;
+
+    @Override
+    public String execute(String request) {
+
+        String result = "";
+        String str[] = request.split(",");
+
+        switch(str[0]) {
+            case("findAllRoutes"):
+                result = findAllRoutes(str[1], str[2]);
+                break;
+            case("findAllRoutesFiltered"):
+                result = findAllRoutesFiltered(str[1], str[2], str[3]);
+                break;
+            default:
+                return "FAILURE: 1";
+        }
+        return result;
+    }
 
     @Override
     public String findAllRoutes(String startNodeName, String endNodeName) {

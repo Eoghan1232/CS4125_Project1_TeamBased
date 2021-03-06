@@ -11,6 +11,6 @@ public interface DiscountService {
     String searchDiscount(String code);
     List<String> searchAllDiscounts();
     String addDiscount(Discount d);
-    String updateRoute(Discount d);
-    String deleteRoute(Discount d);
+    String updateDiscount(Discount d);
+    String deleteDiscount(Discount d);
 }

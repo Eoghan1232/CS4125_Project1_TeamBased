@@ -11,57 +11,69 @@ import java.util.List;
 public class DiscountController {
     @Autowired
     private DiscountService discountService;
+    @Autowired
+    private FilterManager myManager;
+    @Autowired
+    private LogFilter logFilter;
+
+    public void instantiateManager(){
+        myManager.setFilter(logFilter);
+        myManager.setTarget((Target) bookingService);
+    }
 
     @GetMapping(path="/getdiscount/{id}")
     @ResponseBody
     public String getDiscount(@PathVariable int id) {
-        String result = discountService.searchDiscount(id);
-
-        return result;
+//        String result = discountService.searchDiscount(id);
+        instantiateManager();
+        String request = "searchDiscountId," + id;
+        return myManager.filterRequest(request);
     }
 
     @GetMapping(path="/getdiscount")
     @ResponseBody
     public String getDiscount(@RequestParam String code) {
-        String result = discountService.searchDiscount(code);
-
-        return result;
+//        String result = discountService.searchDiscount(code);
+        instantiateManager();
+        String request = "searchDiscountCode," + code;
+        return myManager.filterRequest(request);
     }
 
     @GetMapping(path="/getalldiscounts")
     @ResponseBody
     public String getAllDiscount() {
-        List<String> result = discountService.searchAllDiscounts();
-
-        return String.join("\n", result);
+        instantiateManager();
+        String request = "searchDiscountId,";
+        return myManager.filterRequest(request);
     }
 
     @PostMapping(path="/newdiscount")
     @ResponseBody
     public String addNewDiscount (@RequestParam String code, @RequestParam List<String> routeIds, @RequestParam double discountPercent) {
-        Discount d = new Discount(code, String.join("&&", routeIds), discountPercent);
-        String result = discountService.addDiscount(d);
-
-        return result;
+//        Discount d = new Discount(code, String.join("&&", routeIds), discountPercent);
+//        String result = discountService.addDiscount(d);
+        instantiateManager();
+        String request = "addBooking," + code + "," + String.join("&&", routeIds) + "," + discountPercent;
+        return myManager.filterRequest(request);
     }
 
     @PostMapping(path="/updatediscount/{id}")
     @ResponseBody
-    public String updateRoute (@PathVariable int id, @RequestParam String code, @RequestParam List<String> routeIds, @RequestParam double discountPercent) {
-        Discount d = new Discount(code, String.join("&&", routeIds), discountPercent);
-        d.setDiscountId(id);
-        String result = discountService.updateRoute(d);
-
-        return result;
+    public String updateDiscount (@PathVariable int id, @RequestParam String code, @RequestParam List<String> routeIds, @RequestParam double discountPercent) {
+//        Discount d = new Discount(code, String.join("&&", routeIds), discountPercent);
+//        d.setDiscountId(id);
+//        String result = discountService.updateDiscount(d);
+        String request = "updateDiscount," + id + "," + code + "," + String.join("&&", routeIds) + "," + discountPercent;;
+        return myManager.filterRequest(request);
     }
 
     @PostMapping(path="/deletediscount/{id}")
     @ResponseBody
-    public String deleteRoute (@PathVariable int id, @RequestParam String code, @RequestParam List<String> routeIds, @RequestParam double discountPercent) {
-        Discount d = new Discount(code, String.join("&&", routeIds), discountPercent);
-        d.setDiscountId(id);
-        String result = discountService.deleteRoute(d);
-
-        return result;
+    public String deleteDiscount (@PathVariable int id, @RequestParam String code, @RequestParam List<String> routeIds, @RequestParam double discountPercent) {
+//        Discount d = new Discount(code, String.join("&&", routeIds), discountPercent);
+//        d.setDiscountId(id);
+//        String result = discountService.deleteDiscount(d);
+        String request = "updateDiscount," + id + "," + code + "," + String.join("&&", routeIds) + "," + discountPercent;;
+        return myManager.filterRequest(request);
     }
 }

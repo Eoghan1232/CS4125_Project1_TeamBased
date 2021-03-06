@@ -1,5 +1,7 @@
 package com.cs4125.bookingapp.services;
 
+import com.cs4125.bookingapp.controllers.Target;
+import com.cs4125.bookingapp.model.entities.Booking;
 import com.cs4125.bookingapp.model.entities.Discount;
 import com.cs4125.bookingapp.model.repositories.DiscountRepository;
 import com.google.common.collect.Lists;
@@ -10,9 +12,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class DiscountServiceImpl implements DiscountService {
+public class DiscountServiceImpl implements DiscountService, Target {
     @Autowired
     private DiscountRepository discountRepository;
+
+    @Override
+    public String execute(String request) {
+
+        String result = "";
+        String str[] = request.split(",");
+        Discount d;
+
+        switch(str[0]) {
+            case("searchDiscountId"):
+                result = searchDiscount(Integer.parseInt(str[1]));
+                break;
+            case("searchDiscountCode"):
+                result = searchDiscount(str[1]);
+                break;
+            case("searchAllDiscounts"):
+                result = searchAllDiscounts().toString();
+                break;
+            case("addDiscount"):
+                d = new Discount(str[1],  str[2], Double.parseDouble(str[3]));
+                result = addDiscount(d);
+                break;
+            case("updateDiscount"):
+                d = new Discount(str[2], str[3], Double.parseDouble(str[4]));
+                d.setDiscountId(Integer.parseInt(str[1]));
+                result = updateDiscount(d);
+                break;
+            case("deleteDiscount"):
+                d = new Discount(str[2], str[3], Double.parseDouble(str[4]));
+                d.setDiscountId(Integer.parseInt(str[1]));
+                result = deleteDiscount(d);
+                break;
+            default:
+                return "FAILURE: 1";
+        }
+        return result;
+    }
 
     /**
      * Searches discount by id
@@ -93,7 +132,7 @@ public class DiscountServiceImpl implements DiscountService {
      * @return SUCCESS: discount id if update was successful, else FAILURE: error code
      */
     @Override
-    public String updateRoute(Discount d) {
+    public String updateDiscount(Discount d) {
         // no id supplied
         if (d.getDiscountId() == 0) {
             return "FAILURE: 1";
@@ -114,7 +153,7 @@ public class DiscountServiceImpl implements DiscountService {
      * @return SUCCESS: 0 if deletion was successful, else FAILURE: error code
      */
     @Override
-    public String deleteRoute(Discount d) {
+    public String deleteDiscount(Discount d) {
         // no id supplied
         if (d.getDiscountId() == 0) {
             return "FAILURE: 1";

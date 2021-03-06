@@ -13,6 +13,15 @@ import java.util.List;
 public class RouteController {
     @Autowired
     private RouteService routeService;
+    @Autowired
+    private FilterManager myManager;
+    @Autowired
+    private LogFilter logFilter;
+
+    public void instantiateManager(){
+        myManager.setFilter(logFilter);
+        myManager.setTarget((Target) bookingService);
+    }
     /*
     @Autowired
     private RouteFactory routeFactory;
@@ -22,18 +31,20 @@ public class RouteController {
     @ResponseBody
     public String generateAllRoutes(@PathVariable String startNodeName, @PathVariable String endNodeName)
     {
-        String result = routeService.findAllRoutes(startNodeName, endNodeName);
-
-        return result;
+//        String result = routeService.findAllRoutes(startNodeName, endNodeName);
+        instantiateManager();
+        String request = "searchDiscountId," + startNodeName + "," + endNodeName;
+        return myManager.filterRequest(request);
     }
 
     @GetMapping(path="/generatefilteredroutes")
     @ResponseBody
     public String generateFilteredRoutes(@PathVariable String startNodeName, @PathVariable String endNodeName, @PathVariable String filters)
     {
-        String result = routeService.findAllRoutesFiltered(startNodeName, endNodeName, filters);
-
-        return result;
+//        String result = routeService.findAllRoutesFiltered(startNodeName, endNodeName, filters);
+        instantiateManager();
+        String request = "searchDiscountId," + startNodeName + "," + endNodeName + "," + filters;
+        return myManager.filterRequest(request);
     }
 
     /*
