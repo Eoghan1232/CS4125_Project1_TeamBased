@@ -2,7 +2,9 @@ package com.cs4125.bookingapp.controllers;
 
 import com.cs4125.bookingapp.model.RouteFactory;
 import com.cs4125.bookingapp.model.entities.Route;
+import com.cs4125.bookingapp.services.LogFilter;
 import com.cs4125.bookingapp.services.RouteService;
+import com.cs4125.bookingapp.services.Target;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +22,7 @@ public class RouteController {
 
     public void instantiateManager(){
         myManager.setFilter(logFilter);
-        myManager.setTarget((Target) bookingService);
+        myManager.setTarget((Target) routeService);
     }
     /*
     @Autowired

@@ -1,6 +1,5 @@
 package com.cs4125.bookingapp.services;
 
-import com.cs4125.bookingapp.controllers.Target;
 import com.cs4125.bookingapp.model.entities.Discount;
 import com.cs4125.bookingapp.model.entities.Route;
 import com.cs4125.bookingapp.model.repositories.RouteRepository;

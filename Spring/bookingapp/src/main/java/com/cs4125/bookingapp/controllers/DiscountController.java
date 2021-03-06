@@ -2,6 +2,8 @@ package com.cs4125.bookingapp.controllers;
 
 import com.cs4125.bookingapp.model.entities.Discount;
 import com.cs4125.bookingapp.services.DiscountService;
+import com.cs4125.bookingapp.services.LogFilter;
+import com.cs4125.bookingapp.services.Target;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +20,7 @@ public class DiscountController {
 
     public void instantiateManager(){
         myManager.setFilter(logFilter);
-        myManager.setTarget((Target) bookingService);
+        myManager.setTarget((Target) discountService);
     }
 
     @GetMapping(path="/getdiscount/{id}")
