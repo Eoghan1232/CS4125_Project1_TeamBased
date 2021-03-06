@@ -1,5 +1,7 @@
 package com.cs4125.bookingapp.services;
 
+import com.cs4125.bookingapp.model.UserFactory;
+import com.cs4125.bookingapp.model.entities.Booking;
 import com.cs4125.bookingapp.model.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,12 +9,36 @@ import org.springframework.stereotype.Service;
 import com.cs4125.bookingapp.model.repositories.UserRepository;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, Target {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserFactory userFactory;
 
     private EncryptionService encryptor = new EncryptionServiceImpl();
+
+
+    @Override
+    public String execute(String request) {
+        String result = "";
+        String str[] = request.split(",");
+        User u;
+
+        switch(str[0]) {
+            case("register"):
+               u = userFactory.getUser("NORMAL_USER", str[1], str[2], str[3]);
+               result = register(u);
+                break;
+            case("login"):
+                result = login(str[1], str[2]);
+                break;
+            default:
+                return "FAILURE: 1";
+        }
+
+        return result;
+    }
 
     /**
      * Registers the user
@@ -55,4 +81,5 @@ public class UserServiceImpl implements UserService {
 
         return "SUCCESS: " + resUser.getUser_id();
     }
+
 }

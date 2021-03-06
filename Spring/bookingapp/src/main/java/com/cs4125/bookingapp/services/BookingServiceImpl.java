@@ -1,18 +1,11 @@
 package com.cs4125.bookingapp.services;
 
-import com.cs4125.bookingapp.controllers.Target;
 import com.cs4125.bookingapp.model.entities.Booking;
-import com.cs4125.bookingapp.model.entities.Discount;
-import com.cs4125.bookingapp.model.entities.Route;
 import com.cs4125.bookingapp.model.entities.TransactionRecord;
-import com.cs4125.bookingapp.model.repositories.BookingRepository;
-import com.cs4125.bookingapp.model.repositories.DiscountRepository;
-import com.cs4125.bookingapp.model.repositories.RouteRepository;
-import com.cs4125.bookingapp.model.repositories.TransactionRepository;
+import com.cs4125.bookingapp.model.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

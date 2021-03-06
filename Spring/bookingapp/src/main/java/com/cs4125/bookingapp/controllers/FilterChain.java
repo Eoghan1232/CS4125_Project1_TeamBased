@@ -1,14 +1,23 @@
 package com.cs4125.bookingapp.controllers;
 
+import com.cs4125.bookingapp.services.Filter;
+import com.cs4125.bookingapp.services.Target;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class FilterChain {
     private List<Filter> filters = new ArrayList<Filter>();
     private Target target;
 
     public void addFilter(Filter filter){
-        filters.add(filter);
+        // Doesn't allow duplicate filters.
+        if(!filters.contains(filter)){
+            filters.add(filter);
+        }
     }
 
     public String execute(String request){

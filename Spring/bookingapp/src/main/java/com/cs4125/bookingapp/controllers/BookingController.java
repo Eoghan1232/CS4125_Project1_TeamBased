@@ -1,11 +1,10 @@
 package com.cs4125.bookingapp.controllers;
 
-import com.cs4125.bookingapp.model.entities.Booking;
 import com.cs4125.bookingapp.services.BookingService;
+import com.cs4125.bookingapp.services.LogFilter;
+import com.cs4125.bookingapp.services.Target;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class BookingController {
@@ -13,13 +12,14 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
+    @Autowired
     private FilterManager myManager;
-    LogFilter logFilter;
+    @Autowired
+    private LogFilter logFilter;
 
     public void instantiateManager(){
-        myManager = new FilterManager((Target) bookingService);
-        logFilter = new LogFilter();
         myManager.setFilter(logFilter);
+        myManager.setTarget((Target) bookingService);
     }
 
 
