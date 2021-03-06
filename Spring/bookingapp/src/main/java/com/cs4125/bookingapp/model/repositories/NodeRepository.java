@@ -12,5 +12,5 @@ import java.util.List;
 @Repository
 public interface NodeRepository extends CrudRepository<Node, Integer> {
     List<Node> findAll();
-    Node findByNodeName();
+    Node findByNodeName(String name);
 }

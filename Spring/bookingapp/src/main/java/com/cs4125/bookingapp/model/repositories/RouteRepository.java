@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface RouteRepository extends CrudRepository<Route, Integer> {
-    Route findByStartStationAndEndStationAndDateTime(String startStation, String endStation, Timestamp dateTime);
-    List<Route> findAllByStartStationOrEndStationOrDateTime(String startStation, String endStation, Timestamp dateTime);
-    Route findByRouteId();
+//    Route findByStartStationAndEndStationAndDateTime(String startStation, String endStation, Timestamp dateTime);
+//    List<Route> findAllByStartStationOrEndStationOrDateTime(String startStation, String endStation, Timestamp dateTime);
+    Route findByRouteId(int id);
 }

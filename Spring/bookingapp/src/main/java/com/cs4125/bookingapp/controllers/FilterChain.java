@@ -1,5 +1,8 @@
 package com.cs4125.bookingapp.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FilterChain {
     private List<Filter> filters = new ArrayList<Filter>();
     private Target target;

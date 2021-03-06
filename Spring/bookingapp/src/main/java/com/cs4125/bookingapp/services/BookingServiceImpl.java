@@ -1,5 +1,6 @@
 package com.cs4125.bookingapp.services;
 
+import com.cs4125.bookingapp.controllers.Target;
 import com.cs4125.bookingapp.model.entities.Booking;
 import com.cs4125.bookingapp.model.entities.Discount;
 import com.cs4125.bookingapp.model.entities.Route;
@@ -11,13 +12,14 @@ import com.cs4125.bookingapp.model.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class BookingServiceImpl implements BookingService {
+public class BookingServiceImpl implements BookingService, Target {
 
     @Autowired
     private BookingRepository bookingRepository;
@@ -29,6 +31,40 @@ public class BookingServiceImpl implements BookingService {
     private TransactionRepository transactionRepository;
 
     private TransactionContext transactionContext = new TransactionContext();
+
+    @Override
+    public String execute(String request) {
+
+        String result = "";
+        String str[] = request.split(",");
+        Booking b;
+
+        switch(str[0]) {
+            case("searchBooking"):
+                result = searchBooking(Integer.parseInt(str[1]));
+                break;
+            case("searchAllBookings"):
+                result = searchAllBookings(Integer.parseInt(str[1])).toString();
+                break;
+            case("addBooking"):
+                b = new Booking(Integer.parseInt(str[1]), Integer.parseInt(str[2]), Integer.parseInt(str[3]), null, -1, -1);
+                result = addBooking(b,str[4]);
+                break;
+            case("updateTransaction"):
+                b = new Booking();
+                b.setBookingId(Integer.parseInt(str[1]));
+                result = updateTransaction(b);
+                break;
+            case("cancelBooking"):
+                b = new Booking();
+                b.setBookingId(Integer.parseInt(str[1]));
+                result = cancelBooking(b);
+                break;
+            default:
+                return "FAILURE: 1";
+        }
+        return result;
+    }
 
     /**
      * Searches booking by id
@@ -82,50 +118,51 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public String addBooking(Booking b, String discountCode) {
         // Make sure route id is valid, and update the date time on the booking
-        Route desiredRoute = routeRepository.findById(b.getRouteId()).orElse(null);
-        if(desiredRoute == null) {
-            return "FAILURE: 1";
-        }
-
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalDateTime travelDateTime = desiredRoute.getDateTime().toLocalDateTime();
-        long dayDifference = Duration.between(currentDateTime, travelDateTime).toDays();
-        if(dayDifference < 0) {
-            return "FAILURE: 2";
-        }
-
-        b.setDateTime(desiredRoute.getDateTime());
-
-        // Check if discount code applies to given route
-        Discount desiredDiscount = discountRepository.findByCode(discountCode);
-        double discountAmount = 1.0;
-        if(desiredDiscount != null) {
-            String[] routeIDs = desiredDiscount.getRouteId().split("&&");
-            for (String s : routeIDs) {
-                if (s.equalsIgnoreCase(Integer.toString(b.getRouteId()))) {
-                    discountAmount = discountAmount - (desiredDiscount.getDiscountPercent() / 100);
-                    break;
-                }
-            }
-        }
-        double priceToPay = b.getQuantity() * (desiredRoute.getPrice() * discountAmount);
-
-        // Create transaction record corresponding to this booking, start with initial state and move to the next
-        TransactionRecord transactionRecord = new TransactionRecord(priceToPay, null);
-        transactionContext.setTransactionRecord(transactionRecord);
-        transactionContext.setTransactionRecordState(new TransactionRecordInitialState());
-        transactionContext.nextState();
-        transactionRepository.save(transactionContext.getTransactionRecord());
-
-        // Final update to booking parameters
-        b.setTotalPrice(priceToPay);
-        b.setTransactionId(transactionContext.getTransactionRecord().getTransactionId());
-        if(b.getTransactionId() == 0) {
-            return "FAILURE: 3";
-        }
-        b = bookingRepository.save(b);
-
-        return "SUCCESS: " + b.toString() + ", " + transactionContext.getCurrentState();
+//        Route desiredRoute = routeRepository.findById(b.getRouteId()).orElse(null);
+//        if(desiredRoute == null) {
+//            return "FAILURE: 1";
+//        }
+//
+//        LocalDateTime currentDateTime = LocalDateTime.now();
+//        LocalDateTime travelDateTime = desiredRoute.getDateTime().toLocalDateTime();
+//        long dayDifference = Duration.between(currentDateTime, travelDateTime).toDays();
+//        if(dayDifference < 0) {
+//            return "FAILURE: 2";
+//        }
+//
+//        b.setDateTime(desiredRoute.getDateTime());
+//
+//        // Check if discount code applies to given route
+//        Discount desiredDiscount = discountRepository.findByCode(discountCode);
+//        double discountAmount = 1.0;
+//        if(desiredDiscount != null) {
+//            String[] routeIDs = desiredDiscount.getRouteId().split("&&");
+//            for (String s : routeIDs) {
+//                if (s.equalsIgnoreCase(Integer.toString(b.getRouteId()))) {
+//                    discountAmount = discountAmount - (desiredDiscount.getDiscountPercent() / 100);
+//                    break;
+//                }
+//            }
+//        }
+//        double priceToPay = b.getQuantity() * (desiredRoute.getPrice() * discountAmount);
+//
+//        // Create transaction record corresponding to this booking, start with initial state and move to the next
+//        TransactionRecord transactionRecord = new TransactionRecord(priceToPay, null);
+//        transactionContext.setTransactionRecord(transactionRecord);
+//        transactionContext.setTransactionRecordState(new TransactionRecordInitialState());
+//        transactionContext.nextState();
+//        transactionRepository.save(transactionContext.getTransactionRecord());
+//
+//        // Final update to booking parameters
+//        b.setTotalPrice(priceToPay);
+//        b.setTransactionId(transactionContext.getTransactionRecord().getTransactionId());
+//        if(b.getTransactionId() == 0) {
+//            return "FAILURE: 3";
+//        }
+//        b = bookingRepository.save(b);
+//
+//        return "SUCCESS: " + b.toString() + ", " + transactionContext.getCurrentState();
+        return "FAILURE: 1";
     }
 
     /**
@@ -200,4 +237,5 @@ public class BookingServiceImpl implements BookingService {
 
         return "SUCCESS: " + amountReturned;
     }
+
 }

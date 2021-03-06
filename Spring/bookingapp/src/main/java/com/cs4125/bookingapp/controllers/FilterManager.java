@@ -3,7 +3,7 @@ package com.cs4125.bookingapp.controllers;
 public class FilterManager {
     FilterChain filterChain;
 
-    public FilterManager(Object target){
+    public FilterManager(Target target){
         filterChain = new FilterChain();
         filterChain.setTarget(target);
     }
