@@ -24,6 +24,6 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
-        tools:text="Description goes here, limited to one line, sample text sample text sample text sample text" />
+        tools:text="Description goes here, sample text sample text sample text sample text sample text sample text sample text sample text sample text sample text sample text sample text sample text sample text" />
 
 </LinearLayout>

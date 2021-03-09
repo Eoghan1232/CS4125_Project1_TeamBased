@@ -190,61 +190,61 @@ public class AdminViewModel extends ViewModel
 
         return liveString;
     }
-   public LiveData<String> newRoute(Route route){
-        MutableLiveData<String> liveString = new MutableLiveData<>();
-        repository3.newRoute(route, new ResultCallback()
-        {
-            @Override
-            public void onResult(String result)
-            {
-                liveString.postValue(result);
-            }
-
-            @Override
-            public void onFailure(Throwable error)
-            {
-                liveString.postValue(error.toString());
-            }
-        });
-
-        return liveString;
-    }
-   public LiveData<String> updateRoute(Route route){
-        MutableLiveData<String> liveString = new MutableLiveData<>();
-        repository3.updateRoute(route, new ResultCallback()
-        {
-            @Override
-            public void onResult(String result)
-            {
-                liveString.postValue(result);
-            }
-
-            @Override
-            public void onFailure(Throwable error)
-            {
-                liveString.postValue(error.toString());
-            }
-        });
-
-        return liveString;
-    }
-   public LiveData<String> deleteRoute(Route route){
-        MutableLiveData<String> liveString = new MutableLiveData<>();
-        repository3.deleteRoute(route, new ResultCallback()
-        {
-            @Override
-            public void onResult(String result)
-            {
-                liveString.postValue(result);
-            }
-
-            @Override
-            public void onFailure(Throwable error)
-            {
-                liveString.postValue(error.toString());
-            }
-        });
-
-        return liveString;
-    }
+//   public LiveData<String> newRoute(Route route){
+//        MutableLiveData<String> liveString = new MutableLiveData<>();
+//        repository3.newRoute(route, new ResultCallback()
+//        {
+//            @Override
+//            public void onResult(String result)
+//            {
+//                liveString.postValue(result);
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable error)
+//            {
+//                liveString.postValue(error.toString());
+//            }
+//        });
+//
+//        return liveString;
+//    }
+//   public LiveData<String> updateRoute(Route route){
+//        MutableLiveData<String> liveString = new MutableLiveData<>();
+//        repository3.updateRoute(route, new ResultCallback()
+//        {
+//            @Override
+//            public void onResult(String result)
+//            {
+//                liveString.postValue(result);
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable error)
+//            {
+//                liveString.postValue(error.toString());
+//            }
+//        });
+//
+//        return liveString;
+//    }
+//   public LiveData<String> deleteRoute(Route route){
+//        MutableLiveData<String> liveString = new MutableLiveData<>();
+//        repository3.deleteRoute(route, new ResultCallback()
+//        {
+//            @Override
+//            public void onResult(String result)
+//            {
+//                liveString.postValue(result);
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable error)
+//            {
+//                liveString.postValue(error.toString());
+//            }
+//        });
+//
+//        return liveString;
+//    }
 }

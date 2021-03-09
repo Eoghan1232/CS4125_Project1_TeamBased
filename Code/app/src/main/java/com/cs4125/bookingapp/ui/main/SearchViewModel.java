@@ -40,27 +40,9 @@ public class SearchViewModel extends ViewModel {
         }
     }
 
-    public LiveData<String> searchAll(Route search){
+    public LiveData<String> searchAll(String start, String end) {
         MutableLiveData<String> liveString = new MutableLiveData<>();
-        repository.searchAllRoute(search, new ResultCallback()
-        {
-            @Override
-            public void onResult(String result)
-            {
-                liveString.postValue(result);
-            }
-
-            @Override
-            public void onFailure(Throwable error)
-            {
-                liveString.postValue(error.toString());
-            }
-        });
-        return liveString;
-    }
-    public LiveData<String> searchRouteById(Route search){
-        MutableLiveData<String> liveString = new MutableLiveData<>();
-        repository.searchRouteById(search, new ResultCallback()
+        repository.generateRoutes(start, end, new ResultCallback()
         {
             @Override
             public void onResult(String result)
@@ -77,9 +59,9 @@ public class SearchViewModel extends ViewModel {
         return liveString;
     }
 
-    public LiveData<String> searchRouteByStationOrDateTime(Route search){
+    public LiveData<String> searchAllFiltered(String start, String end, String filters) {
         MutableLiveData<String> liveString = new MutableLiveData<>();
-        repository.searchRouteByStationOrDateTime(search, new ResultCallback()
+        repository.generateFilteredRoutes(start, end, filters, new ResultCallback()
         {
             @Override
             public void onResult(String result)
@@ -95,5 +77,61 @@ public class SearchViewModel extends ViewModel {
         });
         return liveString;
     }
+
+//    public LiveData<String> searchAll(Route search){
+//        MutableLiveData<String> liveString = new MutableLiveData<>();
+//        repository.searchAllRoute(search, new ResultCallback()
+//        {
+//            @Override
+//            public void onResult(String result)
+//            {
+//                liveString.postValue(result);
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable error)
+//            {
+//                liveString.postValue(error.toString());
+//            }
+//        });
+//        return liveString;
+//    }
+//    public LiveData<String> searchRouteById(Route search){
+//        MutableLiveData<String> liveString = new MutableLiveData<>();
+//        repository.searchRouteById(search, new ResultCallback()
+//        {
+//            @Override
+//            public void onResult(String result)
+//            {
+//                liveString.postValue(result);
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable error)
+//            {
+//                liveString.postValue(error.toString());
+//            }
+//        });
+//        return liveString;
+//    }
+//
+//    public LiveData<String> searchRouteByStationOrDateTime(Route search){
+//        MutableLiveData<String> liveString = new MutableLiveData<>();
+//        repository.searchRouteByStationOrDateTime(search, new ResultCallback()
+//        {
+//            @Override
+//            public void onResult(String result)
+//            {
+//                liveString.postValue(result);
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable error)
+//            {
+//                liveString.postValue(error.toString());
+//            }
+//        });
+//        return liveString;
+//    }
 
 }

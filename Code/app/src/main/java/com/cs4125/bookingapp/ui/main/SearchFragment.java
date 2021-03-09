@@ -1,11 +1,8 @@
 package com.cs4125.bookingapp.ui.main;
 
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -13,9 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
@@ -29,12 +24,11 @@ import android.widget.TimePicker;
 
 import com.cs4125.bookingapp.R;
 import com.cs4125.bookingapp.entities.Route;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class SearchFragment extends Fragment
 {
@@ -49,6 +43,7 @@ public class SearchFragment extends Fragment
     private TextView timeText;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private int userId;
+    private ChipGroup filterGroup;
 
     public static SearchFragment newInstance()
     {
@@ -129,9 +124,12 @@ public class SearchFragment extends Fragment
         time = view.findViewById(R.id.timePicker);
         date = view.findViewById(R.id.datePicker);
         searchBtn = view.findViewById(R.id.searchBtn);
+
+        filterGroup = view.findViewById(R.id.filterChipGroup);
     }
 
-    private void search(){
+    private void search() {
+
         String flocation = "";
         String fdestination = "";
         String fdate = "";
@@ -156,7 +154,24 @@ public class SearchFragment extends Fragment
                 .setDateTime(stamp)
                 .build();
 
-        LiveData<String> response = searchViewModel.searchAll(routeToSearch);
+//        LiveData<String> response = searchViewModel.searchAll(routeToSearch);
+        LiveData<String> response;
+        if(filterGroup.getCheckedChipId() == R.id.defaultChip)
+        {
+            Utilities.showToast(this.getContext(), "Searching!");
+            response = searchViewModel.searchAll(routeToSearch.getStartStation(), routeToSearch.getEndStation());
+        }
+        else
+        {
+            Chip c = getView().findViewById(filterGroup.getCheckedChipId());
+            Utilities.showToast(this.getContext(), "Searching!");
+            response = searchViewModel.searchAllFiltered(routeToSearch.getStartStation(), routeToSearch.getEndStation(), c.getText().toString().toUpperCase());
+        }
+//        if(filterGroup.getCheckedChipId() == View.R.)
+//            response = searchViewModel.searchAll(routeToSearch.getStartStation(), routeToSearch.getEndStation());
+//        else
+//            response = searchViewModel.searchAllFiltered(routeToSearch.getStartStation(), routeToSearch.getEndStation(), filterGroup.);
+
         response.observe(getViewLifecycleOwner(), this::observeResponse);
     }
 

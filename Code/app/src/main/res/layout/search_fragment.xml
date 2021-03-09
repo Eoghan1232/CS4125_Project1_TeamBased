@@ -14,7 +14,7 @@
             android:id="@+id/searchTitle"
             android:layout_width="270dp"
             android:layout_height="65dp"
-            android:layout_marginTop="104dp"
+            android:layout_marginTop="32dp"
             android:text="Search for a Route"
             android:textAlignment="center"
             android:textSize="30sp"
@@ -28,7 +28,7 @@
             android:layout_width="284dp"
             android:layout_height="56dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="88dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,8 +36,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/locIn"
-                android:layout_width="282dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:hint="Traveling From" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -47,7 +47,7 @@
             android:layout_width="288dp"
             android:layout_height="61dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +56,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/desIn"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:hint="Traveling To" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -67,7 +67,7 @@
             android:layout_height="53dp"
 
             android:layout_marginStart="8dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="Pick Date"
@@ -95,7 +95,7 @@
             android:layout_width="230dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
             android:text="Date"
             app:layout_constraintEnd_toStartOf="@+id/datePicker"
@@ -129,6 +129,107 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/timeText"
             app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/searchBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeText">
+
+            <TextView
+                android:id="@+id/filterTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Select Filters"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/filterChipGroup"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                app:checkedChip="@id/defaultChip"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filterTitle"
+                app:singleLine="false"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/busChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Bus" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/bikeChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Cycle" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/carChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Car" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/trainChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Train" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/defaultChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Any" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/planeChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Plane" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/taxiChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Taxi" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/uberChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Uber" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/walkingChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Walk" />
+            </com.google.android.material.chip.ChipGroup>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
