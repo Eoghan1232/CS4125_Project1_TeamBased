@@ -1,12 +1,13 @@
 package com.cs4125.bookingapp.services;
 
-import com.cs4125.bookingapp.model.entities.Discount;
-import com.cs4125.bookingapp.model.entities.Route;
+import com.cs4125.bookingapp.model.entities.Connection;
+import com.cs4125.bookingapp.model.repositories.ConnectionRepository;
+import com.cs4125.bookingapp.model.repositories.NodeRepository;
 import com.cs4125.bookingapp.model.repositories.RouteRepository;
+import com.cs4125.bookingapp.services.criteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.*;
 
 @Service
@@ -14,6 +15,12 @@ public class RouteServiceImpl implements RouteService, Target {
 
     @Autowired
     private RouteRepository routeRepository;
+
+    @Autowired
+    private NodeRepository nodeRepository;
+
+    @Autowired
+    private ConnectionRepository connectionRepository;
 
     @Override
     public String execute(String request) {
@@ -37,12 +44,46 @@ public class RouteServiceImpl implements RouteService, Target {
     @Override
     public String findAllRoutes(String startNodeName, String endNodeName) {
         //TODO: Implement once we implement strategy pattern to find routes
+        List<Connection> connectionList = connectionRepository.findAll();
         return null;
     }
 
     @Override
     public String findAllRoutesFiltered(String startNodeName, String endNodeName, String filters) {
         //TODO: Implement once we implement strategy and filter patterns to find routes
+        Criteria criteria;
+        switch(filters) {
+            case("WALK"):
+                criteria = new WalkCriteria();
+                break;
+            case("BUS"):
+                criteria = new BusCriteria();
+                break;
+            case("CAR"):
+                criteria = new CarCriteria();
+                break;
+            case("BIKE"):
+                criteria = new BikeCriteria();
+                break;
+            case("UBER"):
+                criteria = new UberCriteria();
+                break;
+            case("TAXI"):
+                criteria = new TaxiCriteria();
+                break;
+            case("TRAIN"):
+                criteria = new TrainCriteria();
+                break;
+            case("PLANE"):
+                criteria = new PlaneCriteria();
+                break;
+            default:
+                return "FAILURE: 1";
+        }
+
+        List<Connection> connectionList = criteria.meetCriteria(connectionRepository.findAll());
+        //This is where sending the connections to the strategy pattern
+
         return null;
     }
 
