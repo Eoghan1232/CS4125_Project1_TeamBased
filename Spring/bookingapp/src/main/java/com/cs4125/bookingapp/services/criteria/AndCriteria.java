@@ -4,7 +4,7 @@ import com.cs4125.bookingapp.model.entities.Connection;
 
 import java.util.List;
 
-public class AndCriteria implements Criteria {
+public class AndCriteria implements Criteria <Connection> {
 
     private Criteria criteria;
     private Criteria otherCriteria;

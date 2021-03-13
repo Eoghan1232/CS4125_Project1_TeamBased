@@ -5,7 +5,7 @@ import com.cs4125.bookingapp.model.entities.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaneCriteria implements Criteria {
+public class PlaneCriteria implements Criteria <Connection> {
     @Override
     public List<Connection> meetCriteria(List<Connection> connections){
         List<Connection> planeConnections = new ArrayList<Connection>();

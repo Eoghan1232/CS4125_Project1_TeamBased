@@ -5,7 +5,7 @@ import com.cs4125.bookingapp.model.entities.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UberCriteria implements Criteria {
+public class UberCriteria implements Criteria <Connection> {
     @Override
     public List<Connection> meetCriteria(List<Connection> connections){
         List<Connection> UberConnections = new ArrayList<Connection>();
