@@ -5,6 +5,7 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.cs4125.bookingapp.entities.Booking;
+import com.cs4125.bookingapp.entities.Route;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -25,9 +26,9 @@ public class BookingRepositoryCacheProxy implements BookingRepository, Serializa
     }
 
     @Override
-    public void userBooking(Booking booking, String discountCode, ResultCallback callback)
+    public void userBooking(Route route, Booking booking, String discountCode, ResultCallback callback)
     {
-        bookingRepository.userBooking(booking, discountCode, callback);
+        bookingRepository.userBooking(route, booking, discountCode, callback);
     }
 
     @Override

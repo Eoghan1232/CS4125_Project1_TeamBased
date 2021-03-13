@@ -1,11 +1,13 @@
 package com.cs4125.bookingapp.ui.main;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cs4125.bookingapp.R;
@@ -35,13 +37,22 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
         {
             route = item;
             tvTitle.setText(Integer.toString(item.getRouteID()));
-            tvDescription.setText("Start: " + item.getStartStation() + ", End: " + item.getEndStation() + ", Date & Time:" + item.getDateTime() + ", Price:" + item.getPrice());
+            tvDescription.setText("Start: " + item.getStartStation() + ", End: " + item.getEndStation() + ", Connection Path: " + item.getConnectionPath());
         }
 
         @Override
         public void onClick(View view)
         {
-
+            //Utilities.showToast(view.getContext(), route.toString());
+            try
+            {
+                SearchResultFragment s = FragmentManager.findFragment(view);
+                s.bookSelectedRoute(route.toString());
+            }
+            catch (Exception e)
+            {
+                System.out.println("Missing Search Result Fragment: " + e.toString());
+            }
         }
     }
 
@@ -70,12 +81,14 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
         viewHolder.setItem(route);
     }
 
+    public Route getItem(int position){
+        return routes.get(position);
+    }
+
     @Override
     public int getItemCount()
     {
         return routes.size();
     }
-
-
 
 }

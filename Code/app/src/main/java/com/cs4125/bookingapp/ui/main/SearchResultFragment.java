@@ -67,7 +67,7 @@ public class SearchResultFragment extends Fragment
     {
         ArrayList<Route> routes = new ArrayList<>();
         String[] firstSplit = s.split("Route\\{");
-        String[] dataParts = new String[5];
+        String[] dataParts = new String[4];
         for(int i = 1; i < firstSplit.length; ++i)
         {
             firstSplit[i] = firstSplit[i].substring(0, (firstSplit[i].length() - 1));
@@ -81,11 +81,16 @@ public class SearchResultFragment extends Fragment
                     .setRouteID(Integer.parseInt(dataParts[0]))
                     .setStartStation(dataParts[1])
                     .setEndStation(dataParts[2])
-                    .setPrice(Float.parseFloat(dataParts[4]))
-                    .setDateTime(Timestamp.valueOf(dataParts[3]))
+                    .setConnectionPath(dataParts[3])
                     .build();
             routes.add(route);
         }
         return routes;
+    }
+
+    public void bookSelectedRoute(String selection)
+    {
+        SearchResultFragmentDirections.ActionSearchResultFragmentToBookingFragment action = SearchResultFragmentDirections.actionSearchResultFragmentToBookingFragment(userId, selection);
+        navController.navigate(action);
     }
 }

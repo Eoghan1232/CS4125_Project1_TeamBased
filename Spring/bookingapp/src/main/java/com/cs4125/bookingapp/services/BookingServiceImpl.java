@@ -1,6 +1,7 @@
 package com.cs4125.bookingapp.services;
 
 import com.cs4125.bookingapp.model.entities.Booking;
+import com.cs4125.bookingapp.model.entities.Route;
 import com.cs4125.bookingapp.model.entities.TransactionRecord;
 import com.cs4125.bookingapp.model.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,9 @@ public class BookingServiceImpl implements BookingService, Target {
                 result = searchAllBookings(Integer.parseInt(str[1])).toString();
                 break;
             case("addBooking"):
-                b = new Booking(Integer.parseInt(str[1]), Integer.parseInt(str[2]), Integer.parseInt(str[3]), null, -1, -1);
-                result = addBooking(b,str[4]);
+                Route r = new Route(str[1], str[2], str[3]);
+                b = new Booking(-1, Integer.parseInt(str[4]), Integer.parseInt(str[5]), null, -1, -1);
+                result = addBooking(r, b, str[6]);
                 break;
             case("updateTransaction"):
                 b = new Booking();
@@ -104,12 +106,13 @@ public class BookingServiceImpl implements BookingService, Target {
 
     /**
      * Add a new booking
+     * @param r route that is being booked
      * @param b booking to be added
      * @param discountCode discount code to check if price should be reduced
      * @return SUCCESS: booking information if adding was successful, else FAILURE: error code
      */
     @Override
-    public String addBooking(Booking b, String discountCode) {
+    public String addBooking(Route r, Booking b, String discountCode) {
         // Make sure route id is valid, and update the date time on the booking
 //        Route desiredRoute = routeRepository.findById(b.getRouteId()).orElse(null);
 //        if(desiredRoute == null) {

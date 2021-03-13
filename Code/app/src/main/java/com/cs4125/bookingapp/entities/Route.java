@@ -8,16 +8,14 @@ public class Route
     private final int routeID;
     private final String startStation;
     private final String endStation;
-    private final Timestamp dateTime;
-    private final float price;
+    private final String connectionPath;
 
     private Route(RouteBuilder builder)
     {
         this.routeID = builder.routeID;
         this.startStation = builder.startStation;
         this.endStation = builder.endStation;
-        this.dateTime =builder.dateTime;
-        this.price = builder.price;
+        this.connectionPath = builder.connectionPath;
     }
 
     //region Getters
@@ -36,21 +34,17 @@ public class Route
         return endStation;
     }
 
-    public Timestamp getDateTime()
+    public String getConnectionPath()
     {
-        return dateTime;
+        return connectionPath;
     }
 
-    public float getPrice()
-    {
-        return price;
-    }
     //endregion
 
     @Override
     public String toString()
     {
-        return "Route{" + "routeID=" + routeID + ", startStation='" + startStation + '\'' + ", endStation='" + endStation + '\'' + ", dateTime=" + dateTime + ", price=" + price + '}';
+        return "Route{" + "routeID=" + routeID + ", startStation='" + startStation + '\'' + ", endStation='" + endStation + '\'' + ", connectionPath='" + connectionPath + "'}";
     }
 
     public static class RouteBuilder
@@ -58,8 +52,7 @@ public class Route
         public int routeID;
         public String startStation;
         public String endStation;
-        public Timestamp dateTime;
-        public float price;
+        public String connectionPath;
 
         public RouteBuilder setRouteID(int routeID)
         {
@@ -82,16 +75,9 @@ public class Route
             return this;
         }
 
-        public RouteBuilder setDateTime(Timestamp dateTime)
+        public RouteBuilder setConnectionPath(String connectionPath)
         {
-            this.dateTime = dateTime;
-
-            return this;
-        }
-
-        public RouteBuilder setPrice(float price)
-        {
-            this.price = price;
+            this.connectionPath = connectionPath;
 
             return this;
         }

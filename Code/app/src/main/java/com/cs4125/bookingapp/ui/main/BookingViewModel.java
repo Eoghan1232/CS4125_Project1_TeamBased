@@ -6,6 +6,7 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.cs4125.bookingapp.entities.Booking;
+import com.cs4125.bookingapp.entities.Route;
 import com.cs4125.bookingapp.repositories.BookingRepository;
 import com.cs4125.bookingapp.repositories.BookingRepositoryCacheProxy;
 import com.cs4125.bookingapp.repositories.BookingRepositoryImpl;
@@ -36,9 +37,9 @@ public class BookingViewModel extends ViewModel
         }
     }
 
-    public LiveData<String> bookTicket(Booking booking, String code){
+    public LiveData<String> bookTicket(Route route, Booking booking, String code){
         MutableLiveData<String> liveString = new MutableLiveData<>();
-        repository.userBooking(booking, code, new ResultCallback()
+        repository.userBooking(route, booking, code, new ResultCallback()
         {
             @Override
             public void onResult(String result)

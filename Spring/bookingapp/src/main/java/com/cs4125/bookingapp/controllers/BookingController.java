@@ -45,11 +45,13 @@ public class BookingController {
     // TODO: will need to change if implementing route planing
     @PostMapping(path="/newbooking")
     @ResponseBody
-    public String addNewBooking (@RequestParam int routeId, @RequestParam int userId, @RequestParam int quantity, @RequestParam String discountCode) {
+    public String addNewBooking (@RequestParam String startNode, @RequestParam String endNode, @RequestParam String connectionPath,
+                                 @RequestParam int userId, @RequestParam int quantity, @RequestParam String discountCode) {
 //        Booking b = new Booking(routeId, userId, quantity, null, -1, -1);
 //        String result = bookingService.addBooking(b, discountCode);
         instantiateManager();
-        String request = "addBooking," + routeId + "," + userId + "," + quantity + "," + discountCode;
+        //String request = "addBooking," + routeId + "," + userId + "," + quantity + "," + discountCode;
+        String request = "addBooking," + startNode + "," + endNode + "," + connectionPath + "," + userId + "," + quantity + "," + discountCode;
         return myManager.filterRequest(request);
     }
 

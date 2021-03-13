@@ -20,7 +20,7 @@ public class MainFragment extends Fragment
 {
     private MainViewModel mainViewModel;
     private NavController navController;
-    private Button bookBtn;
+//    private Button bookBtn; // can be used later for viewing user's bookings
     private Button searchBtn;
     private int userId;
 
@@ -44,12 +44,12 @@ public class MainFragment extends Fragment
         NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         navController = navHostFragment.getNavController();
         searchBtn.setOnClickListener(view1 -> goToSearchScreen());
-        bookBtn.setOnClickListener(view1 -> goToBookingScreen());
+        //bookBtn.setOnClickListener(view1 -> goToBookingScreen());
     }
 
     private void bindUiItems(View view){
         searchBtn = view.findViewById(R.id.toSearchBtn);
-        bookBtn = view.findViewById(R.id.toBookingBtn);
+//        bookBtn = view.findViewById(R.id.toBookingBtn);
     }
 
     private void goToSearchScreen(){
@@ -57,10 +57,10 @@ public class MainFragment extends Fragment
         navController.navigate(action);
     }
 
-    private void goToBookingScreen(){
-        MainFragmentDirections.ActionMainFragmentToBookingFragment action = MainFragmentDirections.actionMainFragmentToBookingFragment(userId);
-        navController.navigate(action);
-    }
+//    private void goToBookingScreen(){
+//        MainFragmentDirections.ActionMainFragmentToBookingFragment action = MainFragmentDirections.actionMainFragmentToBookingFragment(userId);
+//        navController.navigate(action);
+//    }
 
 
     @Override

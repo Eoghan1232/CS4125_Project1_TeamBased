@@ -5,6 +5,7 @@ import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 
 import com.cs4125.bookingapp.entities.Booking;
+import com.cs4125.bookingapp.entities.Route;
 import com.cs4125.bookingapp.web.RetrofitClientInstance;
 import com.cs4125.bookingapp.web.SpringRetrofitService;
 
@@ -21,8 +22,8 @@ public class BookingRepositoryImpl implements BookingRepository, Serializable
     private final SpringRetrofitService web = RetrofitClientInstance.getWebInstance();
 
     @Override
-    public void userBooking(Booking booking, String discountCode, ResultCallback callback) {
-        Call<ResponseBody> returnVal = web.newBooking(booking.getRouteID(), booking.getPassengerID(), booking.getQuantity(), discountCode);
+    public void userBooking(Route route, Booking booking, String discountCode, ResultCallback callback) {
+        Call<ResponseBody> returnVal = web.newBooking(route.getStartStation(), route.getEndStation(), route.getConnectionPath(), booking.getRouteID(), booking.getPassengerID(), booking.getQuantity(), discountCode);
 
         returnVal.enqueue(new Callback<ResponseBody>() {
             @Override

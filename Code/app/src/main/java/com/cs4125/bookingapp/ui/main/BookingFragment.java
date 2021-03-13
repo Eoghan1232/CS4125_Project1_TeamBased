@@ -24,6 +24,8 @@ import com.cs4125.bookingapp.R;
 import com.cs4125.bookingapp.entities.Booking;
 import com.cs4125.bookingapp.entities.Route;
 
+import java.util.ArrayList;
+
 public class BookingFragment extends Fragment
 {
     private BookingViewModel bookingViewModel;
@@ -33,6 +35,8 @@ public class BookingFragment extends Fragment
     private Button payBtn;
     private NavController navController;
     private int userId;
+    private String routeSelected;
+    private Route route;
 
     public static BookingFragment newInstance()
     {
@@ -49,6 +53,8 @@ public class BookingFragment extends Fragment
         bookingViewModel = new ViewModelProvider(this).get(BookingViewModel.class);
         bookingViewModel.init();
         userId = BookingFragmentArgs.fromBundle(getArguments()).getUserId();
+        routeSelected = BookingFragmentArgs.fromBundle(getArguments()).getRouteSelected();
+        setSelectedRoute(routeSelected);
 
         return view;
     }
@@ -81,8 +87,9 @@ public class BookingFragment extends Fragment
                     Utilities.showToast(getContext(), "Quantity cannot be a negative number!");
                 else
                 {
-                    Booking newBooking = new Booking.BookingBuilder().setRouteID(Integer.parseInt(routeId.getText().toString())).setPassengerID(userId).setQuantity(fquantity).build();
-                    LiveData<String> response = bookingViewModel.bookTicket(newBooking, fdiscount);
+                    Utilities.showToast(getContext(), "Booking!");
+                    Booking newBooking = new Booking.BookingBuilder().setRouteID(-1).setPassengerID(userId).setQuantity(fquantity).build();
+                    LiveData<String> response = bookingViewModel.bookTicket(route, newBooking, fdiscount);
                     response.observe(getViewLifecycleOwner(), this::observeResponse);
                 }
             }
@@ -111,5 +118,26 @@ public class BookingFragment extends Fragment
         {
             Utilities.showToast(this.getContext(), "Booking Failed");
         }
+    }
+
+    private void setSelectedRoute(String s)
+    {
+        String[] firstSplit = s.split("Route\\{");
+        String[] dataParts = new String[4];
+        firstSplit[1] = firstSplit[1].substring(0, (firstSplit[1].length() - 1));
+        String[] secondSplit = firstSplit[1].split(", ");
+        for(int j = 0; j < secondSplit.length; ++j)
+        {
+            String[] thirdSplit = secondSplit[j].split("=");
+            dataParts[j] = thirdSplit[1];
+        }
+        route = new Route.RouteBuilder()
+                .setRouteID(Integer.parseInt(dataParts[0]))
+                .setStartStation(dataParts[1])
+                .setEndStation(dataParts[2])
+                .setConnectionPath(dataParts[3])
+                .build();
+
+        routeId.setText("Start Station: " + route.getStartStation() + "\tEnd Station: " + route.getEndStation() + "\tConnections: " + route.getConnectionPath());
     }
 }

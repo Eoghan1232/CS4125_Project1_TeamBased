@@ -137,21 +137,20 @@ public class SearchFragment extends Fragment
             flocation = location.getText().toString();
         if (destination.getText() != null && destination.getText().length() != 0)
             fdestination = destination.getText().toString();
-        if (mYear + mMonth + mDay != 0 && mMinute + mHour != 0)
-            fdate = String.format("%04d-%02d-%02d %02d:%02d:00", mYear, mMonth, mDay, mHour, mMinute);
-        Timestamp stamp = null;
-        try
-        {
-            stamp = Timestamp.valueOf(fdate);
-        }
-        catch (IllegalArgumentException e)
-        {
-            System.out.println(e.toString());
-        }
+//        if (mYear + mMonth + mDay != 0 && mMinute + mHour != 0)
+//            fdate = String.format("%04d-%02d-%02d %02d:%02d:00", mYear, mMonth, mDay, mHour, mMinute);
+//        Timestamp stamp = null;
+//        try
+//        {
+//            stamp = Timestamp.valueOf(fdate);
+//        }
+//        catch (IllegalArgumentException e)
+//        {
+//            System.out.println(e.toString());
+//        }
         Route routeToSearch = new Route.RouteBuilder()
                 .setStartStation(flocation)
                 .setEndStation(fdestination)
-                .setDateTime(stamp)
                 .build();
 
 //        LiveData<String> response = searchViewModel.searchAll(routeToSearch);
@@ -178,15 +177,38 @@ public class SearchFragment extends Fragment
     private void observeResponse(String s)
     {
         String[] temp = s.split(": ");
-        if (temp[0].equals("SUCCESS"))
+        // TODO: remove after implementing strategy pattern
+        if(true)
         {
-            String routes = temp[1];
+            Route route = new Route.RouteBuilder()
+                    .setRouteID(1)
+                    .setStartStation("N1")
+                    .setEndStation("N2")
+                    .setConnectionPath("C1")
+                    .build();
+
+            Route route2 = new Route.RouteBuilder()
+                    .setRouteID(2)
+                    .setStartStation("N2")
+                    .setEndStation("N3")
+                    .setConnectionPath("C1&&C2")
+                    .build();
+            String routes = route.toString() + route2.toString();
             SearchFragmentDirections.ActionSearchFragmentToSearchResultFragment action = SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(userId, routes);
             navController.navigate(action);
         }
         else
         {
-            Utilities.showToast(this.getContext(), "Search Failed");
+            if (temp[0].equals("SUCCESS"))
+            {
+                String routes = temp[1];
+                SearchFragmentDirections.ActionSearchFragmentToSearchResultFragment action = SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(userId, routes);
+                navController.navigate(action);
+            }
+            else
+            {
+                Utilities.showToast(this.getContext(), "Search Failed");
+            }
         }
     }
 
