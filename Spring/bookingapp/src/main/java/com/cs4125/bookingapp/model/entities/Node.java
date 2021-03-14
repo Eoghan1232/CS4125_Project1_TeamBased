@@ -7,7 +7,7 @@ public class Node {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer nodeID;
+    private Integer nodeId;
     private String nodeName;
     private String nodeStation;
 
@@ -16,6 +16,14 @@ public class Node {
     public Node(String nodeName, String nodeStation) {
         this.nodeName = nodeName;
         this.nodeStation = nodeStation;
+    }
+
+    public Integer getNodeId() {
+        return nodeId;
+    }
+
+    public void setNodeID(Integer nodeId) {
+        this.nodeId = nodeId;
     }
 
     public String getNodeName() {
@@ -37,7 +45,7 @@ public class Node {
     @Override
     public String toString() {
         return "Node{" +
-                "nodeID=" + nodeID +
+                "nodeId=" + nodeId +
                 ", nodeName=" + nodeName +
                 ", nodeStation=" + nodeStation +
                 '}';

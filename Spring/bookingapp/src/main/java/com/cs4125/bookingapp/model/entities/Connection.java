@@ -7,7 +7,7 @@ public class Connection {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer connectionID;
+    private Integer connectionId;
     private String stationOne;
     private String stationTwo;
     private String transportType;
@@ -20,6 +20,14 @@ public class Connection {
         this.stationTwo = stationTwo;
         this.transportType = transportType;
         this.distance = distance;
+    }
+
+    public Integer getConnectionId() {
+        return connectionId;
+    }
+
+    public void setConnectionId(Integer connectionId) {
+        this.connectionId = connectionId;
     }
 
     public String getStationOne() {
@@ -57,7 +65,7 @@ public class Connection {
     @java.lang.Override
     public java.lang.String toString() {
         return "Connection{" +
-                "connectionID=" + connectionID +
+                "connectionId=" + connectionId +
                 ", stationOne=" + stationOne  +
                 ", stationTwo=" + stationTwo +
                 ", transportType=" + transportType +
