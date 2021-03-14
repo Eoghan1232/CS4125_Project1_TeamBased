@@ -1,5 +1,6 @@
 package com.cs4125.bookingapp.services;
 
+import com.cs4125.bookingapp.controllers.Context;
 import com.cs4125.bookingapp.model.entities.Connection;
 import com.cs4125.bookingapp.model.repositories.ConnectionRepository;
 import com.cs4125.bookingapp.model.repositories.NodeRepository;
@@ -82,6 +83,9 @@ public class RouteServiceImpl implements RouteService, Target {
         }
 
         List<Connection> connectionList = criteria.meetCriteria(connectionRepository.findAll());
+        Context context = new Context(new OperationPathFinding());
+        context.executeStrategy(startNodeName, endNodeName, connectionList);
+        //method(startNodeName, endNodeName, connectionList);
         //This is where sending the connections to the strategy pattern
 
         return null;
