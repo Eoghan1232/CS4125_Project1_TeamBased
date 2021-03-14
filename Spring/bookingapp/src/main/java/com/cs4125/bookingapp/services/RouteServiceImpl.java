@@ -1,11 +1,13 @@
 package com.cs4125.bookingapp.services;
 
-import com.cs4125.bookingapp.controllers.Context;
+import com.cs4125.bookingapp.services.interceptor.Target;
+import com.cs4125.bookingapp.services.pathFinding.PathFindingContext;
 import com.cs4125.bookingapp.model.entities.Connection;
 import com.cs4125.bookingapp.model.repositories.ConnectionRepository;
 import com.cs4125.bookingapp.model.repositories.NodeRepository;
 import com.cs4125.bookingapp.model.repositories.RouteRepository;
 import com.cs4125.bookingapp.services.criteria.*;
+import com.cs4125.bookingapp.services.pathFinding.ShortestPathStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,9 @@ public class RouteServiceImpl implements RouteService, Target {
     @Autowired
     private ConnectionRepository connectionRepository;
 
+    @Autowired
+    private PathFindingContext pathFindingContext;
+
     @Override
     public String execute(String request) {
 
@@ -30,10 +35,10 @@ public class RouteServiceImpl implements RouteService, Target {
         String str[] = request.split(",");
 
         switch(str[0]) {
-            case("findAllRoutes"):
+            case("generateAllRoutes"):
                 result = findAllRoutes(str[1], str[2]);
                 break;
-            case("findAllRoutesFiltered"):
+            case("generateFilteredRoutes"):
                 result = findAllRoutesFiltered(str[1], str[2], str[3]);
                 break;
             default:
@@ -46,7 +51,9 @@ public class RouteServiceImpl implements RouteService, Target {
     public String findAllRoutes(String startNodeName, String endNodeName) {
         //TODO: Implement once we implement strategy pattern to find routes
         List<Connection> connectionList = connectionRepository.findAll();
-        return null;
+        pathFindingContext.setStrategy(new ShortestPathStrategy());
+        String result = pathFindingContext.executeStrategy(startNodeName, endNodeName, connectionList);
+        return result;
     }
 
     @Override
@@ -83,8 +90,8 @@ public class RouteServiceImpl implements RouteService, Target {
         }
 
         List<Connection> connectionList = criteria.meetCriteria(connectionRepository.findAll());
-        Context context = new Context(new OperationPathFinding());
-        context.executeStrategy(startNodeName, endNodeName, connectionList);
+        pathFindingContext.setStrategy(new ShortestPathStrategy());
+        pathFindingContext.executeStrategy(startNodeName, endNodeName, connectionList);
         //method(startNodeName, endNodeName, connectionList);
         //This is where sending the connections to the strategy pattern
 

@@ -1,12 +1,8 @@
-package com.cs4125.bookingapp.services;
+package com.cs4125.bookingapp.services.interceptor;
 
 import com.cs4125.bookingapp.model.entities.Log;
 import com.cs4125.bookingapp.model.repositories.LogRepository;
-import com.cs4125.bookingapp.services.Filter;
-import com.google.common.annotations.Beta;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;

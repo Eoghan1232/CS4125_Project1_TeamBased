@@ -1,15 +1,11 @@
 package com.cs4125.bookingapp.controllers;
 
-import com.cs4125.bookingapp.model.RouteFactory;
-import com.cs4125.bookingapp.model.entities.Route;
-import com.cs4125.bookingapp.services.LogFilter;
+import com.cs4125.bookingapp.services.interceptor.FilterManager;
+import com.cs4125.bookingapp.services.interceptor.LogFilter;
 import com.cs4125.bookingapp.services.RouteService;
-import com.cs4125.bookingapp.services.Target;
+import com.cs4125.bookingapp.services.interceptor.Target;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.Timestamp;
-import java.util.List;
 
 @RestController
 public class RouteController {
@@ -28,6 +24,16 @@ public class RouteController {
     @Autowired
     private RouteFactory routeFactory;
      */
+    @GetMapping(path="/generateroutes/1")
+    @ResponseBody
+    public String generateAllRoutes()
+    {
+//        String result = routeService.findAllRoutes(startNodeName, endNodeName);
+        instantiateManager();
+        String request = "generateAllRoutes," + "N1" + "," + "N3";
+        return myManager.filterRequest(request);
+    }
+
 
     @GetMapping(path="/generateroutes")
     @ResponseBody
@@ -35,7 +41,7 @@ public class RouteController {
     {
 //        String result = routeService.findAllRoutes(startNodeName, endNodeName);
         instantiateManager();
-        String request = "searchDiscountId," + startNodeName + "," + endNodeName;
+        String request = "generateAllRoutes," + startNodeName + "," + endNodeName;
         return myManager.filterRequest(request);
     }
 
@@ -45,7 +51,7 @@ public class RouteController {
     {
 //        String result = routeService.findAllRoutesFiltered(startNodeName, endNodeName, filters);
         instantiateManager();
-        String request = "searchDiscountId," + startNodeName + "," + endNodeName + "," + filters;
+        String request = "generateFilteredRoutes," + startNodeName + "," + endNodeName + "," + filters;
         return myManager.filterRequest(request);
     }
 

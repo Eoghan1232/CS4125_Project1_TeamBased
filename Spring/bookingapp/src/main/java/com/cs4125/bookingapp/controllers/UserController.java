@@ -1,9 +1,8 @@
 package com.cs4125.bookingapp.controllers;
 
-import com.cs4125.bookingapp.model.UserFactory;
-import com.cs4125.bookingapp.model.entities.User;
-import com.cs4125.bookingapp.services.LogFilter;
-import com.cs4125.bookingapp.services.Target;
+import com.cs4125.bookingapp.services.interceptor.FilterManager;
+import com.cs4125.bookingapp.services.interceptor.LogFilter;
+import com.cs4125.bookingapp.services.interceptor.Target;
 import com.cs4125.bookingapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserService userService;
-
     @Autowired
     private FilterManager myManager;
     @Autowired

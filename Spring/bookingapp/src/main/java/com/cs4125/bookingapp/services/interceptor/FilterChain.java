@@ -1,8 +1,7 @@
-package com.cs4125.bookingapp.controllers;
+package com.cs4125.bookingapp.services.interceptor;
 
-import com.cs4125.bookingapp.services.Filter;
-import com.cs4125.bookingapp.services.Target;
-import org.springframework.context.annotation.Bean;
+import com.cs4125.bookingapp.services.interceptor.Filter;
+import com.cs4125.bookingapp.services.interceptor.Target;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

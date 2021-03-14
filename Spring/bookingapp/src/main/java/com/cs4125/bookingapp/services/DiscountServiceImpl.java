@@ -1,8 +1,8 @@
 package com.cs4125.bookingapp.services;
 
-import com.cs4125.bookingapp.model.entities.Booking;
 import com.cs4125.bookingapp.model.entities.Discount;
 import com.cs4125.bookingapp.model.repositories.DiscountRepository;
+import com.cs4125.bookingapp.services.interceptor.Target;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

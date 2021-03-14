@@ -1,9 +1,9 @@
 package com.cs4125.bookingapp.controllers;
 
-import com.cs4125.bookingapp.model.entities.Discount;
 import com.cs4125.bookingapp.services.DiscountService;
-import com.cs4125.bookingapp.services.LogFilter;
-import com.cs4125.bookingapp.services.Target;
+import com.cs4125.bookingapp.services.interceptor.FilterManager;
+import com.cs4125.bookingapp.services.interceptor.LogFilter;
+import com.cs4125.bookingapp.services.interceptor.Target;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
