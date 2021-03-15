@@ -13,6 +13,7 @@ import com.cs4125.bookingapp.model.repositories.UserRepository;
 import com.cs4125.bookingapp.services.UserServiceImpl;
 import com.cs4125.bookingapp.services.interceptor.FilterManager;
 import com.cs4125.bookingapp.services.interceptor.LogFilter;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 //This creates a DB in memory so it doesn't affect the real DB.
 @DataJpaTest
-public class UserTest {
+public class UserControllerTests {
 
     private FilterManager myManager;
     private LogFilter logFilter;
@@ -40,7 +41,9 @@ public class UserTest {
         userServiceMock = new UserServiceImpl(userRepository, new ConcreteUserFactory());
         userControllerMock = new UserController(userServiceMock,myManager,logFilter);
     }
-    
+
+    //Test the 4 Controllers in separate files.
+
     @Test
     public void registerUserTest() {
     String message = userControllerMock.addNewUser("Mock","password","mock@gmail.com");
