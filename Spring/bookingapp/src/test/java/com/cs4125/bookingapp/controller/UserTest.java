@@ -9,6 +9,7 @@ import com.cs4125.bookingapp.services.UserServiceImpl;
 import com.cs4125.bookingapp.services.interceptor.FilterChain;
 import com.cs4125.bookingapp.services.interceptor.FilterManager;
 import com.cs4125.bookingapp.services.interceptor.LogFilter;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -28,8 +29,13 @@ public class UserTest {
     private UserServiceImpl userServiceMock;
     @Mock
     private UserFactory userFactory;
-    @InjectMocks
-    UserController userControllerMock = new UserController();
+
+    UserController userControllerMock;
+
+    @Before
+    public void init(){
+        userControllerMock = new UserController(userServiceMock, myManager, logFilter);
+    }
 
     @Test
     public void registerUserTest() {
