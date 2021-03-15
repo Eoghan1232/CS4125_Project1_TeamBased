@@ -10,19 +10,21 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class BookingController {
 
-    @Autowired
-    private BookingService bookingService;
+    private final BookingService bookingService;
+    private final FilterManager myManager;
+    private final LogFilter logFilter;
 
     @Autowired
-    private FilterManager myManager;
-    @Autowired
-    private LogFilter logFilter;
+    public BookingController(BookingService bookingService, FilterManager myManager, LogFilter logFilter) {
+        this.bookingService = bookingService;
+        this.myManager = myManager;
+        this.logFilter = logFilter;
+    }
 
     public void instantiateManager(){
         myManager.setFilter(logFilter);
         myManager.setTarget((Target) bookingService);
     }
-
 
     @GetMapping(path="/getbooking/{id}")
     @ResponseBody

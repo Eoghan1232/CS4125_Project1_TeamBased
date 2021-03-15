@@ -12,8 +12,13 @@ import java.util.List;
 
 @Service
 public class DiscountServiceImpl implements DiscountService, Target {
+
+    private final DiscountRepository discountRepository;
+
     @Autowired
-    private DiscountRepository discountRepository;
+    public DiscountServiceImpl(DiscountRepository discountRepository) {
+        this.discountRepository = discountRepository;
+    }
 
     @Override
     public String execute(String request) {

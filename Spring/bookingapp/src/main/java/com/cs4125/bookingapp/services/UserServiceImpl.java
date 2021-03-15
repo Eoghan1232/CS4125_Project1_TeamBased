@@ -11,13 +11,16 @@ import com.cs4125.bookingapp.model.repositories.UserRepository;
 @Service
 public class UserServiceImpl implements UserService, Target {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserFactory userFactory;
+    private final UserRepository userRepository;
+    private final UserFactory userFactory;
 
     private EncryptionService encryptor = new EncryptionServiceImpl();
 
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, UserFactory userFactory) {
+        this.userRepository = userRepository;
+        this.userFactory = userFactory;
+    }
 
     @Override
     public String execute(String request) {

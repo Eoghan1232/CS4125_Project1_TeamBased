@@ -9,12 +9,17 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RouteController {
+
+    private final RouteService routeService;
+    private final FilterManager myManager;
+    private final LogFilter logFilter;
+
     @Autowired
-    private RouteService routeService;
-    @Autowired
-    private FilterManager myManager;
-    @Autowired
-    private LogFilter logFilter;
+    public RouteController(RouteService routeService, FilterManager myManager, LogFilter logFilter) {
+        this.routeService = routeService;
+        this.myManager = myManager;
+        this.logFilter = logFilter;
+    }
 
     public void instantiateManager(){
         myManager.setFilter(logFilter);

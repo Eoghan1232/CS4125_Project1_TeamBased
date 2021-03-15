@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 @Service
 public class TransactionRecordInProgressState implements TransactionRecordState {
+
     @Override
     public void next(TransactionContext t) {
         t.getTransactionRecord().setStatus(2);

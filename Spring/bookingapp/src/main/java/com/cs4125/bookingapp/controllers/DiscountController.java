@@ -11,12 +11,17 @@ import java.util.List;
 
 @RestController
 public class DiscountController {
+
+    private final DiscountService discountService;
+    private final FilterManager myManager;
+    private final LogFilter logFilter;
+
     @Autowired
-    private DiscountService discountService;
-    @Autowired
-    private FilterManager myManager;
-    @Autowired
-    private LogFilter logFilter;
+    public DiscountController(DiscountService discountService, FilterManager myManager, LogFilter logFilter) {
+        this.discountService = discountService;
+        this.myManager = myManager;
+        this.logFilter = logFilter;
+    }
 
     public void instantiateManager(){
         myManager.setFilter(logFilter);

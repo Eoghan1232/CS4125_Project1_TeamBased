@@ -16,16 +16,20 @@ import java.util.List;
 @Service
 public class BookingServiceImpl implements BookingService, Target {
 
-    @Autowired
-    private BookingRepository bookingRepository;
-    @Autowired
-    private DiscountRepository discountRepository;
-    @Autowired
-    private RouteRepository routeRepository;
-    @Autowired
-    private TransactionRepository transactionRepository;
+    private final BookingRepository bookingRepository;
+    private final DiscountRepository discountRepository;
+    private final RouteRepository routeRepository;
+    private final TransactionRepository transactionRepository;
 
     private TransactionContext transactionContext = new TransactionContext();
+
+    @Autowired
+    public BookingServiceImpl(BookingRepository bookingRepository, DiscountRepository discountRepository, RouteRepository routeRepository, TransactionRepository transactionRepository) {
+        this.bookingRepository = bookingRepository;
+        this.discountRepository = discountRepository;
+        this.routeRepository = routeRepository;
+        this.transactionRepository = transactionRepository;
+    }
 
     @Override
     public String execute(String request) {

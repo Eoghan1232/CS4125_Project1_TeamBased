@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TransactionRecordCancelledState implements TransactionRecordState {
+
     @Override
     public void next(TransactionContext t) {
         // Cancelled State is currently the last state!

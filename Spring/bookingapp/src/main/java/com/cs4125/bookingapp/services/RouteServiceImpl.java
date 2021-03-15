@@ -16,17 +16,18 @@ import java.util.*;
 @Service
 public class RouteServiceImpl implements RouteService, Target {
 
-    @Autowired
-    private RouteRepository routeRepository;
+    private final RouteRepository routeRepository;
+    private final NodeRepository nodeRepository;
+    private final ConnectionRepository connectionRepository;
+    private final PathFindingContext pathFindingContext;
 
     @Autowired
-    private NodeRepository nodeRepository;
-
-    @Autowired
-    private ConnectionRepository connectionRepository;
-
-    @Autowired
-    private PathFindingContext pathFindingContext;
+    public RouteServiceImpl(RouteRepository routeRepository, NodeRepository nodeRepository, ConnectionRepository connectionRepository, PathFindingContext pathFindingContext) {
+        this.routeRepository = routeRepository;
+        this.nodeRepository = nodeRepository;
+        this.connectionRepository = connectionRepository;
+        this.pathFindingContext = pathFindingContext;
+    }
 
     @Override
     public String execute(String request) {

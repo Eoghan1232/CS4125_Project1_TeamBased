@@ -11,8 +11,12 @@ import java.time.LocalDateTime;
 @Service
 public class LogFilter implements Filter {
 
+    private final LogRepository logRepository;
+
     @Autowired
-    private LogRepository logRepository;
+    public LogFilter(LogRepository logRepository) {
+        this.logRepository = logRepository;
+    }
 
     @Override
     public void execute(String request) {

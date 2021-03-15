@@ -9,12 +9,17 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
+
+    private final UserService userService;
+    private final FilterManager myManager;
+    private final LogFilter logFilter;
+
     @Autowired
-    private UserService userService;
-    @Autowired
-    private FilterManager myManager;
-    @Autowired
-    private LogFilter logFilter;
+    public UserController(UserService userService, FilterManager myManager, LogFilter logFilter) {
+        this.userService = userService;
+        this.myManager = myManager;
+        this.logFilter = logFilter;
+    }
 
     public void instantiateManager(){
         myManager.setFilter(logFilter);

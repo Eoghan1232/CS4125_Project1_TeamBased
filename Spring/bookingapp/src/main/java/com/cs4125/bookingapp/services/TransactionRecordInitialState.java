@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TransactionRecordInitialState implements TransactionRecordState {
+
     @Override
     public void next(TransactionContext t) {
         t.getTransactionRecord().setStatus(1);
