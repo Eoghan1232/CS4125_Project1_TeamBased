@@ -2,15 +2,9 @@ package com.cs4125.bookingapp.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
-
-import com.cs4125.bookingapp.services.interceptor.FilterChain;
-import com.cs4125.bookingapp.services.interceptor.FilterManager;
-import com.cs4125.bookingapp.controllers.RouteController;
 import com.cs4125.bookingapp.controllers.UserController;
 import com.cs4125.bookingapp.model.UserFactory;
 import com.cs4125.bookingapp.model.entities.User;
-import com.cs4125.bookingapp.services.interceptor.LogFilter;
-import com.cs4125.bookingapp.services.RouteServiceImpl;
 import com.cs4125.bookingapp.services.UserServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,16 +16,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 public class UserTest {
 
     @Mock
-    private FilterManager myManager;
-    @Mock
-    private FilterChain filterChain;
-    @Mock
-    private LogFilter logFilter;
-    @Mock
     private UserServiceImpl userServiceMock;
     @Mock
     private UserFactory userFactory;
-
     @InjectMocks
     UserController userControllerMock = new UserController();
 
@@ -61,4 +48,5 @@ public class UserTest {
         String message = userControllerMock.getUser(mockUsername,mockPassword);
         assertEquals("Failure", message);
     }
+
 }
