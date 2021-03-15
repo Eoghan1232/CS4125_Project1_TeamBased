@@ -6,6 +6,9 @@ import com.cs4125.bookingapp.controllers.UserController;
 import com.cs4125.bookingapp.model.UserFactory;
 import com.cs4125.bookingapp.model.entities.User;
 import com.cs4125.bookingapp.services.UserServiceImpl;
+import com.cs4125.bookingapp.services.interceptor.FilterChain;
+import com.cs4125.bookingapp.services.interceptor.FilterManager;
+import com.cs4125.bookingapp.services.interceptor.LogFilter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,6 +18,12 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class UserTest {
 
+    @Mock
+    private FilterManager myManager;
+    @Mock
+    private FilterChain filterChain;
+    @Mock
+    private LogFilter logFilter;
     @Mock
     private UserServiceImpl userServiceMock;
     @Mock
