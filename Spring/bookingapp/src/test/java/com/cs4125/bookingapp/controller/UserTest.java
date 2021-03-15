@@ -40,14 +40,7 @@ public class UserTest {
         userServiceMock = new UserServiceImpl(userRepository, new ConcreteUserFactory());
         userControllerMock = new UserController(userServiceMock,myManager,logFilter);
     }
-
-    @Test
-    public void temptTesting(){
-        User mockUser = new User("Mock","password","mock@gmail.com",1);
-        String message = userServiceMock.register(mockUser);
-        assertEquals("SUCCESS", message.split(":")[0]);
-    }
-
+    
     @Test
     public void registerUserTest() {
     String message = userControllerMock.addNewUser("Mock","password","mock@gmail.com");
