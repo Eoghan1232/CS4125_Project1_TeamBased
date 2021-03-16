@@ -35,7 +35,7 @@ public class RouteController {
     {
 //        String result = routeService.findAllRoutes(startNodeName, endNodeName);
         instantiateManager();
-        String request = "generateAllRoutes," + "N1" + "," + "N3";
+        String request = "generateAllRoutes," + "N1" + "," + "N5";
         return myManager.filterRequest(request);
     }
 
