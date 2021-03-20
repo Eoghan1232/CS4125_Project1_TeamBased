@@ -50,6 +50,15 @@ public class ShortestPathStrategy implements Strategy {
                         }
                     }
                 }
+                else if(v.getName().equals(c.getStationTwo()))
+                {
+                    for(Vertex ver: vertices){
+                        if(ver.getName().equals(c.getStationOne()))
+                        {
+                            v.addNeighbour(new Edge(c.getDistance(), v, ver));
+                        }
+                    }
+                }
             }
 
         }
