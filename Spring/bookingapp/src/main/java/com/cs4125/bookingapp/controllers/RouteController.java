@@ -39,6 +39,16 @@ public class RouteController {
         return myManager.filterRequest(request);
     }
 
+    @GetMapping(path="/generatefilteredroutes/1")
+    @ResponseBody
+    public String genFilRoutes()
+    {
+//        String result = routeService.findAllRoutesFiltered(startNodeName, endNodeName, filters);
+        instantiateManager();
+        String request = "generateFilteredRoutes," + "N1" + "," + "N3" + "," + "CAR";
+        return myManager.filterRequest(request);
+    }
+
 
     @GetMapping(path="/generateroutes")
     @ResponseBody

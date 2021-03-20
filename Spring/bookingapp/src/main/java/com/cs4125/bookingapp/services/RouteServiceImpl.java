@@ -1,5 +1,8 @@
 package com.cs4125.bookingapp.services;
 
+import com.cs4125.bookingapp.model.entities.Route;
+import com.cs4125.bookingapp.services.abstractFactory.AbstractCriteriaFactory;
+import com.cs4125.bookingapp.services.abstractFactory.CriteriaFactoryProducer;
 import com.cs4125.bookingapp.services.interceptor.Target;
 import com.cs4125.bookingapp.services.pathFinding.PathFindingContext;
 import com.cs4125.bookingapp.model.entities.Connection;
@@ -20,6 +23,8 @@ public class RouteServiceImpl implements RouteService, Target {
     private final NodeRepository nodeRepository;
     private final ConnectionRepository connectionRepository;
     private final PathFindingContext pathFindingContext;
+    private AbstractCriteriaFactory<?> criteriaFactory;
+    private PriceCalculation priceCalculation;
 
     @Autowired
     public RouteServiceImpl(RouteRepository routeRepository, NodeRepository nodeRepository, ConnectionRepository connectionRepository, PathFindingContext pathFindingContext) {
@@ -50,17 +55,35 @@ public class RouteServiceImpl implements RouteService, Target {
 
     @Override
     public String findAllRoutes(String startNodeName, String endNodeName) {
-        //TODO: Implement once we implement strategy pattern to find routes
+
+        // Get connections
         List<Connection> connectionList = connectionRepository.findAll();
+
+        // Get paths
         pathFindingContext.setStrategy(new ShortestPathStrategy());
         String result = pathFindingContext.executeStrategy(startNodeName, endNodeName, connectionList);
+
+        // for testing
+        List<Route> r = new ArrayList<>();
+        r.add(new Route("N1", "N2", "1&2"));
+
+        // Calculate prices
+        priceCalculation = new PriceCalculation("ALL", connectionList);
+        List<Double> prices = priceCalculation.getPrices(r);
+
+        // Result should will have routes and corresponding pricings
         return result;
     }
 
     @Override
     public String findAllRoutesFiltered(String startNodeName, String endNodeName, String filters) {
-        //TODO: Implement once we implement strategy and filter patterns to find routes
-        Criteria criteria;
+
+        // Get the required criteria
+        criteriaFactory = CriteriaFactoryProducer.getFactory("CONNECTION");
+        Criteria criteria = criteriaFactory.getCriteria(filters);
+        if(criteria == null)
+            return "FAILURE: 1";
+        /* Old criteria initialization before abstract factory
         switch(filters) {
             case("WALK"):
                 criteria = new WalkCriteria();
@@ -89,14 +112,24 @@ public class RouteServiceImpl implements RouteService, Target {
             default:
                 return "FAILURE: 1";
         }
+         */
 
+        // Get filtered connections
         List<Connection> connectionList = criteria.meetCriteria(connectionRepository.findAll());
-        pathFindingContext.setStrategy(new ShortestPathStrategy());
-        pathFindingContext.executeStrategy(startNodeName, endNodeName, connectionList);
-        //method(startNodeName, endNodeName, connectionList);
-        //This is where sending the connections to the strategy pattern
 
-        return null;
+        // Get paths
+        pathFindingContext.setStrategy(new ShortestPathStrategy());
+        String result = pathFindingContext.executeStrategy(startNodeName, endNodeName, connectionList);
+
+        // for testing
+        List<Route> r = new ArrayList<>();
+        r.add(new Route("N1", "N2", "1&2"));
+
+        // Calculate prices
+        priceCalculation = new PriceCalculation(filters, connectionList);
+        List<Double> prices = priceCalculation.getPrices(r);
+
+        return result;
     }
 
 
