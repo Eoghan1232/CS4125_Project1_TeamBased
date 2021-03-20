@@ -1,6 +1,7 @@
 package com.cs4125.bookingapp.services.pathFinding;
 
 import com.cs4125.bookingapp.model.entities.Connection;
+import com.cs4125.bookingapp.model.entities.Route;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.PriorityQueue;
 public class ShortestPathStrategy implements Strategy {
 
     @Override
-    public String findPath(String startNode, String endNode, List<Connection> connections) {
+    public List<Route> findPath(String startNode, String endNode, List<Connection> connections) {
 
         ArrayList<Vertex> vertices = new ArrayList<>();
         ArrayList<String> stationsAdded = new ArrayList<>();
@@ -63,16 +64,36 @@ public class ShortestPathStrategy implements Strategy {
 
         }
 
-
         DijkstraShortestPath shortestPath = new DijkstraShortestPath();
         shortestPath.computeShortestPaths(start);
-
 
 //        String mess =  vertices.get(vertices.indexOf(start)).getName() + " " + vertices.get(vertices.indexOf(end)).getName() + " " ;
 //        mess += vertices.get(0).getName() + " " + vertices.get(2).getName() + " " + vertices.get(2).getDistance();
 
-        String result = "Shortest Path from " + startNode + " to " + endNode + ": " + shortestPath.getShortestPathTo(end);
+        List<Route> result = new ArrayList<>();
+        String connectionPath = shortestPath.getShortestPathTo(end).toString();
+        connectionPath = connectionPath.replaceAll("\\[", "").replaceAll("\\]","");
+        connectionPath = connectionPath.replaceAll("\\s+","");
+        String[] temp = connectionPath.split(",");
+        String res = "";
 
+        for(int i = 0; i < temp.length-1; i++){
+            for(Connection c: connections){
+                if(c.getStationOne().equals(temp[i]) && c.getStationTwo().equals(temp[i+1])){
+                    res += c.getConnectionId() + "&";
+                }
+                else if(c.getStationTwo().equals(temp[i]) && c.getStationOne().equals(temp[i+1])){
+                    res += c.getConnectionId() + "&";
+                }
+            }
+        }
+
+        if(res.charAt(res.length()-1) == '&'){
+            res = res.substring(0,res.length()-1);
+        }
+
+//      String result = "Shortest Path from " + startNode + " to " + endNode + ": " + shortestPath.getShortestPathTo(end);
+        result.add(new Route(startNode, endNode, res));
         return result;
     }
 }
