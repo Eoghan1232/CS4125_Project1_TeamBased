@@ -25,9 +25,11 @@ public class RouteController {
         myManager.setFilter(logFilter);
         myManager.setTarget((Target) routeService);
     }
+
     /*
-    @Autowired
-    private RouteFactory routeFactory;
+     *
+     * TODO: TO BE REMOVED!!!
+     *
      */
     @GetMapping(path="/generateroutes/1")
     @ResponseBody
@@ -35,7 +37,7 @@ public class RouteController {
     {
 //        String result = routeService.findAllRoutes(startNodeName, endNodeName);
         instantiateManager();
-        String request = "generateAllRoutes," + "N1" + "," + "N5";
+        String request = "generateAllRoutes," + "N1" + "," + "N8";
         return myManager.filterRequest(request);
     }
 
@@ -45,7 +47,17 @@ public class RouteController {
     {
 //        String result = routeService.findAllRoutesFiltered(startNodeName, endNodeName, filters);
         instantiateManager();
-        String request = "generateFilteredRoutes," + "N1" + "," + "N3" + "," + "CAR";
+        String request = "generateFilteredRoutes," + "N1" + "," + "N2" + "," + "BUS";
+        return myManager.filterRequest(request);
+    }
+
+    @GetMapping(path="/generatefailure/1")
+    @ResponseBody
+    public String genFail()
+    {
+//        String result = routeService.findAllRoutesFiltered(startNodeName, endNodeName, filters);
+        instantiateManager();
+        String request = "generateFilteredRoutes," + "N1" + "," + "N10" + "," + "BUS";
         return myManager.filterRequest(request);
     }
 

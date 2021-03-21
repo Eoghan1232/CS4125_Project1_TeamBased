@@ -54,30 +54,30 @@ public class RouteServiceImpl implements RouteService, Target {
     }
 
     @Override
-    public String findAllRoutes(String startNodeName, String endNodeName) {
-
+    public String findAllRoutes(String startNodeName, String endNodeName)
+    {
         // Get connections
         List<Connection> connectionList = connectionRepository.findAll();
 
         // Get paths
         pathFindingContext.setStrategy(new ShortestPathStrategy());
-        String result = pathFindingContext.executeStrategy(startNodeName, endNodeName, connectionList);
+        List<Route> routeList = pathFindingContext.executeStrategy(startNodeName, endNodeName, connectionList);
 
-        // for testing
-        List<Route> r = new ArrayList<>();
-        r.add(new Route("N1", "N2", "1&2"));
+        // Check if any paths were found
+        if(routeList.size() <= 0)
+        {
+            return "FAILURE: 1";
+        }
 
         // Calculate prices
         priceCalculation = new PriceCalculation("ALL", connectionList);
-        List<Double> prices = priceCalculation.getPrices(r);
 
-        // Result should will have routes and corresponding pricings
-        return result;
+        return getResultString(routeList);
     }
 
     @Override
-    public String findAllRoutesFiltered(String startNodeName, String endNodeName, String filters) {
-
+    public String findAllRoutesFiltered(String startNodeName, String endNodeName, String filters)
+    {
         // Get the required criteria
         criteriaFactory = CriteriaFactoryProducer.getFactory("CONNECTION");
         Criteria criteria = criteriaFactory.getCriteria(filters);
@@ -119,17 +119,50 @@ public class RouteServiceImpl implements RouteService, Target {
 
         // Get paths
         pathFindingContext.setStrategy(new ShortestPathStrategy());
-        String result = pathFindingContext.executeStrategy(startNodeName, endNodeName, connectionList);
+        List<Route> routeList = pathFindingContext.executeStrategy(startNodeName, endNodeName, connectionList);
 
-        // for testing
-        List<Route> r = new ArrayList<>();
-        r.add(new Route("N1", "N2", "1&2"));
+        // Check if any paths were found
+        if(routeList.size() <= 0)
+        {
+            return "FAILURE: 1";
+        }
 
         // Calculate prices
         priceCalculation = new PriceCalculation(filters, connectionList);
-        List<Double> prices = priceCalculation.getPrices(r);
 
-        return result;
+        return getResultString(routeList);
+    }
+
+    private String getResultString(List<Route> routeList)
+    {
+        List<Double> prices = priceCalculation.getPrices(routeList);
+        int counter = 0;
+
+        System.out.println(prices);
+        if(prices.size() != routeList.size())
+        {
+            return "FAILURE: 2";
+        }
+
+        StringBuilder result = new StringBuilder("SUCCESS: ");
+        for(int i = 0; i < routeList.size(); i++)
+        {
+            if(prices.get(i) < 0)
+                continue;
+
+            String routeString = routeList.get(i).toString();
+            result.append(routeString.substring(0, routeString.length() - 1))
+                    .append(", price=")
+                    .append(prices.get(i))
+                    .append("}");
+            counter++;
+        }
+
+        // No prices for the routes
+        if(counter == 0)
+            return "FAILURE: 3";
+
+        return result.toString();
     }
 
 

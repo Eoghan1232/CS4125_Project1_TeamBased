@@ -43,15 +43,29 @@ public class PriceCalculation
             try
             {
                 int connectionId = Integer.parseInt(s);
-                //TODO: rework once path finding algo is finished as not sure what exactly will be in connection path
-                Connection currentConnection = connections.get(connectionId - 1);
+                //Connection currentConnection = connections.get(connectionId - 1);
+                Connection currentConnection = null;
+                for(Connection c : connections)
+                {
+                    if(c.getConnectionId() == connectionId)
+                    {
+                        currentConnection = c;
+                        break;
+                    }
+                }
+
+                if(currentConnection == null)
+                {
+                    return -1;
+                }
+
                 double distance = currentConnection.getDistance();
 
                 if(preferredTransportType.equalsIgnoreCase("ALL"))
                 {
                     for (String transportType : availableTransportTypes)
                     {
-                        if (currentConnection.getTransportType().contains(transportType))
+                        if (currentConnection.getTransportType().toLowerCase().contains(transportType.toLowerCase()))
                         {
                             double pricePerKM = getTransportPricing(transportType);
                             // error
