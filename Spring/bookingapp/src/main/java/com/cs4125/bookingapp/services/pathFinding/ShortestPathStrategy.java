@@ -26,36 +26,31 @@ public class ShortestPathStrategy implements Strategy {
         vertices.add(start);
         vertices.add(end);
 
-        for(Connection c: connections){
+        for (Connection c : connections) {
 
-            if(!stationsAdded.contains(c.getStationOne())){
+            if (!stationsAdded.contains(c.getStationOne())) {
                 stationsAdded.add(c.getStationOne());
                 vertices.add(new Vertex(c.getStationOne()));
             }
-            if(!stationsAdded.contains(c.getStationTwo())){
+            if (!stationsAdded.contains(c.getStationTwo())) {
                 stationsAdded.add(c.getStationTwo());
                 vertices.add(new Vertex(c.getStationTwo()));
             }
 
         }
 
-        for(Connection c: connections){
+        for (Connection c : connections) {
 
-            for(Vertex v: vertices){
-                if(v.getName().equals(c.getStationOne()))
-                {
-                    for(Vertex ver: vertices){
-                        if(ver.getName().equals(c.getStationTwo()))
-                        {
+            for (Vertex v : vertices) {
+                if (v.getName().equals(c.getStationOne())) {
+                    for (Vertex ver : vertices) {
+                        if (ver.getName().equals(c.getStationTwo())) {
                             v.addNeighbour(new Edge(c.getDistance(), v, ver));
                         }
                     }
-                }
-                else if(v.getName().equals(c.getStationTwo()))
-                {
-                    for(Vertex ver: vertices){
-                        if(ver.getName().equals(c.getStationOne()))
-                        {
+                } else if (v.getName().equals(c.getStationTwo())) {
+                    for (Vertex ver : vertices) {
+                        if (ver.getName().equals(c.getStationOne())) {
                             v.addNeighbour(new Edge(c.getDistance(), v, ver));
                         }
                     }
@@ -72,29 +67,34 @@ public class ShortestPathStrategy implements Strategy {
 
         List<Route> result = new ArrayList<>();
         String connectionPath = shortestPath.getShortestPathTo(end).toString();
-        connectionPath = connectionPath.replaceAll("\\[", "").replaceAll("\\]","");
-        connectionPath = connectionPath.replaceAll("\\s+","");
-        String[] temp = connectionPath.split(",");
-        String res = "";
+        connectionPath = connectionPath.replaceAll("\\[", "").replaceAll("\\]", "");
+        connectionPath = connectionPath.replaceAll("\\s+", "");
+        if (connectionPath.equals(endNode)) {
+            return result;
+        } else {
 
-        for(int i = 0; i < temp.length-1; i++){
-            for(Connection c: connections){
-                if(c.getStationOne().equals(temp[i]) && c.getStationTwo().equals(temp[i+1])){
-                    res += c.getConnectionId() + "&";
-                }
-                else if(c.getStationTwo().equals(temp[i]) && c.getStationOne().equals(temp[i+1])){
-                    res += c.getConnectionId() + "&";
+            String[] temp = connectionPath.split(",");
+            String res = "";
+
+            for (int i = 0; i < temp.length - 1; i++) {
+                for (Connection c : connections) {
+                    if (c.getStationOne().equals(temp[i]) && c.getStationTwo().equals(temp[i + 1])) {
+                        res += c.getConnectionId() + "&";
+                    } else if (c.getStationTwo().equals(temp[i]) && c.getStationOne().equals(temp[i + 1])) {
+                        res += c.getConnectionId() + "&";
+                    }
                 }
             }
-        }
 
-        if(res.charAt(res.length()-1) == '&'){
-            res = res.substring(0,res.length()-1);
-        }
+            if (res.charAt(res.length() - 1) == '&') {
+                res = res.substring(0, res.length() - 1);
+            }
 
 //      String result = "Shortest Path from " + startNode + " to " + endNode + ": " + shortestPath.getShortestPathTo(end);
-        result.add(new Route(startNode, endNode, res));
-        return result;
+            result.add(new Route(startNode, endNode, res));
+//        return result;
+            return result;
+        }
     }
 }
 
