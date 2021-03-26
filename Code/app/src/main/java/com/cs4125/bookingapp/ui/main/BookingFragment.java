@@ -24,6 +24,7 @@ import com.cs4125.bookingapp.R;
 import com.cs4125.bookingapp.entities.Booking;
 import com.cs4125.bookingapp.entities.Route;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class BookingFragment extends Fragment
@@ -76,9 +77,15 @@ public class BookingFragment extends Fragment
     private void book(){
         if(routeId.getText().length() != 0 && quantity.getText().length() != 0)
         {
-            String fdiscount = "";
+            String fdiscount = "null";
             if(discount.getText().length() != 0)
+            {
                 fdiscount = discount.getText().toString();
+                if(fdiscount.contains(","))
+                {
+                    fdiscount = fdiscount.replaceAll(",", "&");
+                }
+            }
 
             try
             {
@@ -116,6 +123,7 @@ public class BookingFragment extends Fragment
         }
         else
         {
+            System.out.println(s);
             Utilities.showToast(this.getContext(), "Booking Failed");
         }
     }
@@ -123,7 +131,7 @@ public class BookingFragment extends Fragment
     private void setSelectedRoute(String s)
     {
         String[] firstSplit = s.split("Route\\{");
-        String[] dataParts = new String[4];
+        String[] dataParts = new String[6];
         firstSplit[1] = firstSplit[1].substring(0, (firstSplit[1].length() - 1));
         String[] secondSplit = firstSplit[1].split(", ");
         for(int j = 0; j < secondSplit.length; ++j)
@@ -132,12 +140,14 @@ public class BookingFragment extends Fragment
             dataParts[j] = thirdSplit[1];
         }
         route = new Route.RouteBuilder()
-                .setRouteID(Integer.parseInt(dataParts[0]))
+                //.setRouteID(Integer.parseInt(dataParts[0]))
                 .setStartStation(dataParts[1])
                 .setEndStation(dataParts[2])
                 .setConnectionPath(dataParts[3])
+                .setPrice(Double.parseDouble(dataParts[4]))
+                .setDateTime(dataParts[5])
                 .build();
 
-        routeId.setText("Start Station: " + route.getStartStation() + "\tEnd Station: " + route.getEndStation() + "\tConnections: " + route.getConnectionPath());
+        routeId.setText("Start Station: " + route.getStartStation() + "\tEnd Station: " + route.getEndStation() + "\tPrice: " + route.getPrice() + "\tDate and Time: " + route.getDateTime());
     }
 }

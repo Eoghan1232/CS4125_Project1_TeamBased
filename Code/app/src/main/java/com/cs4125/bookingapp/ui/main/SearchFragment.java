@@ -139,17 +139,7 @@ public class SearchFragment extends Fragment
         if (destination.getText() != null && destination.getText().length() != 0)
             fdestination = destination.getText().toString();
         if (mYear + mMonth + mDay != 0 && mMinute + mHour != 0)
-            fdate = String.format("%04d-%02d-%02d %02d:%02d:00", mYear, mMonth, mDay, mHour, mMinute);
-        Timestamp stamp = null;
-        try
-        {
-            stamp = Timestamp.valueOf(fdate);
-        }
-        catch (IllegalArgumentException e)
-        {
-            System.out.println(e.toString());
-            Utilities.showToast(this.getContext(), "Invalid Date or Time!");
-        }
+            fdate = String.format("%04d-%02d-%02dT%02d:%02d:00.00Z", mYear, mMonth, mDay, mHour, mMinute);
 
         Route routeToSearch = new Route.RouteBuilder()
                 .setStartStation(flocation)

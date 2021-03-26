@@ -13,16 +13,23 @@ public class DiscountContext
         this.isApplied = false;
     }
 
-    public void applyDiscount()
+    public double applyDiscount(double currentMultiplier)
     {
+        if(discount == null)
+            return currentMultiplier;
+
+        double answer = currentMultiplier;
         if(isApplied)
         {
             System.out.println("Discount already applied!");
         }
         else
         {
-            System.out.println("Apply discount: " + (discount.getDiscountPercent() * 100) + "%");
+            //System.out.println("Apply discount: " + (discount.getDiscountPercent() / 100) + "%");
             isApplied = true;
+            answer = answer - discount.getDiscountPercent() / 100;
         }
+
+        return answer;
     }
 }

@@ -14,11 +14,14 @@ public class ApplyAllDiscounts implements DiscountOperation
     }
 
     @Override
-    public void execute()
+    public double execute(double currentMultiplier)
     {
+        double answer = currentMultiplier;
         for (DiscountContext d : discounts)
         {
-            d.applyDiscount();
+            answer = d.applyDiscount(answer);
         }
+
+        return answer;
     }
 }

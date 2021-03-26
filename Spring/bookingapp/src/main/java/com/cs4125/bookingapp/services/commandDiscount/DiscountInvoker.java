@@ -9,8 +9,8 @@ public class DiscountInvoker
         this.command = command;
     }
 
-    public void execute()
+    public double execute(double currentMultiplier)
     {
-        command.execute();
+        return command.execute(currentMultiplier);
     }
 }

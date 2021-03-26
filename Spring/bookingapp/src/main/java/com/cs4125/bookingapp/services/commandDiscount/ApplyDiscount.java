@@ -12,8 +12,8 @@ public class ApplyDiscount implements DiscountOperation
     }
 
     @Override
-    public void execute()
+    public double execute(double currentMultiplier)
     {
-        discount.applyDiscount();
+        return discount.applyDiscount(currentMultiplier);
     }
 }

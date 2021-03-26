@@ -50,7 +50,7 @@ public class User
     @Override
     public String toString()
     {
-        return "User{" + "userID=" + userID + ", username='" + username + '\'' + ", password='" + password + '\'' + ", email='" + email + '\'' + ", userType=" + userType + '}';
+        return "User{" + "userID=" + userID + ", username=" + username + ", password=" + password + ", email=" + email + ", userType=" + userType + '}';
     }
 
     public static class UserBuilder

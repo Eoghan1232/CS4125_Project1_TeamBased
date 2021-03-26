@@ -11,14 +11,14 @@ public class Discount {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer discountId;
     private String code;
-    private String transportTypes;
+    private String validUsers;
     private double discountPercent;
 
     public Discount(){}
 
     public Discount(String code, String transportTypes, double discountPercent) {
         this.code = code;
-        this.transportTypes = transportTypes;
+        this.validUsers = transportTypes;
         this.discountPercent = discountPercent;
     }
 
@@ -38,12 +38,12 @@ public class Discount {
         this.code = code;
     }
 
-    public String getTransportTypes() {
-        return transportTypes;
+    public String getValidUsers() {
+        return validUsers;
     }
 
-    public void setTransportTypes(String transportTypes) {
-        this.transportTypes = transportTypes;
+    public void setValidUsers(String validUsers) {
+        this.validUsers = validUsers;
     }
 
     public double getDiscountPercent() {
@@ -59,7 +59,7 @@ public class Discount {
         return "Discount{" +
                 "discountId=" + discountId +
                 ", code=" + code +
-                ", transportTypes=" + transportTypes +
+                ", validUsers=" + validUsers +
                 ", discountPercent=" + discountPercent +
                 '}';
     }

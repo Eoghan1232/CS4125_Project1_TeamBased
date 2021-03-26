@@ -1,7 +1,9 @@
 package com.cs4125.bookingapp.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,6 +20,12 @@ import android.widget.TextView;
 import com.cs4125.bookingapp.R;
 import com.cs4125.bookingapp.entities.Booking;
 import com.cs4125.bookingapp.entities.Route;
+import com.stripe.android.PaymentConfiguration;
+import com.stripe.android.Stripe;
+import com.stripe.android.model.ConfirmPaymentIntentParams;
+import com.stripe.android.model.PaymentIntent;
+import com.stripe.android.model.PaymentMethodCreateParams;
+import com.stripe.android.view.CardInputWidget;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -39,6 +47,12 @@ public class BookingResultFragment extends Fragment {
     private NavController navController;
     private int userId;
     private Booking currentBooking;
+    private CardInputWidget cardInputWidget;
+
+    private String paymentIntentClientSecret;
+    private Stripe stripe;
+    private String publicKey = "pk_test_51IX7WzA4GQu91tA9ygW9sAl0Q42Y0pQYRySwRCSfylSVx9EiL3n691M0ayb6n45E9B7dx8DjfKn1iAwQSrfE24Dn00TDsAbjXU";
+    private String privateKey = "sk_test_51IX7WzA4GQu91tA9L6s5Nssb1MC2sVodWphIYYApH0ZwzsokQFlLFm44LeDfVvuHlmfdbs8rUpxgxCzMgc98d5ky00v1YjwyaH";
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -50,6 +64,13 @@ public class BookingResultFragment extends Fragment {
         bookingViewModel = new ViewModelProvider(this).get(BookingViewModel.class);
         bookingViewModel.init();
         userId = BookingResultFragmentArgs.fromBundle(getArguments()).getUserId();
+
+        PaymentConfiguration.init(
+                getContext(),
+                "pk_test_51IX7WzA4GQu91tA9ygW9sAl0Q42Y0pQYRySwRCSfylSVx9EiL3n691M0ayb6n45E9B7dx8DjfKn1iAwQSrfE24Dn00TDsAbjXU"
+        );
+
+        startPaymentProcess();
 
         return view;
     }
@@ -69,6 +90,28 @@ public class BookingResultFragment extends Fragment {
         quantityText = view.findViewById(R.id.quantityText);
         priceText = view.findViewById(R.id.priceText);
         payBtn = view.findViewById(R.id.payBtn);
+        cardInputWidget = view.findViewById(R.id.cardInputWidget);
+    }
+
+    private void startPaymentProcess()
+    {
+        LiveData<String> response = bookingViewModel.getPaymentIntent(currentBooking.getPrice());
+        response.observe(getViewLifecycleOwner(), this::observePaymentIntentResponse);
+    }
+
+    private void observePaymentIntentResponse(String s)
+    {
+        String[] temp = s.split(": ");
+        if(temp[0].equals("SUCCESS"))
+        {
+            String[] secondSplit = temp[1].split(",");
+            publicKey = secondSplit[0].split("=")[1];
+            paymentIntentClientSecret = secondSplit[1].split("=")[1];
+        }
+        else
+        {
+            Utilities.showToast(this.getContext(), "Payment Failed, try again later.");
+        }
     }
 
     private void pay(){
@@ -76,9 +119,40 @@ public class BookingResultFragment extends Fragment {
             Utilities.showToast(getContext(), "Something went wrong, please retry later.");
         else
         {
-            LiveData<String> response = bookingViewModel.payForBooking(currentBooking);
-            response.observe(getViewLifecycleOwner(), this::observeResponse);
+            PaymentMethodCreateParams params = cardInputWidget.getPaymentMethodCreateParams();
+            if (params != null)
+            {
+                try
+                {
+                    ConfirmPaymentIntentParams confirmParams = ConfirmPaymentIntentParams.createWithPaymentMethodCreateParams(params, paymentIntentClientSecret);
+                    stripe = new Stripe(
+                            getContext(),
+                            publicKey
+                    );
+                    stripe.confirmPayment(this, confirmParams);
+                    //LiveData<String> response = bookingViewModel.payForBooking(currentBooking);
+                    //response.observe(getViewLifecycleOwner(), this::observeResponse);
+                }
+                catch(Exception e)
+                {
+                    System.out.println(e.toString());
+                    Utilities.showToast(getContext(), "Missing Card Details!");
+                }
+            }
+            else
+            {
+                Utilities.showToast(getContext(), "Missing Card Details!");
+            }
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Assuming payment got confirmed successfully
+        observeResponse("SUCCESS: 1");
     }
 
     private void observeResponse(String s)
@@ -98,27 +172,35 @@ public class BookingResultFragment extends Fragment {
 
     private void convertStringToBookingInfo(String bookingInfo)
     {
+        System.out.println(bookingInfo);
         String[] firstSplit = bookingInfo.split("Booking\\{");
+        firstSplit[1] = firstSplit[1].substring(0, (firstSplit[1].length() - 1));
         String[] secondSplit = firstSplit[1].split(", ");
         String[] dataParts = new String[8];
-        for(int j = 0; j < secondSplit.length - 1; ++j)
+        for(int j = 0; j < secondSplit.length; ++j)
         {
             String[] thirdSplit = secondSplit[j].split("=");
             dataParts[j] = thirdSplit[1];
         }
-        currentBooking = new Booking.BookingBuilder()
-                .setBookingID(Integer.parseInt(dataParts[0]))
-                .setRouteID(Integer.parseInt(dataParts[1]))
-                .setPassengerID(userId)
-                .setDateTime(Timestamp.valueOf(dataParts[4]))
-                .setQuantity(Integer.parseInt(dataParts[3]))
-                .setPrice(Float.parseFloat(dataParts[5]))
-                .build();
+        try
+        {
+            currentBooking = new Booking.BookingBuilder()
+                    .setBookingID(Integer.parseInt(dataParts[0]))
+                    .setRouteID(Integer.parseInt(dataParts[1]))
+                    .setPassengerID(userId).setDateTime(Timestamp.valueOf(dataParts[4]))
+                    .setQuantity(Integer.parseInt(dataParts[3]))
+                    .setPrice(Float.parseFloat(dataParts[5]))
+                    .build();
 
-        idText.setText(idText.getText().toString() + Integer.toString(currentBooking.getBookingID()));
-        routeIdText.setText(routeIdText.getText().toString() + Integer.toString(currentBooking.getRouteID()));
-        dateTimeText.setText(dateTimeText.getText().toString() + currentBooking.getDateTime().toString());
-        quantityText.setText(quantityText.getText().toString() + Integer.toString(currentBooking.getQuantity()));
-        priceText.setText(priceText.getText().toString() + Float.toString(currentBooking.getPrice()));
+            idText.setText(idText.getText().toString() + Integer.toString(currentBooking.getBookingID()));
+            routeIdText.setText(routeIdText.getText().toString() + Integer.toString(currentBooking.getRouteID()));
+            dateTimeText.setText(dateTimeText.getText().toString() + currentBooking.getDateTime().toString());
+            quantityText.setText(quantityText.getText().toString() + Integer.toString(currentBooking.getQuantity()));
+            priceText.setText(priceText.getText().toString() + Float.toString(currentBooking.getPrice()));
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.toString());
+        }
     }
 }

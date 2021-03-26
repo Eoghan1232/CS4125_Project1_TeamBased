@@ -58,9 +58,9 @@ public class Route
     @Override
     public String toString()
     {
-        return "Route{" + "routeID=" + routeID + ", startStation='" + startStation +
-                "', endStation='" + endStation  + "', connectionPath='" + connectionPath
-                + "', price=" + price + ", dateTime='" + dateTime + "'}";
+        return "Route{" + "routeID=" + routeID + ", startStation=" + startStation +
+                ", endStation=" + endStation  + ", connectionPath=" + connectionPath
+                + ", price=" + price + ", dateTime=" + dateTime + "}";
     }
 
     public static class RouteBuilder

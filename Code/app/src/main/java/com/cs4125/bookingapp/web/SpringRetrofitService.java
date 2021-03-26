@@ -28,29 +28,9 @@ public interface SpringRetrofitService
     @GET("/generatefilteredroutes")
     Call<ResponseBody> getFilteredRoutes(@Query("startNodeName") String startNodeName, @Query("endNodeName") String endNodeName, @Query("filters") String filters, @Query("dateTime") String dateTime);
 
-//    @GET("/getroute/{id}")
-//    Call<ResponseBody> getRoute(@Path("id") int id);
-//
-//    @GET("/getroute")
-//    Call<ResponseBody> getRoute(@Query("startStation") String startStation, @Query("endStation") String endStation, @Query("dateTime") Timestamp dateTime);
-//
-//    /**
-//     * All params are optional i.e. it can return all routes that match for example the start station
-//     */
-//    @GET("/getallroutes")
-//    Call<ResponseBody> getRoutes(@Query("startStation") String startStation, @Query("endStation") String endStation, @Query("dateTime") Timestamp dateTime);
-//
-//    @FormUrlEncoded
-//    @POST("/newroute")
-//    Call<ResponseBody> newRoute(@Field("startStation") String startStation, @Field("endStation") String endStation, @Field("dateTime") Timestamp dateTime, @Field("price") double price);
-//
-//    @FormUrlEncoded
-//    @POST("/updateroute/{id}")
-//    Call<ResponseBody> updateRoute(@Path("id") int id, @Field("startStation") String startStation, @Field("endStation") String endStation, @Field("dateTime") Timestamp dateTime, @Field("price") double price);
-//
-//    @FormUrlEncoded
-//    @POST("/deleteroute/{id}")
-//    Call<ResponseBody> deleteRoute(@Path("id") int id, @Field("startStation") String startStation, @Field("endStation") String endStation, @Field("dateTime") Timestamp dateTime, @Field("price") double price);
+    @FormUrlEncoded
+    @POST("/stripe/createpaymentintent")
+    Call<ResponseBody> newPaymentInent(@Field("price") double price);
 
     @GET("/getdiscount/{id}")
     Call<ResponseBody> getDiscount(@Path("id") int id);
@@ -81,7 +61,10 @@ public interface SpringRetrofitService
 
     @FormUrlEncoded
     @POST("/newbooking")
-    Call<ResponseBody> newBooking(@Field("startNode") String startNode, @Field("endNode") String endNode, @Field("connectionPath") String connectionPath, @Field("routeId") int routeId, @Field("userId") int userId, @Field("quantity") int quantity, @Field("discountCode") String discountCode);
+    Call<ResponseBody> newBooking(@Field("startNode") String startNode, @Field("endNode") String endNode,
+                                  @Field("connectionPath") String connectionPath, @Field("price") double price,
+                                  @Field("dateTime") String dateTime, @Field("userId") int userId,
+                                  @Field("quantity") int quantity, @Field("discountCode") String discountCode);
 
     @POST("/paybooking/{id}")
     Call<ResponseBody> updateBooking(@Path("id") int id);
@@ -89,4 +72,30 @@ public interface SpringRetrofitService
     @FormUrlEncoded
     @POST("/cancelbooking/{id}")
     Call<ResponseBody> cancelBooking(@Path("id") int id);
+
+    // OLD CODE
+//    @GET("/getroute/{id}")
+//    Call<ResponseBody> getRoute(@Path("id") int id);
+//
+//    @GET("/getroute")
+//    Call<ResponseBody> getRoute(@Query("startStation") String startStation, @Query("endStation") String endStation, @Query("dateTime") Timestamp dateTime);
+//
+//    /**
+//     * All params are optional i.e. it can return all routes that match for example the start station
+//     */
+//    @GET("/getallroutes")
+//    Call<ResponseBody> getRoutes(@Query("startStation") String startStation, @Query("endStation") String endStation, @Query("dateTime") Timestamp dateTime);
+//
+//    @FormUrlEncoded
+//    @POST("/newroute")
+//    Call<ResponseBody> newRoute(@Field("startStation") String startStation, @Field("endStation") String endStation, @Field("dateTime") Timestamp dateTime, @Field("price") double price);
+//
+//    @FormUrlEncoded
+//    @POST("/updateroute/{id}")
+//    Call<ResponseBody> updateRoute(@Path("id") int id, @Field("startStation") String startStation, @Field("endStation") String endStation, @Field("dateTime") Timestamp dateTime, @Field("price") double price);
+//
+//    @FormUrlEncoded
+//    @POST("/deleteroute/{id}")
+//    Call<ResponseBody> deleteRoute(@Path("id") int id, @Field("startStation") String startStation, @Field("endStation") String endStation, @Field("dateTime") Timestamp dateTime, @Field("price") double price);
+
 }

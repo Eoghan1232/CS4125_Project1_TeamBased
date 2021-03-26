@@ -127,7 +127,7 @@ public class DiscountServiceImpl implements DiscountService, Target {
         }
         d = discountRepository.save(d);
 
-        return "SUCCESS: " + d.getTransportTypes();
+        return "SUCCESS: " + d.getValidUsers();
     }
 
     /**

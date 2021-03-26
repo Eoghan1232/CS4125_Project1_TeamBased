@@ -138,7 +138,7 @@ public class RouteServiceImpl implements RouteService, Target {
         List<Double> prices = priceCalculation.getPrices(routeList);
         int counter = 0;
 
-        System.out.println(prices);
+        //System.out.println(prices);
         if(prices.size() != routeList.size())
         {
             return "FAILURE: 2";

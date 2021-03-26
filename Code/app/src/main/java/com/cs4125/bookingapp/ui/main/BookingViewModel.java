@@ -10,6 +10,8 @@ import com.cs4125.bookingapp.entities.Route;
 import com.cs4125.bookingapp.repositories.BookingRepository;
 import com.cs4125.bookingapp.repositories.BookingRepositoryCacheProxy;
 import com.cs4125.bookingapp.repositories.BookingRepositoryImpl;
+import com.cs4125.bookingapp.repositories.PaymentRepository;
+import com.cs4125.bookingapp.repositories.PaymentRepositoryImpl;
 import com.cs4125.bookingapp.repositories.ResultCallback;
 import com.cs4125.bookingapp.repositories.UserRepositoryImpl;
 
@@ -18,6 +20,7 @@ import okhttp3.ResponseBody;
 public class BookingViewModel extends ViewModel
 {
     private BookingRepository repository;
+    private PaymentRepository paymentRepository;
     private SavedStateHandle state;
 
     public BookingViewModel(SavedStateHandle savedStateHandle)
@@ -35,6 +38,29 @@ public class BookingViewModel extends ViewModel
             this.repository = new BookingRepositoryCacheProxy();
             state.set("booking_repository", this.repository);
         }
+
+        paymentRepository = new PaymentRepositoryImpl();
+    }
+
+    public LiveData<String> getPaymentIntent(double price)
+    {
+        MutableLiveData<String> liveString = new MutableLiveData<>();
+        paymentRepository.getPaymentIntent(price, new ResultCallback()
+        {
+            @Override
+            public void onResult(String result)
+            {
+                liveString.postValue(result);
+            }
+
+            @Override
+            public void onFailure(Throwable error)
+            {
+                liveString.postValue(error.toString());
+            }
+        });
+
+        return liveString;
     }
 
     public LiveData<String> bookTicket(Route route, Booking booking, String code){
@@ -56,7 +82,7 @@ public class BookingViewModel extends ViewModel
 
         return liveString;
     }
-    //start booking, update booking
+
     public LiveData<String> payForBooking(Booking booking){
         MutableLiveData<String> liveString = new MutableLiveData<>();
         repository.bookingUpdate(booking, new ResultCallback()

@@ -23,7 +23,9 @@ public class BookingRepositoryImpl implements BookingRepository, Serializable
 
     @Override
     public void userBooking(Route route, Booking booking, String discountCode, ResultCallback callback) {
-        Call<ResponseBody> returnVal = web.newBooking(route.getStartStation(), route.getEndStation(), route.getConnectionPath(), booking.getRouteID(), booking.getPassengerID(), booking.getQuantity(), discountCode);
+        Call<ResponseBody> returnVal = web.newBooking(route.getStartStation(), route.getEndStation(),
+                route.getConnectionPath(), route.getPrice(), route.getDateTime(), booking.getPassengerID(),
+                booking.getQuantity(), discountCode);
 
         returnVal.enqueue(new Callback<ResponseBody>() {
             @Override

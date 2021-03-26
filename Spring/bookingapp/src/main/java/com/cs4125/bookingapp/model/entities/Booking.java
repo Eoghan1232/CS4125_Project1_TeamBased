@@ -8,8 +8,8 @@ public class Booking {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer bookingId;
-    private Integer routeId;
     private Integer passengerId;
+    private Integer routeId;
     private Integer quantity;
     private Timestamp dateTime;
     private double totalPrice;
@@ -17,9 +17,9 @@ public class Booking {
 
     public Booking(){}
 
-    public Booking(Integer routeId, Integer passengerId, Integer quantity, Timestamp dateTime, double totalPrice, Integer transactionId) {
-        this.routeId = routeId;
+    public Booking( Integer passengerId, Integer routeId, Integer quantity, Timestamp dateTime, double totalPrice, Integer transactionId) {
         this.passengerId = passengerId;
+        this.routeId = routeId;
         this.quantity = quantity;
         this.dateTime = dateTime;
         this.totalPrice = totalPrice;
@@ -86,8 +86,8 @@ public class Booking {
     public String toString() {
         return "Booking{" +
                 "bookingId=" + bookingId +
-                ", routeId=" + routeId +
                 ", passengerId=" + passengerId +
+                ", routeId=" + routeId +
                 ", quantity=" + quantity +
                 ", dateTime=" + dateTime +
                 ", totalPrice=" + totalPrice +

@@ -39,7 +39,7 @@ public class Discount
     @Override
     public String toString()
     {
-        return "Discount{" + "code='" + code + '\'' + ", routeIDs=" + routeIDs + ", discountPercent=" + discountPercent + "discountId =" + discountId + '}';
+        return "Discount{" + "code=" + code + ", routeIDs=" + routeIDs + ", discountPercent=" + discountPercent + "discountId =" + discountId + '}';
     }
 
     public static class DiscountBuilder
