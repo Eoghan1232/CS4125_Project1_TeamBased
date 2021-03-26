@@ -109,6 +109,7 @@ public class SearchFragment extends Fragment
 
                             }
                         }, mYear, mMonth, mDay);
+                datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
                 datePickerDialog.show();
             }
         }));
@@ -137,17 +138,19 @@ public class SearchFragment extends Fragment
             flocation = location.getText().toString();
         if (destination.getText() != null && destination.getText().length() != 0)
             fdestination = destination.getText().toString();
-//        if (mYear + mMonth + mDay != 0 && mMinute + mHour != 0)
-//            fdate = String.format("%04d-%02d-%02d %02d:%02d:00", mYear, mMonth, mDay, mHour, mMinute);
-//        Timestamp stamp = null;
-//        try
-//        {
-//            stamp = Timestamp.valueOf(fdate);
-//        }
-//        catch (IllegalArgumentException e)
-//        {
-//            System.out.println(e.toString());
-//        }
+        if (mYear + mMonth + mDay != 0 && mMinute + mHour != 0)
+            fdate = String.format("%04d-%02d-%02d %02d:%02d:00", mYear, mMonth, mDay, mHour, mMinute);
+        Timestamp stamp = null;
+        try
+        {
+            stamp = Timestamp.valueOf(fdate);
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println(e.toString());
+            Utilities.showToast(this.getContext(), "Invalid Date or Time!");
+        }
+
         Route routeToSearch = new Route.RouteBuilder()
                 .setStartStation(flocation)
                 .setEndStation(fdestination)
@@ -158,13 +161,13 @@ public class SearchFragment extends Fragment
         if(filterGroup.getCheckedChipId() == R.id.defaultChip)
         {
             Utilities.showToast(this.getContext(), "Searching!");
-            response = searchViewModel.searchAll(routeToSearch.getStartStation(), routeToSearch.getEndStation());
+            response = searchViewModel.searchAll(routeToSearch.getStartStation(), routeToSearch.getEndStation(), fdate);
         }
         else
         {
             Chip c = getView().findViewById(filterGroup.getCheckedChipId());
             Utilities.showToast(this.getContext(), "Searching!");
-            response = searchViewModel.searchAllFiltered(routeToSearch.getStartStation(), routeToSearch.getEndStation(), c.getText().toString().toUpperCase());
+            response = searchViewModel.searchAllFiltered(routeToSearch.getStartStation(), routeToSearch.getEndStation(), c.getText().toString().toUpperCase(), fdate);
         }
 //        if(filterGroup.getCheckedChipId() == View.R.)
 //            response = searchViewModel.searchAll(routeToSearch.getStartStation(), routeToSearch.getEndStation());
@@ -177,38 +180,16 @@ public class SearchFragment extends Fragment
     private void observeResponse(String s)
     {
         String[] temp = s.split(": ");
-        // TODO: remove after implementing strategy pattern
-        if(true)
-        {
-            Route route = new Route.RouteBuilder()
-                    .setRouteID(1)
-                    .setStartStation("N1")
-                    .setEndStation("N2")
-                    .setConnectionPath("C1")
-                    .build();
 
-            Route route2 = new Route.RouteBuilder()
-                    .setRouteID(2)
-                    .setStartStation("N2")
-                    .setEndStation("N3")
-                    .setConnectionPath("C1&&C2")
-                    .build();
-            String routes = route.toString() + route2.toString();
+        if (temp[0].equals("SUCCESS"))
+        {
+            String routes = temp[1];
             SearchFragmentDirections.ActionSearchFragmentToSearchResultFragment action = SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(userId, routes);
             navController.navigate(action);
         }
         else
         {
-            if (temp[0].equals("SUCCESS"))
-            {
-                String routes = temp[1];
-                SearchFragmentDirections.ActionSearchFragmentToSearchResultFragment action = SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(userId, routes);
-                navController.navigate(action);
-            }
-            else
-            {
-                Utilities.showToast(this.getContext(), "Search Failed");
-            }
+            Utilities.showToast(this.getContext(), "Search Failed");
         }
     }
 

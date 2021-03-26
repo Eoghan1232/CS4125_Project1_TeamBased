@@ -8,14 +8,14 @@ public class Node {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer nodeId;
-    private String nodeName;
-    private String nodeStation;
+    private String stationName;
+    private String stationDescriptions;
 
     public Node(){}
 
-    public Node(String nodeName, String nodeStation) {
-        this.nodeName = nodeName;
-        this.nodeStation = nodeStation;
+    public Node(String stationName, String stationDescriptions) {
+        this.stationName = stationName;
+        this.stationDescriptions = stationDescriptions;
     }
 
     public Integer getNodeId() {
@@ -26,28 +26,28 @@ public class Node {
         this.nodeId = nodeId;
     }
 
-    public String getNodeName() {
-        return nodeName;
+    public String getStationName() {
+        return stationName;
     }
 
-    public void setNodeName(String nodeName) {
-        this.nodeName = nodeName;
+    public void setStationName(String stationName) {
+        this.stationName = stationName;
     }
 
-    public String getNodeStation() {
-        return nodeStation;
+    public String getStationDescriptions() {
+        return stationDescriptions;
     }
 
-    public void setNodeStation(String nodeStation) {
-        this.nodeStation = nodeStation;
+    public void setStationDescriptions(String stationDescriptions) {
+        this.stationDescriptions = stationDescriptions;
     }
 
     @Override
     public String toString() {
         return "Node{" +
                 "nodeId=" + nodeId +
-                ", nodeName=" + nodeName +
-                ", nodeStation=" + nodeStation +
+                ", nodeName=" + stationName +
+                ", nodeStation=" + stationDescriptions +
                 '}';
     }
 }

@@ -36,8 +36,24 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
         public void setItem(Route item)
         {
             route = item;
-            tvTitle.setText(Integer.toString(item.getRouteID()));
-            tvDescription.setText("Start: " + item.getStartStation() + ", End: " + item.getEndStation() + ", Connection Path: " + item.getConnectionPath());
+            //tvTitle.setText(Integer.toString(item.getRouteID()));
+            if(item.getPrice() <= 0.0)
+                tvTitle.setText("Free!");
+            else
+                tvTitle.setText("€" + Double.toString(item.getPrice()));
+
+//            int changes = 0;
+//            try
+//            {
+//                String[] parts = item.getConnectionPath().split("&");
+//                if(parts.length >= 2)
+//                    changes = parts.length - 1;
+//            }
+//            catch (Exception e)
+//            {
+//                System.out.println(e.toString());
+//            }
+            tvDescription.setText("Start: " + item.getStartStation() + ", End: " + item.getEndStation() + ", Date and Time: " + item.getDateTime());
         }
 
         @Override

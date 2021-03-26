@@ -42,10 +42,10 @@ public class RouteServiceImpl implements RouteService, Target {
 
         switch(str[0]) {
             case("generateAllRoutes"):
-                result = findAllRoutes(str[1], str[2]);
+                result = findAllRoutes(str[1], str[2], str[3]);
                 break;
             case("generateFilteredRoutes"):
-                result = findAllRoutesFiltered(str[1], str[2], str[3]);
+                result = findAllRoutesFiltered(str[1], str[2], str[3], str[4]);
                 break;
             default:
                 return "FAILURE: 1";
@@ -54,7 +54,7 @@ public class RouteServiceImpl implements RouteService, Target {
     }
 
     @Override
-    public String findAllRoutes(String startNodeName, String endNodeName)
+    public String findAllRoutes(String startNodeName, String endNodeName, String dateTime)
     {
         // Get connections
         List<Connection> connectionList = connectionRepository.findAll();
@@ -72,11 +72,11 @@ public class RouteServiceImpl implements RouteService, Target {
         // Calculate prices
         priceCalculation = new PriceCalculation("ALL", connectionList);
 
-        return getResultString(routeList);
+        return getResultString(routeList, dateTime);
     }
 
     @Override
-    public String findAllRoutesFiltered(String startNodeName, String endNodeName, String filters)
+    public String findAllRoutesFiltered(String startNodeName, String endNodeName, String filters, String dateTime)
     {
         // Get the required criteria
         criteriaFactory = CriteriaFactoryProducer.getFactory("CONNECTION");
@@ -130,10 +130,10 @@ public class RouteServiceImpl implements RouteService, Target {
         // Calculate prices
         priceCalculation = new PriceCalculation(filters, connectionList);
 
-        return getResultString(routeList);
+        return getResultString(routeList, dateTime);
     }
 
-    private String getResultString(List<Route> routeList)
+    private String getResultString(List<Route> routeList, String dateTime)
     {
         List<Double> prices = priceCalculation.getPrices(routeList);
         int counter = 0;
@@ -154,6 +154,8 @@ public class RouteServiceImpl implements RouteService, Target {
             result.append(routeString.substring(0, routeString.length() - 1))
                     .append(", price=")
                     .append(prices.get(i))
+                    .append(", dateTime=")
+                    .append(dateTime)
                     .append("}");
             counter++;
         }

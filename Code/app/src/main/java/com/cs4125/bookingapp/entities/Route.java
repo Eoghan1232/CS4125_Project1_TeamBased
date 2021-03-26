@@ -9,6 +9,8 @@ public class Route
     private final String startStation;
     private final String endStation;
     private final String connectionPath;
+    private final double price;
+    private final String dateTime;
 
     private Route(RouteBuilder builder)
     {
@@ -16,6 +18,8 @@ public class Route
         this.startStation = builder.startStation;
         this.endStation = builder.endStation;
         this.connectionPath = builder.connectionPath;
+        this.price = builder.price;
+        this.dateTime = builder.dateTime;
     }
 
     //region Getters
@@ -39,12 +43,24 @@ public class Route
         return connectionPath;
     }
 
+    public double getPrice()
+    {
+        return price;
+    }
+
+    public String getDateTime()
+    {
+        return dateTime;
+    }
+
     //endregion
 
     @Override
     public String toString()
     {
-        return "Route{" + "routeID=" + routeID + ", startStation='" + startStation + '\'' + ", endStation='" + endStation + '\'' + ", connectionPath='" + connectionPath + "'}";
+        return "Route{" + "routeID=" + routeID + ", startStation='" + startStation +
+                "', endStation='" + endStation  + "', connectionPath='" + connectionPath
+                + "', price=" + price + ", dateTime='" + dateTime + "'}";
     }
 
     public static class RouteBuilder
@@ -53,6 +69,8 @@ public class Route
         public String startStation;
         public String endStation;
         public String connectionPath;
+        public double price;
+        public String dateTime;
 
         public RouteBuilder setRouteID(int routeID)
         {
@@ -78,6 +96,20 @@ public class Route
         public RouteBuilder setConnectionPath(String connectionPath)
         {
             this.connectionPath = connectionPath;
+
+            return this;
+        }
+
+        public RouteBuilder setPrice(double price)
+        {
+            this.price = price;
+
+            return this;
+        }
+
+        public RouteBuilder setDateTime(String dateTime)
+        {
+            this.dateTime = dateTime;
 
             return this;
         }

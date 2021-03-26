@@ -21,16 +21,27 @@ public class RouteRepositoryCacheProxy implements RouteRepository, Serializable
     }
 
     @Override
-    public void generateRoutes(String start, String end, ResultCallback callback)
+    public void generateRoutes(String start, String end, String dateTime, ResultCallback callback)
     {
-        String keyString = "!NOFILTER!" + start + end;
-        if(cachedResults.containsKey(keyString))
+        long diffMinutes = 99;
+        long diffHours = 99;
+        if(lastUpdate != null)
+        {
+            long diffInMillis = Calendar.getInstance().getTime().getTime() - lastUpdate.getTime();
+            diffMinutes = TimeUnit.MILLISECONDS.toMinutes(diffInMillis);
+            diffHours = TimeUnit.MILLISECONDS.toMinutes(diffInMillis);
+        }
+
+        String keyString = "!NOFILTER!" + start + end + dateTime;
+
+        if(diffHours < 1 && diffMinutes < 20 && cachedResults.containsKey(keyString))
         {
             callback.onResult(cachedResults.get(keyString));
         }
         else
         {
-            routeRepository.generateRoutes(start, end, new ResultCallback()
+            lastUpdate = Calendar.getInstance().getTime();
+            routeRepository.generateRoutes(start, end, dateTime, new ResultCallback()
             {
                 @Override
                 public void onResult(String result)
@@ -49,16 +60,27 @@ public class RouteRepositoryCacheProxy implements RouteRepository, Serializable
     }
 
     @Override
-    public void generateFilteredRoutes(String start, String end, String filters, ResultCallback callback)
+    public void generateFilteredRoutes(String start, String end, String filters, String dateTime, ResultCallback callback)
     {
-        String keyString = "!FILTER!" + start + end;
-        if(cachedResults.containsKey(keyString))
+        long diffMinutes = 99;
+        long diffHours = 99;
+        if(lastUpdate != null)
+        {
+            long diffInMillis = Calendar.getInstance().getTime().getTime() - lastUpdate.getTime();
+            diffMinutes = TimeUnit.MILLISECONDS.toMinutes(diffInMillis);
+            diffHours = TimeUnit.MILLISECONDS.toMinutes(diffInMillis);
+        }
+
+        String keyString = "!FILTER!" + start + end + dateTime;
+
+        if(diffHours < 1 && diffMinutes < 20 && cachedResults.containsKey(keyString))
         {
             callback.onResult(cachedResults.get(keyString));
         }
         else
         {
-            routeRepository.generateFilteredRoutes(start, end, filters, new ResultCallback()
+            lastUpdate = Calendar.getInstance().getTime();
+            routeRepository.generateFilteredRoutes(start, end, filters, dateTime, new ResultCallback()
             {
                 @Override
                 public void onResult(String result)

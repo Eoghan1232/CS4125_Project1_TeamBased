@@ -40,9 +40,9 @@ public class SearchViewModel extends ViewModel {
         }
     }
 
-    public LiveData<String> searchAll(String start, String end) {
+    public LiveData<String> searchAll(String start, String end, String dateTime) {
         MutableLiveData<String> liveString = new MutableLiveData<>();
-        repository.generateRoutes(start, end, new ResultCallback()
+        repository.generateRoutes(start, end, dateTime, new ResultCallback()
         {
             @Override
             public void onResult(String result)
@@ -59,9 +59,9 @@ public class SearchViewModel extends ViewModel {
         return liveString;
     }
 
-    public LiveData<String> searchAllFiltered(String start, String end, String filters) {
+    public LiveData<String> searchAllFiltered(String start, String end, String filters, String dateTime) {
         MutableLiveData<String> liveString = new MutableLiveData<>();
-        repository.generateFilteredRoutes(start, end, filters, new ResultCallback()
+        repository.generateFilteredRoutes(start, end, filters, dateTime, new ResultCallback()
         {
             @Override
             public void onResult(String result)

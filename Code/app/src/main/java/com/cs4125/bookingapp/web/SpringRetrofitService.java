@@ -23,10 +23,10 @@ public interface SpringRetrofitService
     Call<ResponseBody> newUser(@Field("name") String name, @Field("password") String password, @Field("email") String email);
 
     @GET("/generateroutes")
-    Call<ResponseBody> getRoutes(@Query("startNodeName") String startNode, @Query("endNodeName") String endNode);
+    Call<ResponseBody> getRoutes(@Query("startNodeName") String startNodeName, @Query("endNodeName") String endNodeName, @Query("dateTime") String dateTime);
 
     @GET("/generatefilteredroutes")
-    Call<ResponseBody> getFilteredRoutes(@Query("startNodeName") String startNode, @Query("endNodeName") String endNode, @Query("filters") String filters);
+    Call<ResponseBody> getFilteredRoutes(@Query("startNodeName") String startNodeName, @Query("endNodeName") String endNodeName, @Query("filters") String filters, @Query("dateTime") String dateTime);
 
 //    @GET("/getroute/{id}")
 //    Call<ResponseBody> getRoute(@Path("id") int id);

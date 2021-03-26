@@ -26,59 +26,23 @@ public class RouteController {
         myManager.setTarget((Target) routeService);
     }
 
-    /*
-     *
-     * TODO: TO BE REMOVED!!!
-     *
-     */
-    @GetMapping(path="/generateroutes/1")
-    @ResponseBody
-    public String generateAllRoutes()
-    {
-//        String result = routeService.findAllRoutes(startNodeName, endNodeName);
-        instantiateManager();
-        String request = "generateAllRoutes," + "N1" + "," + "N8";
-        return myManager.filterRequest(request);
-    }
-
-    @GetMapping(path="/generatefilteredroutes/1")
-    @ResponseBody
-    public String genFilRoutes()
-    {
-//        String result = routeService.findAllRoutesFiltered(startNodeName, endNodeName, filters);
-        instantiateManager();
-        String request = "generateFilteredRoutes," + "N1" + "," + "N2" + "," + "BUS";
-        return myManager.filterRequest(request);
-    }
-
-    @GetMapping(path="/generatefailure/1")
-    @ResponseBody
-    public String genFail()
-    {
-//        String result = routeService.findAllRoutesFiltered(startNodeName, endNodeName, filters);
-        instantiateManager();
-        String request = "generateFilteredRoutes," + "N1" + "," + "N10" + "," + "BUS";
-        return myManager.filterRequest(request);
-    }
-
-
     @GetMapping(path="/generateroutes")
     @ResponseBody
-    public String generateAllRoutes(@PathVariable String startNodeName, @PathVariable String endNodeName)
+    public String generateAllRoutes(@RequestParam String startNodeName, @RequestParam String endNodeName, @RequestParam String dateTime)
     {
 //        String result = routeService.findAllRoutes(startNodeName, endNodeName);
         instantiateManager();
-        String request = "generateAllRoutes," + startNodeName + "," + endNodeName;
+        String request = "generateAllRoutes," + startNodeName + "," + endNodeName + "," + dateTime;
         return myManager.filterRequest(request);
     }
 
     @GetMapping(path="/generatefilteredroutes")
     @ResponseBody
-    public String generateFilteredRoutes(@PathVariable String startNodeName, @PathVariable String endNodeName, @PathVariable String filters)
+    public String generateFilteredRoutes(@RequestParam String startNodeName, @RequestParam String endNodeName, @RequestParam String filters, @RequestParam String dateTime)
     {
 //        String result = routeService.findAllRoutesFiltered(startNodeName, endNodeName, filters);
         instantiateManager();
-        String request = "generateFilteredRoutes," + startNodeName + "," + endNodeName + "," + filters;
+        String request = "generateFilteredRoutes," + startNodeName + "," + endNodeName + "," + filters + "," + dateTime;
         return myManager.filterRequest(request);
     }
 

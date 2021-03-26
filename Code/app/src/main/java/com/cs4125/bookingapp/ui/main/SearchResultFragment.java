@@ -67,7 +67,7 @@ public class SearchResultFragment extends Fragment
     {
         ArrayList<Route> routes = new ArrayList<>();
         String[] firstSplit = s.split("Route\\{");
-        String[] dataParts = new String[4];
+        String[] dataParts = new String[6];
         for(int i = 1; i < firstSplit.length; ++i)
         {
             firstSplit[i] = firstSplit[i].substring(0, (firstSplit[i].length() - 1));
@@ -77,13 +77,21 @@ public class SearchResultFragment extends Fragment
                 String[] thirdSplit = secondSplit[j].split("=");
                 dataParts[j] = thirdSplit[1];
             }
-            Route route = new Route.RouteBuilder()
-                    .setRouteID(Integer.parseInt(dataParts[0]))
-                    .setStartStation(dataParts[1])
-                    .setEndStation(dataParts[2])
-                    .setConnectionPath(dataParts[3])
-                    .build();
-            routes.add(route);
+            try
+            {
+                Route route = new Route.RouteBuilder()
+                        //.setRouteID(Integer.parseInt(dataParts[0]))
+                        .setStartStation(dataParts[1])
+                        .setEndStation(dataParts[2])
+                        .setConnectionPath(dataParts[3])
+                        .setPrice(Double.parseDouble(dataParts[4]))
+                        .setDateTime(dataParts[5]).build();
+                routes.add(route);
+            }
+            catch (Exception e)
+            {
+                System.out.println(e.toString());
+            }
         }
         return routes;
     }

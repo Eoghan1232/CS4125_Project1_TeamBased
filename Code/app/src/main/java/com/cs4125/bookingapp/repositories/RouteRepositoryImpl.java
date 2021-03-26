@@ -18,9 +18,9 @@ public class RouteRepositoryImpl implements RouteRepository, Serializable
     private final SpringRetrofitService web = RetrofitClientInstance.getWebInstance();
 
     @Override
-    public void generateRoutes(String start, String end, ResultCallback callback)
+    public void generateRoutes(String start, String end, String dateTime, ResultCallback callback)
     {
-        Call<ResponseBody> returnVal = web.getRoutes(start, end);
+        Call<ResponseBody> returnVal = web.getRoutes(start, end, dateTime);
 
         returnVal.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -48,9 +48,9 @@ public class RouteRepositoryImpl implements RouteRepository, Serializable
     }
 
     @Override
-    public void generateFilteredRoutes(String start, String end, String filters, ResultCallback callback)
+    public void generateFilteredRoutes(String start, String end, String filters, String dateTime, ResultCallback callback)
     {
-        Call<ResponseBody> returnVal = web.getFilteredRoutes(start, end, filters);
+        Call<ResponseBody> returnVal = web.getFilteredRoutes(start, end, filters, dateTime);
 
         returnVal.enqueue(new Callback<ResponseBody>() {
             @Override
