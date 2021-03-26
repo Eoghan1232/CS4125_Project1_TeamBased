@@ -21,6 +21,9 @@ public class BookingServiceImpl implements BookingService, Target {
     private final RouteRepository routeRepository;
     private final TransactionRepository transactionRepository;
 
+    public String STRIPE_PUBLIC_KEY = "pk_test_51IX7WzA4GQu91tA9ygW9sAl0Q42Y0pQYRySwRCSfylSVx9EiL3n691M0ayb6n45E9B7dx8DjfKn1iAwQSrfE24Dn00TDsAbjXU";
+    public String STRIPE_SECRET_KEY = "sk_test_51IX7WzA4GQu91tA9L6s5Nssb1MC2sVodWphIYYApH0ZwzsokQFlLFm44LeDfVvuHlmfdbs8rUpxgxCzMgc98d5ky00v1YjwyaH";
+
     private TransactionContext transactionContext = new TransactionContext();
 
     @Autowired

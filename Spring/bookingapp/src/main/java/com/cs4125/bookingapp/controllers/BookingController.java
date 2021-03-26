@@ -77,4 +77,5 @@ public class BookingController {
         String request = "cancelBooking," + id;
         return myManager.filterRequest(request);
     }
+
 }
