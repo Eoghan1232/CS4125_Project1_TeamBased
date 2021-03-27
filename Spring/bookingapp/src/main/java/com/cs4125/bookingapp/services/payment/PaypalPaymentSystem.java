@@ -2,11 +2,14 @@ package com.cs4125.bookingapp.services.payment;
 
 public class PaypalPaymentSystem implements PaymentSystem {
     @Override
-    public void ProcessPayment(String string) {
-        System.out.println("Paypal payment " + string);
+    public String initPayment(String details) {
+        //TODO: to implement in future
+        return null;
     }
 
-    public void ProcessPayment() {
-        System.out.println("User will pay on delivery");
+    @Override
+    public String confirmPayment(String details) {
+        //TODO: to implement in future
+        return null;
     }
 }

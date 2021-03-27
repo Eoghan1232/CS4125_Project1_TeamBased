@@ -1,8 +1,16 @@
 package com.cs4125.bookingapp.services.payment;
 
 public class DebitCardPayment extends Payment {
+    public DebitCardPayment(PaymentSystem payment) {
+        super(payment);
+    }
+
     @Override
-    public void makePayment() {
-        payment.ProcessPayment("Debit Card Payment");
+    public String startPayment(String details) {
+
+        return payment.initPayment(details);
+    }
+    public String endPayment(String details) {
+        return payment.confirmPayment(details);
     }
 }
