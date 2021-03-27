@@ -42,10 +42,10 @@ public class BookingViewModel extends ViewModel
         paymentRepository = new PaymentRepositoryImpl();
     }
 
-    public LiveData<String> getPaymentIntent(double price)
+    public LiveData<String> getPaymentIntent(String paymentType, double price)
     {
         MutableLiveData<String> liveString = new MutableLiveData<>();
-        paymentRepository.getPaymentIntent(price, new ResultCallback()
+        paymentRepository.getPaymentIntent(paymentType, price, new ResultCallback()
         {
             @Override
             public void onResult(String result)

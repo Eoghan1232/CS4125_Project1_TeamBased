@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.cs4125</groupId>
 	<artifactId>bookingapp</artifactId>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
 	<name>bookingapp</name>
 	<description>CS4125 project</description>
 

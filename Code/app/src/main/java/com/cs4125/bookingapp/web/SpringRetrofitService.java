@@ -30,7 +30,11 @@ public interface SpringRetrofitService
 
     @FormUrlEncoded
     @POST("/stripe/createpaymentintent")
-    Call<ResponseBody> newPaymentInent(@Field("price") double price);
+    Call<ResponseBody> newPaymentIntent(@Field("paymentType") String paymentType, @Field("price") double price);
+
+    @FormUrlEncoded
+    @POST("/stripe/confirmpayment")
+    Call<ResponseBody> confirmPayment(@Field("paymentType") String paymentType, @Field("price") long transactionId);
 
     @GET("/getdiscount/{id}")
     Call<ResponseBody> getDiscount(@Path("id") int id);

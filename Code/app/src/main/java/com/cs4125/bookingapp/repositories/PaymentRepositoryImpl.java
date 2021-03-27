@@ -16,9 +16,9 @@ public class PaymentRepositoryImpl implements PaymentRepository, Serializable
     private final SpringRetrofitService web = RetrofitClientInstance.getWebInstance();
 
     @Override
-    public void getPaymentIntent(double price, ResultCallback callback)
+    public void getPaymentIntent(String paymentType, double price, ResultCallback callback)
     {
-        Call<ResponseBody> returnVal = web.newPaymentInent(price);
+        Call<ResponseBody> returnVal = web.newPaymentIntent(paymentType, price);
 
         returnVal.enqueue(new Callback<ResponseBody>() {
             @Override

@@ -77,15 +77,19 @@ public class PaymentController {
 
             if (!StringUtils.isEmpty(payload)) {
                 String sigHeader = request.getHeader("Stripe-Signature");
-                String endpointSecret = webhook;
 
-                Event event = Webhook.constructEvent(payload, sigHeader, endpointSecret);
+                Event event = Webhook.constructEvent(payload, sigHeader, webhook);
 
-                if ("charge.refunded".equalsIgnoreCase(event.getType())) {
-
-                    Gson gson = new Gson();
-                    Charge charge = gson.fromJson(event.getData().getObject().toJson(), Charge.class);
-                    // Call your service here with your Charge object.
+                switch(event.getType())
+                {
+                    case "payment_intent.succeeded":
+                        System.out.println("Payment successful!");
+                        break;
+                    case "payment_intent.payment_failed":
+                        System.out.println("Payment Failed!");
+                        break;
+                    default:
+                        System.out.println("Stripe Webhook unsupported event type!");
                 }
 
                 response.setStatus(200);

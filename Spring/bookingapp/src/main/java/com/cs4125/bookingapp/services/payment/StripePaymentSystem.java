@@ -1,16 +1,14 @@
 package com.cs4125.bookingapp.services.payment;
 
 import com.stripe.Stripe;
-import com.stripe.model.Charge;
 import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class StripePaymentSystem implements PaymentSystem {
+
     private final String stripePublicKey = "pk_test_51IX7WzA4GQu91tA9ygW9sAl0Q42Y0pQYRySwRCSfylSVx9EiL3n691M0ayb6n45E9B7dx8DjfKn1iAwQSrfE24Dn00TDsAbjXU";
     private final String stripeSecretKey = "sk_test_51IX7WzA4GQu91tA9L6s5Nssb1MC2sVodWphIYYApH0ZwzsokQFlLFm44LeDfVvuHlmfdbs8rUpxgxCzMgc98d5ky00v1YjwyaH";
+
     @Override
     public String initPayment(String details) {
         StringBuilder result = new StringBuilder("FAILURE: ");
@@ -59,6 +57,28 @@ public class StripePaymentSystem implements PaymentSystem {
 
     @Override
     public String confirmPayment(String details) {
-        return null;
+
+        StringBuilder result = new StringBuilder("FAILURE: ");
+        String[] detailParts = details.split(": ");
+        long transactionId = -1;
+        try {
+            if (detailParts.length > 0) {
+                for (int i = 0; i < detailParts.length; i++) {
+                    if (detailParts[i].equals("Transaction ID")) {
+                        transactionId = Long.parseLong(detailParts[i + 1]);
+                    }
+                }
+            }
+        }
+        catch (Exception e){
+            return "FAILURE: 1";
+        }
+        if (transactionId == -1){
+            return "FAILURE: 1";
+        }
+
+        // TODO: confirm payment for transaction record
+
+        return "SUCCESS: 1";
     }
 }

@@ -52,7 +52,6 @@ public class BookingResultFragment extends Fragment {
     private String paymentIntentClientSecret;
     private Stripe stripe;
     private String publicKey = "pk_test_51IX7WzA4GQu91tA9ygW9sAl0Q42Y0pQYRySwRCSfylSVx9EiL3n691M0ayb6n45E9B7dx8DjfKn1iAwQSrfE24Dn00TDsAbjXU";
-    private String privateKey = "sk_test_51IX7WzA4GQu91tA9L6s5Nssb1MC2sVodWphIYYApH0ZwzsokQFlLFm44LeDfVvuHlmfdbs8rUpxgxCzMgc98d5ky00v1YjwyaH";
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -80,6 +79,11 @@ public class BookingResultFragment extends Fragment {
         NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         navController = navHostFragment.getNavController();
         convertStringToBookingInfo(BookingResultFragmentArgs.fromBundle(getArguments()).getBookingInfo());
+
+        cardInputWidget.setVisibility(View.VISIBLE);
+        if(currentBooking.getPrice() == 0)
+            cardInputWidget.setVisibility(View.INVISIBLE);
+
         payBtn.setOnClickListener(view1 -> pay());
     }
 
@@ -95,7 +99,11 @@ public class BookingResultFragment extends Fragment {
 
     private void startPaymentProcess()
     {
-        LiveData<String> response = bookingViewModel.getPaymentIntent(currentBooking.getPrice());
+        if(currentBooking.getPrice() == 0)
+        {
+            return;
+        }
+        LiveData<String> response = bookingViewModel.getPaymentIntent("Credit", currentBooking.getPrice());
         response.observe(getViewLifecycleOwner(), this::observePaymentIntentResponse);
     }
 
@@ -119,29 +127,32 @@ public class BookingResultFragment extends Fragment {
             Utilities.showToast(getContext(), "Something went wrong, please retry later.");
         else
         {
-            PaymentMethodCreateParams params = cardInputWidget.getPaymentMethodCreateParams();
-            if (params != null)
+            if(currentBooking.getPrice() == 0)
             {
-                try
-                {
-                    ConfirmPaymentIntentParams confirmParams = ConfirmPaymentIntentParams.createWithPaymentMethodCreateParams(params, paymentIntentClientSecret);
-                    stripe = new Stripe(
-                            getContext(),
-                            publicKey
-                    );
-                    stripe.confirmPayment(this, confirmParams);
-                    //LiveData<String> response = bookingViewModel.payForBooking(currentBooking);
-                    //response.observe(getViewLifecycleOwner(), this::observeResponse);
-                }
-                catch(Exception e)
-                {
-                    System.out.println(e.toString());
-                    Utilities.showToast(getContext(), "Missing Card Details!");
-                }
+                LiveData<String> response = bookingViewModel.payForBooking(currentBooking);
+                response.observe(getViewLifecycleOwner(), this::observeResponse);
             }
             else
             {
-                Utilities.showToast(getContext(), "Missing Card Details!");
+                PaymentMethodCreateParams params = cardInputWidget.getPaymentMethodCreateParams();
+                if (params != null)
+                {
+                    try
+                    {
+                        ConfirmPaymentIntentParams confirmParams = ConfirmPaymentIntentParams.createWithPaymentMethodCreateParams(params, paymentIntentClientSecret);
+                        stripe = new Stripe(getContext(), publicKey);
+                        stripe.confirmPayment(this, confirmParams);
+                        //LiveData<String> response = bookingViewModel.payForBooking(currentBooking);
+                        //response.observe(getViewLifecycleOwner(), this::observeResponse);
+                    } catch (Exception e)
+                    {
+                        System.out.println(e.toString());
+                        Utilities.showToast(getContext(), "Missing Card Details!");
+                    }
+                } else
+                {
+                    Utilities.showToast(getContext(), "Missing Card Details!");
+                }
             }
         }
     }
@@ -152,7 +163,8 @@ public class BookingResultFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Assuming payment got confirmed successfully
-        observeResponse("SUCCESS: 1");
+        LiveData<String> response = bookingViewModel.payForBooking(currentBooking);
+        response.observe(getViewLifecycleOwner(), this::observeResponse);
     }
 
     private void observeResponse(String s)
