@@ -11,8 +11,8 @@ public class State {
 
     private String from;
     private String to;
-    private String date; // this wont work
-    private String time; // this wont work either
+    private String date;
+    private String time;
     private Chip filter;
 
     public State(String route, String quantity, String discount){
@@ -27,6 +27,11 @@ public class State {
         this.date = date;
         this.time = time;
         this.filter = filter;
+    }
+
+    public State(String date, String time){
+        this.date = date;
+        this.time = time;
     }
 
     public String getRoute() {

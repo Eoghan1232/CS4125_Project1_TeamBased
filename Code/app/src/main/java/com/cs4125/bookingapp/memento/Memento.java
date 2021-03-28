@@ -3,15 +3,15 @@ package com.cs4125.bookingapp.memento;
 import com.google.android.material.chip.Chip;
 
 public class Memento {
-    private State state;
+    private String state;
 
 
-    public Memento(State state){
+    public Memento(String state){
         this.state = state;
 
     }
 
-    public State getState(){
+    public String getState(){
         return state;
     }
 }

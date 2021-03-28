@@ -24,6 +24,9 @@ import android.widget.TimePicker;
 
 import com.cs4125.bookingapp.R;
 import com.cs4125.bookingapp.entities.Route;
+import com.cs4125.bookingapp.memento.CareTaker;
+import com.cs4125.bookingapp.memento.Originator;
+import com.cs4125.bookingapp.memento.State;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
@@ -38,12 +41,19 @@ public class SearchFragment extends Fragment
     private Button time;
     private Button date;
     private Button searchBtn;
+    private Button undoBtn;
     private NavController navController;
     private TextView dateText;
     private TextView timeText;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private int userId;
     private ChipGroup filterGroup;
+
+    private String tempTime = "";
+    private String tempDate = "";
+
+    Originator originator = new Originator();
+    CareTaker careTaker = new CareTaker();
 
     public static SearchFragment newInstance()
     {
@@ -83,7 +93,8 @@ public class SearchFragment extends Fragment
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
 
-                                timeText.setText(String.format("%02d:%02d:00", hourOfDay, minute));
+                                tempTime = String.format("%02d:%02d:00", hourOfDay, minute);
+                                timeText.setText(tempTime);
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
@@ -105,7 +116,8 @@ public class SearchFragment extends Fragment
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
 
-                                dateText.setText(String.format("%04d-%02d-%02d", year, (monthOfYear + 1), dayOfMonth));
+                                tempDate = String.format("%04d-%02d-%02d", year, (monthOfYear + 1), dayOfMonth);
+                                dateText.setText(tempDate);
 
                             }
                         }, mYear, mMonth, mDay);
@@ -113,6 +125,22 @@ public class SearchFragment extends Fragment
                 datePickerDialog.show();
             }
         }));
+        undoBtn.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        }));
+
+        if(!tempDate.isEmpty()){
+            originator.setState(tempDate);
+            careTaker.add(originator.saveStateToMemento(),2);
+        }
+        if (!tempTime.isEmpty()) {
+            originator.setState(tempDate);
+            careTaker.add(originator.saveStateToMemento(),3);
+        }
+
         searchBtn.setOnClickListener(view1 -> search());
     }
 
@@ -125,6 +153,7 @@ public class SearchFragment extends Fragment
         time = view.findViewById(R.id.timePicker);
         date = view.findViewById(R.id.datePicker);
         searchBtn = view.findViewById(R.id.searchBtn);
+        undoBtn = view.findViewById(R.id.undoBtn);
 
         filterGroup = view.findViewById(R.id.filterChipGroup);
     }
