@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.cs4125.bookingapp.R;
 import com.cs4125.bookingapp.entities.Route;
@@ -31,6 +34,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class SearchFragment extends Fragment
@@ -51,6 +55,8 @@ public class SearchFragment extends Fragment
 
     private String tempTime = "";
     private String tempDate = "";
+
+    private ArrayList<Integer> queue = new ArrayList<>();
 
     Originator originator = new Originator();
     CareTaker careTaker = new CareTaker();
@@ -95,6 +101,7 @@ public class SearchFragment extends Fragment
 
                                 tempTime = String.format("%02d:%02d:00", hourOfDay, minute);
                                 timeText.setText(tempTime);
+                                updateMemento(3, tempTime);
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
@@ -118,6 +125,7 @@ public class SearchFragment extends Fragment
 
                                 tempDate = String.format("%04d-%02d-%02d", year, (monthOfYear + 1), dayOfMonth);
                                 dateText.setText(tempDate);
+                                updateMemento(2, tempDate);
 
                             }
                         }, mYear, mMonth, mDay);
@@ -125,23 +133,83 @@ public class SearchFragment extends Fragment
                 datePickerDialog.show();
             }
         }));
+
         undoBtn.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
+                if ((queue.size() != 0)) {
+//                    location.setText(String.valueOf(queue.size()));
+                    int state = queue.get(queue.size() - 1);
+                    queue.remove(queue.size() - 1);
+
+                    originator.getStateFromMemento(careTaker.get(state));
+                    String temp = originator.getState();
+
+                    if(temp.equals(tempDate))
+                    {
+                        dateText.setText("");
+                    }
+                    else if(temp.equals(tempTime))
+                    {
+                        timeText.setText("");
+                    }
+                    else if(temp.equals(location.getText().toString()) && state==0)
+                    {
+                        location.setText("");
+                    }
+                    else if(temp.equals(destination.getText().toString()) && state==1)
+                    {
+                        destination.setText("");
+                    }
+                    else if (state == 0) {
+                        location.setText(temp);
+                    }
+                    else if (state == 1) {
+                        destination.setText(temp);
+                    }
+                    else if (state == 2) {
+                        dateText.setText(temp);
+                    }
+                    else if (state == 3) {
+                        timeText.setText(temp);
+                    }
+                }
             }
         }));
 
-        if(!tempDate.isEmpty()){
-            originator.setState(tempDate);
-            careTaker.add(originator.saveStateToMemento(),2);
-        }
-        if (!tempTime.isEmpty()) {
-            originator.setState(tempDate);
-            careTaker.add(originator.saveStateToMemento(),3);
-        }
+        location.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                String myText = location.getText().toString();
+                updateMemento(0, myText);
+            }
+        });
+
+        destination.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                String myText = destination.getText().toString();
+                updateMemento(1, myText);
+            }
+        });
+
 
         searchBtn.setOnClickListener(view1 -> search());
+    }
+
+    private void updateMemento(int index, String state){
+
+        originator.setState(state);
+        careTaker.add(originator.saveStateToMemento(), index);
+        if(!(queue.contains(index))){
+            queue.add(index);
+        }
+        else{
+            int ind = queue.indexOf(index);
+            queue.remove(ind);
+            queue.add(index);
+        }
     }
 
     private void bindUiItems(View view){
@@ -163,10 +231,12 @@ public class SearchFragment extends Fragment
         String flocation = "";
         String fdestination = "";
         String fdate = "";
-        if (location.getText() != null && location.getText().length() != 0)
+        if (location.getText() != null && location.getText().length() != 0) {
             flocation = location.getText().toString();
-        if (destination.getText() != null && destination.getText().length() != 0)
+        }
+        if (destination.getText() != null && destination.getText().length() != 0) {
             fdestination = destination.getText().toString();
+        }
         if (mYear + mMonth + mDay != 0 && mMinute + mHour != 0)
             fdate = String.format("%04d-%02d-%02dT%02d:%02d:00.00Z", mYear, mMonth, mDay, mHour, mMinute);
 
