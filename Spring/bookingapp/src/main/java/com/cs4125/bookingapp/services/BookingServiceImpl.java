@@ -142,10 +142,15 @@ public class BookingServiceImpl implements BookingService, Target {
 
             if(discountCode.contains("&"))
             {
+                ArrayList<String> codesUsed = new ArrayList<>();
                 List<DiscountContext> allDiscounts = new ArrayList<>();
                 String[] discountCodes = discountCode.split("&");
                 for(String s : discountCodes)
                 {
+                    if(codesUsed.contains(s))
+                        continue;
+
+                    codesUsed.add(s);
                     desiredDiscount = discountRepository.findByCode(s);
                     discountContext = new DiscountContext(desiredDiscount);
                     allDiscounts.add(discountContext);
