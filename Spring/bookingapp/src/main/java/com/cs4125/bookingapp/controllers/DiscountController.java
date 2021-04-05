@@ -50,7 +50,7 @@ public class DiscountController {
     @ResponseBody
     public String getAllDiscount() {
         instantiateManager();
-        String request = "searchDiscountId,";
+        String request = "searchAllDiscounts,";
         return myManager.filterRequest(request);
     }
 
@@ -60,7 +60,7 @@ public class DiscountController {
 //        Discount d = new Discount(code, String.join("&&", routeIds), discountPercent);
 //        String result = discountService.addDiscount(d);
         instantiateManager();
-        String request = "addBooking," + code + "," + String.join("&&", routeIds) + "," + discountPercent;
+        String request = "addDiscount," + code + "," + String.join("&&", routeIds) + "," + discountPercent;
         return myManager.filterRequest(request);
     }
 

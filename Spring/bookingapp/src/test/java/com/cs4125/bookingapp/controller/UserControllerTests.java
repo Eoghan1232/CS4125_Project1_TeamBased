@@ -2,18 +2,15 @@ package com.cs4125.bookingapp.controller;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 import com.cs4125.bookingapp.controllers.UserController;
 import com.cs4125.bookingapp.model.ConcreteUserFactory;
 import com.cs4125.bookingapp.model.UserFactory;
-import com.cs4125.bookingapp.model.entities.User;
 import com.cs4125.bookingapp.model.repositories.LogRepository;
 import com.cs4125.bookingapp.model.repositories.UserRepository;
 import com.cs4125.bookingapp.services.UserServiceImpl;
 import com.cs4125.bookingapp.services.interceptor.FilterManager;
 import com.cs4125.bookingapp.services.interceptor.LogFilter;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
