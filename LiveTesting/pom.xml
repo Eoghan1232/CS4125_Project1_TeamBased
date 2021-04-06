@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>fuckThis</groupId>
+  <groupId>CS4227</groupId>
   <artifactId>CS4227</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
   <properties>
-  	<jre.level>15</jre.level>
-	<jdk.level>15</jdk.level>
-     <maven.compiler.source>15</maven.compiler.source>
-     <maven.compiler.target>15</maven.compiler.target>
+  	<jre.level>8</jre.level>
+	<jdk.level>8</jdk.level>
+     <maven.compiler.source>8</maven.compiler.source>
+     <maven.compiler.target>8</maven.compiler.target>
 	</properties>
 	
 	<build>
