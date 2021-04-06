@@ -47,7 +47,7 @@ public class DiscountServiceImpl implements DiscountService, Target {
                 result = updateDiscount(d);
                 break;
             case("deleteDiscount"):
-                d = new Discount(str[2], str[3], Double.parseDouble(str[4]));
+                d = new Discount("", "", 0.0);
                 d.setDiscountId(Integer.parseInt(str[1]));
                 result = deleteDiscount(d);
                 break;
@@ -127,7 +127,7 @@ public class DiscountServiceImpl implements DiscountService, Target {
         }
         d = discountRepository.save(d);
 
-        return "SUCCESS: " + d.getValidUsers();
+        return "SUCCESS: " + d.getDiscountId();
     }
 
     /**
