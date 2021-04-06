@@ -55,7 +55,7 @@ public interface SpringRetrofitService
 
     @FormUrlEncoded
     @POST("/deletediscount/{id}")
-    Call<ResponseBody> removeOldDiscount(@Path("id") int id, @Field("code") String code, @Field("routeIds") List<String> routeIds, @Field("discountPercent") double discountPercent);
+    Call<ResponseBody> removeOldDiscount(@Path("id") int id);
 
     @GET("/getbooking/{id}")
     Call<ResponseBody> getBooking(@Path("id") int id);

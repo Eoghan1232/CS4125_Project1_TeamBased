@@ -76,11 +76,11 @@ public class DiscountController {
 
     @PostMapping(path="/deletediscount/{id}")
     @ResponseBody
-    public String deleteDiscount (@PathVariable int id, @RequestParam String code, @RequestParam List<String> routeIds, @RequestParam double discountPercent) {
+    public String deleteDiscount (@PathVariable int id) {
 //        Discount d = new Discount(code, String.join("&&", routeIds), discountPercent);
 //        d.setDiscountId(id);
 //        String result = discountService.deleteDiscount(d);
-        String request = "updateDiscount," + id + "," + code + "," + String.join("&&", routeIds) + "," + discountPercent;;
+        String request = "deleteDiscount," + id;
         return myManager.filterRequest(request);
     }
 }
