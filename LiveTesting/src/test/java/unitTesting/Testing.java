@@ -61,13 +61,13 @@ public class Testing {
 		
 		Response result = given().param("code", code).param("routeIds", lis).param("discountPercent", prc).when().post(updUrl);
 		
-		System.out.println(result.asString());
+		//System.out.println(result.asString());
 		
 		String[] resultArr = result.asString().split(": ");
 		if(resultArr[0].equals("SUCCESS"))
 			discountId = Integer.parseInt(resultArr[1]);
-		System.out.println(resultArr[1]);
-		System.out.println(discountId);
+		//System.out.println(resultArr[1]);
+		//System.out.println(discountId);
 		assertEquals("SUCCESS", resultArr[0]);
 	}
 	
@@ -79,7 +79,7 @@ public class Testing {
 		
 		Response result = given().when().post(updUrl);
 		
-		System.out.println(result.asString());
+		//System.out.println(result.asString());
 		
 		String[] resultArr = result.asString().split(": ");
 		assertEquals("SUCCESS", resultArr[0]);
