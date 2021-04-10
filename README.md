@@ -24,8 +24,8 @@ Software Design and Architecture
  If required this schema can be used to host the database on a different machine, but will require to change the 'application.properties' file in the Spring boot to point to the machine hosting the database.
 
 ### Authors
- - Eoghan Russell 17202124
- - Pawel Ostach 17214211
- - Damian Skrzypek - 17217679
- - Darragh Kelly - 17235545
+ - Eoghan Russell   - 17202124
+ - Pawel Ostach     - 17214211
+ - Damian Skrzypek  - 17217679
+ - Darragh Kelly    - 17235545
 

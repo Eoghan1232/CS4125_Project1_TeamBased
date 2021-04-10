@@ -164,7 +164,7 @@ public class DiscountRepositoryImpl implements DiscountRepository, Serializable
     @Override
     public void removeOldDiscount(Discount discount, ResultCallback callback)
     {
-        Call<ResponseBody> returnVal = web.removeOldDiscount(discount.getDiscountId(),discount.getCode(),discount.getRouteIDs(),discount.getDiscountPercent());
+        Call<ResponseBody> returnVal = web.removeOldDiscount(discount.getDiscountId());
 
         returnVal.enqueue(new Callback<ResponseBody>() {
             @Override
